@@ -8,8 +8,8 @@ import MetricsDisplay from "../components/landing/MetricsDisplay";
 import HowItWorks from "../components/landing/HowItWorks";
 // eslint-disable-next-line no-unused-vars
 import { motion } from "framer-motion";
-// import FeaturesShowcase from "../components/landing/FeaturesShowcase";
-// import RoadmapTimeline from "../components/landing/RoadmapTimeline";
+import FeaturesShowcase from "../components/landing/FeaturesShowcase";
+import RoadmapTimeline from "../components/landing/RoadmapTimeline";
 
 const LandingPage = () => {
   const { wallet, connectWallet } = useWallet();
@@ -90,10 +90,10 @@ const LandingPage = () => {
       <HowItWorks />
 
       {/* Features Showcase */}
-      {/* <FeaturesShowcase /> */}
+      <FeaturesShowcase />
 
       {/* Roadmap Timeline */}
-      {/* <RoadmapTimeline /> */}
+      <RoadmapTimeline />
 
       {/* Footer */}
       <footer className="py-8 border-t border-lavender/20">

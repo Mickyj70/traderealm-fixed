@@ -1,6 +1,7 @@
-import React, { useRef, useEffect } from 'react';
-import { motion } from 'framer-motion';
-import { gsap } from 'gsap';
+/* eslint-disable no-unused-vars */
+import React, { useRef, useEffect } from "react";
+import { motion } from "framer-motion";
+import { gsap } from "gsap";
 
 const ControlDistribution = ({ controllers }) => {
   const svgRef = useRef(null);
@@ -18,7 +19,7 @@ const ControlDistribution = ({ controllers }) => {
             scale: 1,
             duration: 0.5,
             delay: index * 0.1,
-            ease: 'back.out(1.7)'
+            ease: "back.out(1.7)",
           }
         );
       }
@@ -27,14 +28,14 @@ const ControlDistribution = ({ controllers }) => {
 
   const calculatePieSegments = () => {
     let cumulativeAngle = 0;
-    return controllers.map(controller => {
+    return controllers.map((controller) => {
       const angle = controller.share * 360;
       const startAngle = cumulativeAngle;
       cumulativeAngle += angle;
 
       // Convert angles to radians
-      const startRad = (startAngle - 90) * Math.PI / 180;
-      const endRad = (startAngle + angle - 90) * Math.PI / 180;
+      const startRad = ((startAngle - 90) * Math.PI) / 180;
+      const endRad = ((startAngle + angle - 90) * Math.PI) / 180;
 
       // Calculate coordinates for the arc
       const x1 = 50 + 40 * Math.cos(startRad);
@@ -49,7 +50,7 @@ const ControlDistribution = ({ controllers }) => {
         ...controller,
         path: `M50,50 L${x1},${y1} A40,40 0 ${largeArcFlag},1 ${x2},${y2} Z`,
         startAngle,
-        angle
+        angle,
       };
     });
   };
@@ -57,7 +58,7 @@ const ControlDistribution = ({ controllers }) => {
   const segments = calculatePieSegments();
 
   const getControllerColor = (index) => {
-    const colors = ['#00F0FF', '#4CAF50', '#FF9800', '#9C27B0', '#E91E63'];
+    const colors = ["#00F0FF", "#4CAF50", "#FF9800", "#9C27B0", "#E91E63"];
     return colors[index % colors.length];
   };
 
@@ -73,7 +74,7 @@ const ControlDistribution = ({ controllers }) => {
         {segments.map((segment, index) => (
           <motion.path
             key={segment.address}
-            ref={el => pieRefs.current[segment.address] = el}
+            ref={(el) => (pieRefs.current[segment.address] = el)}
             d={segment.path}
             fill={getControllerColor(index)}
             initial={{ scale: 0 }}
@@ -81,18 +82,13 @@ const ControlDistribution = ({ controllers }) => {
             transition={{
               duration: 0.5,
               delay: index * 0.1,
-              ease: 'back.out(1.7)'
+              ease: "back.out(1.7)",
             }}
           />
         ))}
 
         {/* Center Circle */}
-        <circle
-          cx="50"
-          cy="50"
-          r="20"
-          fill="#2A1B3D"
-        />
+        <circle cx="50" cy="50" r="20" fill="#2A1B3D" />
 
         {/* Total Control Percentage */}
         <text
@@ -122,9 +118,7 @@ const ControlDistribution = ({ controllers }) => {
               className="w-4 h-4 rounded-full"
               style={{ backgroundColor: getControllerColor(index) }}
             />
-            <span className="text-sm text-lavender">
-              {controller.address}
-            </span>
+            <span className="text-sm text-lavender">{controller.address}</span>
             <span className="text-sm text-turquoise ml-auto">
               {(controller.share * 100).toFixed(1)}%
             </span>
@@ -135,4 +129,4 @@ const ControlDistribution = ({ controllers }) => {
   );
 };
 
-export default ControlDistribution; 
+export default ControlDistribution;

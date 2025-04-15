@@ -1,11 +1,12 @@
-import React from 'react';
-import { motion } from 'framer-motion';
+/* eslint-disable no-unused-vars */
+import React from "react";
+import { motion } from "framer-motion";
 
 const ControllerList = ({ controllers }) => {
   const sortedControllers = [...controllers].sort((a, b) => b.stake - a.stake);
 
   const getControllerColor = (index) => {
-    const colors = ['#00F0FF', '#4CAF50', '#FF9800', '#9C27B0', '#E91E63'];
+    const colors = ["#00F0FF", "#4CAF50", "#FF9800", "#9C27B0", "#E91E63"];
     return colors[index % colors.length];
   };
 
@@ -78,18 +79,26 @@ const ControllerList = ({ controllers }) => {
         animate={{ opacity: 1 }}
         transition={{ delay: 0.5 }}
       >
-        <h4 className="text-lavender font-medium mb-4">Total Control Metrics</h4>
+        <h4 className="text-lavender font-medium mb-4">
+          Total Control Metrics
+        </h4>
         <div className="grid grid-cols-2 gap-4">
           <div>
             <div className="text-sm text-lavender">Total Stake</div>
             <div className="text-xl font-bold text-turquoise">
-              {controllers.reduce((sum, c) => sum + c.stake, 0).toLocaleString()} BARON
+              {controllers
+                .reduce((sum, c) => sum + c.stake, 0)
+                .toLocaleString()}{" "}
+              BARON
             </div>
           </div>
           <div>
             <div className="text-sm text-lavender">Total Control</div>
             <div className="text-xl font-bold text-turquoise">
-              {controllers.reduce((sum, c) => sum + c.share * 100, 0).toFixed(1)}%
+              {controllers
+                .reduce((sum, c) => sum + c.share * 100, 0)
+                .toFixed(1)}
+              %
             </div>
           </div>
           <div>
@@ -115,7 +124,7 @@ const calculateGiniCoefficient = (controllers) => {
   const n = controllers.length;
   if (n === 0) return 0;
 
-  const shares = controllers.map(c => c.share).sort((a, b) => a - b);
+  const shares = controllers.map((c) => c.share).sort((a, b) => a - b);
   const sum = shares.reduce((acc, val) => acc + val, 0);
   const mean = sum / n;
 
@@ -132,8 +141,8 @@ const calculateGiniCoefficient = (controllers) => {
 // Helper function to calculate control concentration
 const calculateConcentration = (controllers) => {
   const totalStake = controllers.reduce((sum, c) => sum + c.stake, 0);
-  const largestStake = Math.max(...controllers.map(c => c.stake));
+  const largestStake = Math.max(...controllers.map((c) => c.stake));
   return largestStake / (totalStake / controllers.length);
 };
 
-export default ControllerList; 
+export default ControllerList;

@@ -1,6 +1,7 @@
-import React, { useEffect, useRef } from 'react';
-import { motion } from 'framer-motion';
-import { gsap } from 'gsap';
+/* eslint-disable no-unused-vars */
+import React, { useEffect, useRef } from "react";
+import { motion } from "framer-motion";
+import { gsap } from "gsap";
 
 const RouteFlow = ({ route }) => {
   const svgRef = useRef(null);
@@ -14,10 +15,10 @@ const RouteFlow = ({ route }) => {
         flow,
         { x: 0 },
         {
-          x: '100%',
+          x: "100%",
           duration: 2,
-          ease: 'none',
-          repeat: -1
+          ease: "none",
+          repeat: -1,
         }
       );
     }
@@ -46,20 +47,14 @@ const RouteFlow = ({ route }) => {
         <motion.g
           ref={flowRef}
           initial={{ x: 0 }}
-          animate={{ x: '100%' }}
+          animate={{ x: "100%" }}
           transition={{
             duration: 2,
             repeat: Infinity,
-            ease: 'linear'
+            ease: "linear",
           }}
         >
-          <circle
-            cx="0"
-            cy="200"
-            r="8"
-            fill="#00F0FF"
-            filter="url(#glow)"
-          />
+          <circle cx="0" cy="200" r="8" fill="#00F0FF" filter="url(#glow)" />
           <circle
             cx="-20"
             cy="200"
@@ -170,10 +165,10 @@ const RouteFlow = ({ route }) => {
         {/* Glow Filter */}
         <defs>
           <filter id="glow">
-            <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+            <feGaussianBlur stdDeviation="2" result="coloredBlur" />
             <feMerge>
-              <feMergeNode in="coloredBlur"/>
-              <feMergeNode in="SourceGraphic"/>
+              <feMergeNode in="coloredBlur" />
+              <feMergeNode in="SourceGraphic" />
             </feMerge>
           </filter>
         </defs>
@@ -182,4 +177,4 @@ const RouteFlow = ({ route }) => {
   );
 };
 
-export default RouteFlow; 
+export default RouteFlow;

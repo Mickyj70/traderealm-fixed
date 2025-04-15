@@ -63,7 +63,7 @@ const Navbar = () => {
           {/* Wallet Connection */}
           <div className="flex items-center">
             {isConnected ? (
-              <div className="flex items-center space-x-4">
+              <div className="flex items-center space-x-8">
                 <div className="text-sm text-lavender">
                   {formatAddress(account)}
                 </div>

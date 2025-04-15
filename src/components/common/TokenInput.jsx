@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
-import { motion } from 'framer-motion';
+/* eslint-disable no-unused-vars */
+import React, { useState } from "react";
+import { motion } from "framer-motion";
 
 const TokenInput = ({
   value,
@@ -8,7 +9,7 @@ const TokenInput = ({
   tokenSymbol,
   error,
   disabled = false,
-  className = ''
+  className = "",
 }) => {
   const [isFocused, setIsFocused] = useState(false);
 
@@ -29,13 +30,13 @@ const TokenInput = ({
   // Animation variants
   const inputVariants = {
     focused: {
-      boxShadow: '0 0 0 2px rgba(79, 255, 176, 0.4)',
-      transition: { duration: 0.2 }
+      boxShadow: "0 0 0 2px rgba(79, 255, 176, 0.4)",
+      transition: { duration: 0.2 },
     },
     unfocused: {
-      boxShadow: 'none',
-      transition: { duration: 0.2 }
-    }
+      boxShadow: "none",
+      transition: { duration: 0.2 },
+    },
   };
 
   return (
@@ -44,8 +45,8 @@ const TokenInput = ({
         className={`
           relative flex items-center
           bg-richBlack rounded-lg
-          border ${error ? 'border-error' : 'border-turquoise/20'}
-          ${isFocused ? 'border-turquoise' : ''}
+          border ${error ? "border-error" : "border-turquoise/20"}
+          ${isFocused ? "border-turquoise" : ""}
           transition-colors duration-200
         `}
         variants={inputVariants}
@@ -62,11 +63,11 @@ const TokenInput = ({
             w-full bg-transparent px-4 py-3
             text-white text-lg
             focus:outline-none
-            ${disabled ? 'opacity-50 cursor-not-allowed' : ''}
+            ${disabled ? "opacity-50 cursor-not-allowed" : ""}
           `}
           disabled={disabled}
         />
-        
+
         <div className="flex items-center space-x-2 pr-4">
           {max && (
             <button
@@ -76,17 +77,15 @@ const TokenInput = ({
                 bg-turquoise/10 text-turquoise
                 hover:bg-turquoise/20
                 transition-colors duration-200
-                ${disabled ? 'opacity-50 cursor-not-allowed' : ''}
+                ${disabled ? "opacity-50 cursor-not-allowed" : ""}
               `}
               disabled={disabled}
             >
               MAX
             </button>
           )}
-          
-          <span className="text-turquoise font-medium">
-            {tokenSymbol}
-          </span>
+
+          <span className="text-turquoise font-medium">{tokenSymbol}</span>
         </div>
       </motion.div>
 
@@ -103,11 +102,13 @@ const TokenInput = ({
       {max && (
         <div className="flex justify-between text-sm text-gray-400">
           <span>Balance:</span>
-          <span>{max} {tokenSymbol}</span>
+          <span>
+            {max} {tokenSymbol}
+          </span>
         </div>
       )}
     </div>
   );
 };
 
-export default TokenInput; 
+export default TokenInput;
