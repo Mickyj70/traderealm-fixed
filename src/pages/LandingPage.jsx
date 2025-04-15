@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { useScroll, useTransform } from "framer-motion";
-import { useWallet } from "../contexts/WalletContext";
+// import { useScroll, useTransform } from "framer-motion";
+// import { useWallet } from "../contexts/WalletContext";
 import Button from "../components/common/Button";
 import LoadingSpinner from "../components/common/LoadingSpinner";
 import HeroSection from "../components/landing/HeroSection";
@@ -12,7 +12,7 @@ import FeaturesShowcase from "../components/landing/FeaturesShowcase";
 import RoadmapTimeline from "../components/landing/RoadmapTimeline";
 
 const LandingPage = () => {
-  const { wallet, connectWallet } = useWallet();
+  // const { wallet, connectWallet } = useWallet();
   const [isLoading, setIsLoading] = useState(true);
   const [metrics, setMetrics] = useState({
     tvl: 0,
@@ -20,9 +20,9 @@ const LandingPage = () => {
     backingPrice: 0,
   });
 
-  const { scrollYProgress } = useScroll();
-  const opacity = useTransform(scrollYProgress, [0, 0.1], [1, 0]);
-  const y = useTransform(scrollYProgress, [0, 0.1], [0, -100]);
+  // const { scrollYProgress } = useScroll();
+  // // const opacity = useTransform(scrollYProgress, [0, 0.1], [1, 0]);
+  // // const y = useTransform(scrollYProgress, [0, 0.1], [0, -100]);
 
   // Mock data for demonstration
   useEffect(() => {
@@ -65,7 +65,7 @@ const LandingPage = () => {
       animate="animate"
     >
       {/* Floating Connect Button */}
-      <motion.div className="fixed z-50 top-4 right-4" style={{ opacity, y }}>
+      {/* <motion.div className="fixed z-50 top-4 right-4" style={{ opacity, y }}>
         {!wallet ? (
           <Button
             onClick={connectWallet}
@@ -78,7 +78,7 @@ const LandingPage = () => {
             {wallet.slice(0, 6)}...{wallet.slice(-4)}
           </div>
         )}
-      </motion.div>
+      </motion.div> */}
 
       {/* Hero Section */}
       <HeroSection />
