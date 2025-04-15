@@ -70,7 +70,7 @@ const HeroSection = () => {
                   Enter the Realm
                 </motion.button>
               </Link>
-              <Link to="/docs">
+              <Link to="https://realm-finance.gitbook.io/realm-finance">
                 <motion.button
                   className="w-full px-8 py-4 transition-colors border rounded-lg sm:w-auto border-turquoise/50 text-turquoise hover:bg-turquoise/10"
                   whileHover={{ scale: 1.05 }}
