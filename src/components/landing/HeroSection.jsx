@@ -45,14 +45,14 @@ const HeroSection = () => {
       {/* Content */}
       <div className="container relative z-10 px-4 mx-auto">
         <motion.div
-          className="grid items-center grid-cols-1 gap-12 lg:grid-cols-2"
+          className="grid items-center grid-cols-1 gap-2 lg:grid-cols-2"
           variants={containerVariants}
           initial="hidden"
           animate="visible"
         >
           {/* Text Content */}
           <motion.div variants={itemVariants}>
-            <h1 className="mb-6 text-5xl font-bold md:text-6xl text-turquoise">
+            <h1 className="mb-6 text-5xl font-bold md:text-8xl text-turquoise">
               Build Your Trade Empire
             </h1>
             <p className="mb-8 text-xl text-lavender/80">
@@ -84,7 +84,7 @@ const HeroSection = () => {
 
           {/* Mascot Animation */}
           <motion.div
-            className="relative"
+            className="relative "
             variants={mascotVariants}
             initial="initial"
             animate="animate"

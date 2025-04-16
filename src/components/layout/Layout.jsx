@@ -64,8 +64,8 @@ const Layout = ({ children }) => {
 
   return (
     <div className="min-h-screen overflow-x-hidden text-white bg-deepViolet">
-      {/* Mobile Navigation Toggle - Only show on small screens */}
-      {!isLargeScreen && (
+      {/* Mobile Navigation Toggle - Only show on small screens and not on the landing page */}
+      {!isLargeScreen && location.pathname !== "/" && (
         <button
           className="fixed z-50 p-2 rounded-lg top-4 left-4 bg-turquoise/10 hover:bg-turquoise/20"
           onClick={() => setIsNavOpen(!isNavOpen)}
@@ -87,42 +87,46 @@ const Layout = ({ children }) => {
       )}
 
       {/* Navigation Sidebar */}
-      <motion.nav
-        className="fixed top-0 left-0 z-40 w-64 h-full overflow-y-auto border-r bg-deepViolet/95 border-lavender/20"
-        initial={isLargeScreen ? "open" : "closed"}
-        animate={isSidebarVisible ? "open" : "closed"}
-        variants={sidebarVariants}
-      >
-        <div className="p-6">
-          <Link to="/" className="flex items-center mb-8 space-x-2">
-            <span className="text-2xl">
-              <img src={Logo} alt="image" height={50} width={50} />
-            </span>
-            <span className="text-xl font-bold text-turquoise">TradeRealm</span>
-          </Link>
+      {location.pathname !== "/" && (
+        <motion.nav
+          className="fixed top-0 left-0 z-40 w-64 h-full overflow-y-auto border-r bg-deepViolet/95 border-lavender/20"
+          initial={isLargeScreen ? "open" : "closed"}
+          animate={isSidebarVisible ? "open" : "closed"}
+          variants={sidebarVariants}
+        >
+          <div className="p-6">
+            <Link to="/" className="flex items-center mb-8 space-x-2">
+              <span className="text-2xl">
+                <img src={Logo} alt="image" height={50} width={50} />
+              </span>
+              <span className="text-xl font-bold text-turquoise">
+                TradeRealm
+              </span>
+            </Link>
 
-          <div className="space-y-2">
-            {navItems.map((item) => (
-              <Link
-                key={item.path}
-                to={item.path}
-                className={`flex items-center space-x-2 p-3 rounded-lg transition-colors ${
-                  location.pathname === item.path
-                    ? "bg-turquoise/20 text-turquoise"
-                    : "hover:bg-lavender/10"
-                }`}
-                onClick={() => !isLargeScreen && setIsNavOpen(false)}
-              >
-                <span className="text-xl">{item.icon}</span>
-                <span>{item.label}</span>
-              </Link>
-            ))}
+            <div className="space-y-2">
+              {navItems.map((item) => (
+                <Link
+                  key={item.path}
+                  to={item.path}
+                  className={`flex items-center space-x-2 p-3 rounded-lg transition-colors ${
+                    location.pathname === item.path
+                      ? "bg-turquoise/20 text-turquoise"
+                      : "hover:bg-lavender/10"
+                  }`}
+                  onClick={() => !isLargeScreen && setIsNavOpen(false)}
+                >
+                  <span className="text-xl">{item.icon}</span>
+                  <span>{item.label}</span>
+                </Link>
+              ))}
+            </div>
           </div>
-        </div>
-      </motion.nav>
+        </motion.nav>
+      )}
 
       {/* Overlay for mobile - closes sidebar when clicking outside */}
-      {!isLargeScreen && isNavOpen && (
+      {!isLargeScreen && isNavOpen && location.pathname !== "/" && (
         <div
           className="fixed inset-0 z-30 bg-black/50"
           onClick={() => setIsNavOpen(false)}
@@ -132,7 +136,7 @@ const Layout = ({ children }) => {
       {/* Main Content */}
       <div
         className={`${
-          isLargeScreen ? "lg:pl-64" : ""
+          isLargeScreen && location.pathname !== "/" ? "lg:pl-64" : ""
         } transition-all duration-300 w-full`}
       >
         {/* Header */}
