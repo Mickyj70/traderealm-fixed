@@ -99,7 +99,7 @@ const LandingPage = () => {
       <footer className="py-8 border-t border-lavender/20">
         <div className="container px-4 mx-auto text-center">
           <p className="text-lavender/60">
-            © 2024 TradeRealm. All rights reserved.
+            © 2025 TradeRealm. All rights reserved.
           </p>
         </div>
       </footer>

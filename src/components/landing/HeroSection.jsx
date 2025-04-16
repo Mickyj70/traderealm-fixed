@@ -61,7 +61,7 @@ const HeroSection = () => {
               trade is in your hands.
             </p>
             <div className="flex flex-col gap-4 sm:flex-row">
-              <Link to="/app">
+              <Link to="/council">
                 <motion.button
                   className="w-full px-8 py-4 font-bold transition-colors rounded-lg sm:w-auto bg-turquoise text-deepViolet hover:bg-turquoise/80"
                   whileHover={{ scale: 1.05 }}
