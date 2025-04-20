@@ -62,32 +62,40 @@ const Layout = ({ children }) => {
   // Determine if sidebar should be visible
   const isSidebarVisible = isLargeScreen || isNavOpen;
 
+  // Pages that should NOT show sidebar or header
+  const hideNavAndHeaderRoutes = ["/simple-war", "/popups"];
+  const shouldHideNavAndHeader = hideNavAndHeaderRoutes.includes(
+    location.pathname
+  );
+
   return (
     <div className="min-h-screen overflow-x-hidden text-white bg-deepViolet">
-      {/* Mobile Navigation Toggle - Only show on small screens and not on the landing page */}
-      {!isLargeScreen && location.pathname !== "/" && (
-        <button
-          className="fixed z-50 p-2 rounded-lg top-4 left-4 bg-turquoise/10 hover:bg-turquoise/20"
-          onClick={() => setIsNavOpen(!isNavOpen)}
-        >
-          <svg
-            className="w-6 h-6"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
+      {/* Mobile Navigation Toggle - Only show on small screens and not on excluded pages or landing page */}
+      {!isLargeScreen &&
+        location.pathname !== "/" &&
+        !shouldHideNavAndHeader && (
+          <button
+            className="fixed z-50 p-2 rounded-lg top-4 left-4 bg-turquoise/10 hover:bg-turquoise/20"
+            onClick={() => setIsNavOpen(!isNavOpen)}
           >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M4 6h16M4 12h16M4 18h16"
-            />
-          </svg>
-        </button>
-      )}
+            <svg
+              className="w-6 h-6"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M4 6h16M4 12h16M4 18h16"
+              />
+            </svg>
+          </button>
+        )}
 
       {/* Navigation Sidebar */}
-      {location.pathname !== "/" && (
+      {location.pathname !== "/" && !shouldHideNavAndHeader && (
         <motion.nav
           className="fixed top-0 left-0 z-40 w-64 h-full overflow-y-auto border-r bg-deepViolet/95 border-lavender/20"
           initial={isLargeScreen ? "open" : "closed"}
@@ -126,53 +134,60 @@ const Layout = ({ children }) => {
       )}
 
       {/* Overlay for mobile - closes sidebar when clicking outside */}
-      {!isLargeScreen && isNavOpen && location.pathname !== "/" && (
-        <div
-          className="fixed inset-0 z-30 bg-black/50"
-          onClick={() => setIsNavOpen(false)}
-        />
-      )}
+      {!isLargeScreen &&
+        isNavOpen &&
+        location.pathname !== "/" &&
+        !shouldHideNavAndHeader && (
+          <div
+            className="fixed inset-0 z-30 bg-black/50"
+            onClick={() => setIsNavOpen(false)}
+          />
+        )}
 
       {/* Main Content */}
       <div
         className={`${
-          isLargeScreen && location.pathname !== "/" ? "lg:pl-64" : ""
+          isLargeScreen && location.pathname !== "/" && !shouldHideNavAndHeader
+            ? "lg:pl-64"
+            : ""
         } transition-all duration-300 w-full`}
       >
         {/* Header */}
-        <header className="sticky top-0 z-20 border-b bg-deepViolet/50 backdrop-blur-sm border-lavender/20">
-          <div className="flex items-center justify-between px-4 py-4 mx-auto">
-            <div className="flex items-center space-x-4">
-              <h1 className="text-xl font-bold text-turquoise">
-                {navItems.find((item) => item.path === location.pathname)
-                  ?.label || "TradeRealm"}
-              </h1>
-            </div>
+        {!shouldHideNavAndHeader && (
+          <header className="sticky top-0 z-20 border-b bg-deepViolet/50 backdrop-blur-sm border-lavender/20">
+            <div className="flex items-center justify-between px-4 py-4 mx-auto">
+              <div className="flex items-center space-x-4">
+                <h1 className="text-xl font-bold text-turquoise">
+                  {navItems.find((item) => item.path === location.pathname)
+                    ?.label || "TradeRealm"}
+                </h1>
+              </div>
 
-            <div className="flex items-center space-x-4">
-              {wallet ? (
-                <div className="flex items-center space-x-4">
-                  <span className="text-sm text-lavender">
-                    {wallet.slice(0, 6)}...{wallet.slice(-4)}
-                  </span>
+              <div className="flex items-center space-x-4">
+                {wallet ? (
+                  <div className="flex items-center space-x-4">
+                    <span className="text-sm text-lavender">
+                      {wallet.slice(0, 6)}...{wallet.slice(-4)}
+                    </span>
+                    <Button
+                      onClick={handleWalletDisconnect}
+                      className="bg-lavender/10 hover:bg-lavender/20 text-lavender"
+                    >
+                      Disconnect
+                    </Button>
+                  </div>
+                ) : (
                   <Button
-                    onClick={handleWalletDisconnect}
-                    className="bg-lavender/10 hover:bg-lavender/20 text-lavender"
+                    onClick={handleWalletConnect}
+                    className="bg-turquoise text-deepViolet hover:bg-turquoise/80"
                   >
-                    Disconnect
+                    Connect Wallet
                   </Button>
-                </div>
-              ) : (
-                <Button
-                  onClick={handleWalletConnect}
-                  className="bg-turquoise text-deepViolet hover:bg-turquoise/80"
-                >
-                  Connect Wallet
-                </Button>
-              )}
+                )}
+              </div>
             </div>
-          </div>
-        </header>
+          </header>
+        )}
 
         {/* Page Content */}
         <main className="w-full px-4 py-8 mx-auto">

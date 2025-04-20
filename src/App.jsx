@@ -17,6 +17,9 @@ import MerchantsOffice from "./pages/MerchantOffice";
 import ImportLicensingOffice from "./pages/ImportLicensingOffice";
 import BaronsLedger from "./pages/BaronsLedger";
 import GrandAssembly from "./pages/GrandAssembly";
+import TradeRealmAppPopups from "./pages/traderealm-popups";
+import TradeRealmAppSimpleWar from "./pages/traderealm-simple-war";
+import ExampleHomePage from "./pages/example";
 import NotFound from "./components/NotFound";
 
 const AnimatedRoutes = () => {
@@ -32,6 +35,11 @@ const AnimatedRoutes = () => {
         <Route path="/licensing" element={<ImportLicensingOffice />} />
         <Route path="/ledger" element={<BaronsLedger />} />
         <Route path="/assembly" element={<GrandAssembly />} />
+        <Route path="/popups" element={<TradeRealmAppPopups />} />
+        <Route path="/simple-war" element={<TradeRealmAppSimpleWar />} />
+
+        {/* Example route for the Trade Realm app */}
+        <Route path="/example" element={<ExampleHomePage />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </AnimatePresence>
