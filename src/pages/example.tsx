@@ -87,7 +87,7 @@ const ExampleHomePage = () => {
           </Button>
         </div>
         {/* Animation Block */}
-        <div className="flex items-center justify-center flex-1 w-full max-w-xl md:max-w-2xl lg:max-w-3xl">
+        <div className="items-center justify-center flex-1 hidden w-full max-w-xl md:flex md:max-w-2xl lg:max-w-3xl">
           <AnimatedTradeMap />
         </div>
       </motion.section>
@@ -322,7 +322,7 @@ const ExampleHomePage = () => {
       {/* Footer */}
       <footer className="py-8 border-t border-[#ffd84f]/40">
         <div className="container px-4 mx-auto text-center">
-          <div className="mb-4 gap-4 flex justify-center items-center">
+          <div className="flex items-center justify-center gap-4 mb-4">
             <span className="">Docs</span>
             <span className=""> How to Play</span>
             <span className="">FAQ</span>
