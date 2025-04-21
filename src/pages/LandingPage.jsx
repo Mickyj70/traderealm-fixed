@@ -44,7 +44,7 @@ const ExampleHomePage = () => {
     >
       {/* HERO */}
       <motion.section
-        className="flex flex-col md:flex-row items-center justify-center min-h-[60vh] py-20 px-4 text-center md:text-left gap-12 md:gap-24 relative"
+        className="flex flex-col md:flex-row items-center justify-center min-h-[56vh] py-20 px-2 text-center md:text-left gap-12 md:gap-24 relative"
         variants={sectionVariants}
         custom={0}
         initial="hidden"
@@ -114,7 +114,7 @@ const ExampleHomePage = () => {
 
       {/* BECOME A TRADE BARON */}
       <motion.section
-        className="container px-4 py-12 mx-auto"
+        className="container px-4 pb-12 mx-auto"
         variants={sectionVariants}
         custom={1}
         initial="hidden"
