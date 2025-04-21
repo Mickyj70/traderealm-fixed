@@ -50,7 +50,7 @@ const Navbar = () => {
               <span className="text-2xl">
                 <img src={Logo} alt="image" height={50} width={50} />
               </span>
-              <span className="text-2xl font-bangers">TradeRealm </span>
+              <span className="text-2xl font-bangers">RealMfi </span>
             </motion.div>
           </Link>
 

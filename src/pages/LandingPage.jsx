@@ -44,7 +44,7 @@ const ExampleHomePage = () => {
     >
       {/* HERO */}
       <motion.section
-        className="flex flex-col md:flex-row items-center justify-center min-h-[70vh] py-20 px-4 text-center md:text-left gap-12 md:gap-24 relative"
+        className="flex flex-col md:flex-row items-center justify-center min-h-[60vh] py-20 px-4 text-center md:text-left gap-12 md:gap-24 relative"
         variants={sectionVariants}
         custom={0}
         initial="hidden"
@@ -54,12 +54,12 @@ const ExampleHomePage = () => {
         {/* Text Block */}
         <div className="flex-1 max-w-xl md:max-w-2xl lg:max-w-3xl">
           <h1
-            className={`text-7xl md:text-7xl mb-6 tracking-tight ${cartoonTitle}`}
+            className={`text-6xl md:text-7xl mb-6 tracking-tight ${cartoonTitle}`}
           >
             REALM FINANCE
           </h1>
           <div
-            className={`mb-8 text-2xl md:text-3xl ${cartoonSubtitle} space-y-2`}
+            className={`mb-8 text-xl md:text-3xl ${cartoonSubtitle} space-y-2`}
           >
             <div>
               <span className="font-bold text-[#ffaa33] cartoon-outline cartoon-bounce">
@@ -302,13 +302,13 @@ const ExampleHomePage = () => {
           JOIN THE REALM
         </h2>
         <p
-          className={`text-xl text-center mb-8 ${cartoonSubtitle} cartoon-typewriter cartoon-outline`}
+          className={`text-lg text-center mb-8 max-w-full  whitespace-normal break-words ${cartoonSubtitle} cartoon-typewriter cartoon-outline`}
         >
           WHERE TRADERS BECOME LEGENDS
-        </p>
+        </p>{" "}
         <div className="flex flex-wrap justify-center gap-4 mb-8">
           <Button className={cartoonBtn} onClick={undefined}>
-            Discord
+            Documentation
           </Button>
           <Button className={cartoonBtn} onClick={undefined}>
             Twitter
