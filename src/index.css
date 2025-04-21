@@ -1,3 +1,100 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Cartoonish effects with site color scheme */
+.cartoon-outline {
+  text-shadow: 2px 2px 0 #fff, 4px 4px 0 #1a1135, 0 2px 0 #1a1135,
+    2px 0 0 #1a1135;
+}
+.cartoon-shadow {
+  filter: drop-shadow(0 4px 0 #4fffb0) drop-shadow(0 8px 0 #d6adff);
+}
+.cartoon-bounce {
+  animation: cartoon-bounce 2.4s infinite cubic-bezier(0.68, -0.55, 0.27, 1.55);
+}
+@keyframes cartoon-bounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  30% {
+    transform: translateY(-18px) scale(1.05);
+  }
+  50% {
+    transform: translateY(4px) scale(0.98);
+  }
+  70% {
+    transform: translateY(-8px) scale(1.02);
+  }
+}
+.cartoon-bg {
+  background: linear-gradient(135deg, #1B0036 0%, #0A0A14 60%, #1A1135 100%);
+  position: relative;
+  overflow: hidden;
+}
+.cartoon-bg::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.18;
+  background: url('data:image/svg+xml;utf8,<svg width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="0" y="0" width="60" height="60" fill="none"/><g stroke="%2300F0FF" stroke-width="1.5" opacity="0.7"><line x1="0" y1="0" x2="60" y2="0"/><line x1="0" y1="30" x2="60" y2="30"/><line x1="0" y1="60" x2="60" y2="60"/><line x1="0" y1="0" x2="0" y2="60"/><line x1="30" y1="0" x2="30" y2="60"/><line x1="60" y1="0" x2="60" y2="60"/></g><circle cx="30" cy="30" r="2.5" fill="%23FF2EC7" opacity="0.7"/><circle cx="0" cy="0" r="1.5" fill="%23FFD84F" opacity="0.7"/><circle cx="60" cy="60" r="1.5" fill="%23FFD84F" opacity="0.7"/></svg>');
+  background-size: 60px 60px;
+  background-repeat: repeat;
+}
+.cartoon-btn {
+  border: 3px solid #4fffb0;
+  background: #d6adff;
+  color: #1a1135;
+  font-family: "Bangers", cursive;
+  box-shadow: 0 4px 0 #4fffb0, 0 8px 0 #d6adff;
+  transition: transform 0.1s;
+}
+.cartoon-btn:hover {
+  transform: translateY(-4px) scale(1.05) rotate(-2deg);
+  box-shadow: 0 8px 0 #4fffb0, 0 12px 0 #d6adff;
+  background: #4fffb0;
+  color: #1a1135;
+}
+.cartoon-card {
+  border: 3px solid #4fffb0;
+  background: #d6adff;
+  border-radius: 1.5rem;
+  box-shadow: 0 8px 0 #4fffb0;
+}
+.cartoon-title {
+  font-family: "Bangers", cursive;
+  color: #4fffb0;
+  text-shadow: 2px 2px 0 #fff, 4px 4px 0 #1a1135;
+  letter-spacing: 2px;
+}
+.cartoon-subtitle {
+  font-family: "Orbitron", sans-serif;
+  color: #1a1135;
+  text-shadow: 1px 1px 0 #d6adff;
+}
+.cartoon-typewriter {
+  overflow: hidden;
+  border-right: 0.15em solid #ffd84f;
+  white-space: nowrap;
+  animation: typing 2.5s steps(30, end), blink-caret 0.75s step-end infinite;
+}
+@keyframes typing {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+@keyframes blink-caret {
+  from,
+  to {
+    border-color: transparent;
+  }
+  50% {
+    border-color: #ffd84f;
+  }
+}

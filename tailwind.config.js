@@ -18,6 +18,8 @@ export default {
       fontFamily: {
         sans: ["Space Grotesk", "sans-serif"],
         mono: ["JetBrains Mono", "monospace"],
+        bangers: ["Bangers", "cursive"],
+        orbitron: ["Orbitron", "sans-serif"],
       },
       boxShadow: {
         glow: "0 0 15px rgba(79, 255, 176, 0.4)",

@@ -4,6 +4,7 @@ import { Link, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useWallet } from "../../contextsWalletContext";
 import Button from "../common/Button";
+import Logo from "../../assets/logo.svg"; // Adjust the path to your logo image
 
 const Navbar = () => {
   const { account, isConnected, connectWallet, disconnectWallet } = useWallet();
@@ -39,7 +40,12 @@ const Navbar = () => {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
-              TradeRealm
+              <span className="text-2xl">
+                <img src={Logo} alt="image" height={50} width={50} />
+              </span>
+              <span className="text-xl font-bold text-turquoise">
+                TradeRealm
+              </span>
             </motion.div>
           </Link>
 

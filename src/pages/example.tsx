@@ -1,115 +1,31 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef, useState, useCallback } from "react";
 import { motion } from "framer-motion";
 import Button from "../components/common/Button";
 import Card from "../components/common/Card";
+import AnimatedTradeMap from "../components/landing/AnimatedTradeMapHero";
 
-const retroBg = `bg-gradient-to-br from-[#1a1a2e] via-[#16213e] to-[#0f3460]`;
-const retroCard = `border-2 border-turquoise/60 bg-[#232946]/80 shadow-[0_0_24px_#00f0ff44] rounded-xl`;
-const retroText = `font-mono tracking-wider`;
+const cartoonBg = `cartoon-bg`;
+const cartoonCard = `cartoon-card cartoon-shadow`;
+const cartoonTitle = `cartoon-title cartoon-outline cartoon-bounce`;
+const cartoonSubtitle = `cartoon-subtitle`;
+const cartoonBtn = `cartoon-btn cartoon-bounce`;
+const cartoonTypewriter = `cartoon-typewriter`;
 
-const AnimatedTradeMap = () => (
-  <div className="flex justify-center my-12">
-    <svg
-      width="480"
-      height="220"
-      viewBox="0 0 480 220"
-      className="w-full max-w-2xl"
-    >
-      <defs>
-        <radialGradient id="glow" cx="50%" cy="50%" r="50%">
-          <stop offset="0%" stopColor="#00F0FF" stopOpacity="0.7" />
-          <stop offset="100%" stopColor="#00F0FF" stopOpacity="0" />
-        </radialGradient>
-        <filter id="glowFilter" x="-50%" y="-50%" width="200%" height="200%">
-          <feGaussianBlur stdDeviation="4" result="coloredBlur" />
-          <feMerge>
-            <feMergeNode in="coloredBlur" />
-            <feMergeNode in="SourceGraphic" />
-          </feMerge>
-        </filter>
-      </defs>
-      <ellipse
-        cx="240"
-        cy="110"
-        rx="200"
-        ry="90"
-        fill="url(#glow)"
-        opacity="0.15"
-      />
-      <ellipse
-        cx="240"
-        cy="110"
-        rx="200"
-        ry="90"
-        fill="none"
-        stroke="#2A1B3D"
-        strokeWidth="2"
-      />
-      <motion.path
-        d="M60,120 Q240,10 420,120"
-        stroke="#00F0FF"
-        strokeWidth="4"
-        fill="none"
-        filter="url(#glowFilter)"
-        initial={{ pathLength: 0 }}
-        animate={{ pathLength: 1 }}
-        transition={{ duration: 2, repeat: Infinity, repeatType: "reverse" }}
-      />
-      <motion.path
-        d="M100,180 Q240,200 380,180"
-        stroke="#A78BFA"
-        strokeWidth="3"
-        fill="none"
-        filter="url(#glowFilter)"
-        initial={{ pathLength: 0 }}
-        animate={{ pathLength: 1 }}
-        transition={{
-          duration: 2.5,
-          repeat: Infinity,
-          repeatType: "reverse",
-          delay: 0.5,
-        }}
-      />
-      <circle cx="60" cy="120" r="8" fill="#00F0FF" filter="url(#glowFilter)" />
-      <circle
-        cx="420"
-        cy="120"
-        r="8"
-        fill="#00F0FF"
-        filter="url(#glowFilter)"
-      />
-      <circle
-        cx="100"
-        cy="180"
-        r="6"
-        fill="#A78BFA"
-        filter="url(#glowFilter)"
-      />
-      <circle
-        cx="380"
-        cy="180"
-        r="6"
-        fill="#A78BFA"
-        filter="url(#glowFilter)"
-      />
-      <circle cx="240" cy="10" r="7" fill="#00F0FF" filter="url(#glowFilter)" />
-      <circle
-        cx="240"
-        cy="200"
-        r="7"
-        fill="#A78BFA"
-        filter="url(#glowFilter)"
-      />
-    </svg>
-  </div>
-);
-
-const sectionVariants = {
+// Page and section entrance/scroll-in animations
+const pageVariants = {
   hidden: { opacity: 0, y: 40 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 1.2, ease: [0.23, 1, 0.32, 1] },
+  },
+};
+const sectionVariants = {
+  hidden: { opacity: 0, y: 60 },
   visible: (i = 1) => ({
     opacity: 1,
     y: 0,
-    transition: { delay: i * 0.1, duration: 0.7, ease: [0.23, 1, 0.32, 1] },
+    transition: { delay: i * 0.18, duration: 1, ease: [0.23, 1, 0.32, 1] },
   }),
 };
 
@@ -120,50 +36,60 @@ const ExampleHomePage = () => {
 
   return (
     <motion.div
-      className={`flex flex-col min-h-screen ${retroBg}`}
+      className={`flex flex-col min-h-screen ${cartoonBg}`}
       initial="hidden"
       animate="visible"
-      variants={{
-        hidden: { opacity: 0 },
-        visible: { opacity: 1, transition: { staggerChildren: 0.1 } },
-      }}
+      variants={pageVariants}
     >
       {/* HERO */}
       <motion.section
-        className="flex flex-col items-center justify-center min-h-[60vh] py-16 px-4 text-center relative"
+        className="flex flex-col md:flex-row items-center justify-center min-h-[70vh] py-20 px-4 text-center md:text-left gap-12 md:gap-24 relative"
         variants={sectionVariants}
         custom={0}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.5 }}
       >
-        <h1
-          className={`text-4xl md:text-6xl font-extrabold text-turquoise drop-shadow-lg mb-4 tracking-tight ${retroText}`}
-        >
-          REALM FINANCE
-        </h1>
-        <div
-          className={`mb-6 text-lg md:text-2xl text-lavender/80 font-mono space-y-1 ${retroText}`}
-        >
-          <div>
-            <span className="font-bold text-turquoise">TRADE</span> •{" "}
-            <span className="font-bold text-turquoise">BATTLE</span> •{" "}
-            <span className="font-bold text-turquoise">PROFIT</span>
+        {/* Text Block */}
+        <div className="flex-1 max-w-xl md:max-w-2xl lg:max-w-3xl">
+          <h1
+            className={`text-7xl md:text-7xl mb-6 tracking-tight ${cartoonTitle}`}
+          >
+            REALM FINANCE
+          </h1>
+          <div
+            className={`mb-8 text-2xl md:text-3xl ${cartoonSubtitle} space-y-2`}
+          >
+            <div>
+              <span className="font-bold text-[#ffaa33] cartoon-outline cartoon-bounce">
+                TRADE
+              </span>{" "}
+              •{" "}
+              <span className="font-bold text-[#ffaa33] cartoon-outline cartoon-bounce">
+                BATTLE
+              </span>{" "}
+              •{" "}
+              <span className="font-bold text-[#ffaa33] cartoon-outline cartoon-bounce">
+                PROFIT
+              </span>
+            </div>
+            <div>
+              <span className="cartoon-outline">STRATEGY MEETS DEFI</span>
+            </div>
+            <div>
+              <span className={`cartoon-typewriter cartoon-outline`}>
+                RULE THE FINANCIAL REALM
+              </span>
+            </div>
           </div>
-          <div>
-            <span className="text-lavender/90">STRATEGY MEETS DEFI</span>
-          </div>
-          <div>
-            <span className="text-lavender/90">RULE THE FINANCIAL REALM</span>
-          </div>
+          <Button className={cartoonBtn} onClick={undefined}>
+            START YOUR EMPIRE
+          </Button>
         </div>
-        <AnimatedTradeMap />
-        <Button
-          className="px-10 py-4 text-lg font-bold transition rounded-lg shadow-lg bg-turquoise text-deepViolet hover:bg-turquoise/80"
-          onClick={undefined}
-        >
-          START YOUR EMPIRE
-        </Button>
+        {/* Animation Block */}
+        <div className="flex items-center justify-center flex-1 w-full max-w-xl md:max-w-2xl lg:max-w-3xl">
+          <AnimatedTradeMap />
+        </div>
       </motion.section>
 
       {/* BECOME A TRADE BARON */}
@@ -175,39 +101,45 @@ const ExampleHomePage = () => {
         whileInView="visible"
         viewport={{ once: true, amount: 0.3 }}
       >
-        <h2 className="text-2xl md:text-3xl font-bold text-turquoise text-center mb-8 ${retroText}">
+        <h2 className={`text-2xl md:text-3xl text-center mb-8 ${cartoonTitle}`}>
           BECOME A TRADE BARON
         </h2>
         <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
-          <Card className={retroCard} onClick={undefined}>
+          <Card className={cartoonCard} onClick={undefined}>
             <div className="p-6 text-center">
-              <div className="mb-2 text-3xl">🪙</div>
-              <div className="text-xl font-semibold text-turquoise mb-1 ${retroText}">
+              <div className="mb-2 text-3xl">🦙</div>
+              <div
+                className={`text-xl font-semibold mb-1 ${cartoonSubtitle} cartoon-outline`}
+              >
                 STAKE & EARN
               </div>
-              <div className="text-lavender/80">
+              <div className="text-[#1a1135]">
                 Watch your tokens multiply with juicy auto-compounding rewards.
               </div>
             </div>
           </Card>
-          <Card className={retroCard} onClick={undefined}>
+          <Card className={cartoonCard} onClick={undefined}>
             <div className="p-6 text-center">
               <div className="mb-2 text-3xl">💰</div>
-              <div className="text-xl font-semibold text-turquoise mb-1 ${retroText}">
+              <div
+                className={`text-xl font-semibold mb-1 ${cartoonSubtitle} cartoon-outline`}
+              >
                 BOND FOR DISCOUNTS
               </div>
-              <div className="text-lavender/80">
+              <div className="text-[#1a1135]">
                 Trade assets for discounted tokens and power up your treasury.
               </div>
             </div>
           </Card>
-          <Card className={retroCard} onClick={undefined}>
+          <Card className={cartoonCard} onClick={undefined}>
             <div className="p-6 text-center">
               <div className="mb-2 text-3xl">🚩</div>
-              <div className="text-xl font-semibold text-turquoise mb-1 ${retroText}">
+              <div
+                className={`text-xl font-semibold mb-1 ${cartoonSubtitle} cartoon-outline`}
+              >
                 CONTROL THE ROUTES
               </div>
-              <div className="text-lavender/80">
+              <div className="text-[#1a1135]">
                 Claim trade routes and collect sweet, sweet tariff revenue.
               </div>
             </div>
@@ -224,45 +156,51 @@ const ExampleHomePage = () => {
         whileInView="visible"
         viewport={{ once: true, amount: 0.3 }}
       >
-        <h2 className="text-2xl md:text-3xl font-bold text-turquoise text-center mb-8 ${retroText}">
+        <h2 className={`text-2xl md:text-3xl text-center mb-8 ${cartoonTitle}`}>
           STRATEGY = PROFIT
         </h2>
         <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
-          <Card className={retroCard} onClick={undefined}>
+          <Card className={cartoonCard} onClick={undefined}>
             <div className="p-6 text-center">
               <div className="mb-2 text-3xl">⚔️</div>
-              <div className="text-xl font-semibold text-turquoise mb-1 ${retroText}">
+              <div
+                className={`text-xl font-semibold mb-1 ${cartoonSubtitle} cartoon-outline`}
+              >
                 EPIC TRADE WARS
               </div>
-              <div className="text-lavender/80">
+              <div className="text-[#1a1135]">
                 Battle other barons for control of the most valuable routes.
                 <br />
-                <span className="font-bold text-turquoise">
+                <span className="font-bold text-[#ffaa33] cartoon-outline cartoon-bounce">
                   Weekly contests with massive rewards!
                 </span>
               </div>
             </div>
           </Card>
-          <Card className={retroCard} onClick={undefined}>
+          <Card className={cartoonCard} onClick={undefined}>
             <div className="p-6 text-center">
               <div className="mb-2 text-3xl">📊</div>
-              <div className="text-xl font-semibold text-turquoise mb-1 ${retroText}">
+              <div
+                className={`text-xl font-semibold mb-1 ${cartoonSubtitle} cartoon-outline`}
+              >
                 TARIFF TACTICS
               </div>
-              <div className="text-lavender/80">
+              <div className="text-[#1a1135]">
                 Too high? Traffic dies. Too low? Profits suffer.
                 <br />
                 Find the sweet spot and rake in the revenue.
               </div>
             </div>
           </Card>
-          <Card className={retroCard} onClick={undefined}>
+          <Card className={cartoonCard} onClick={undefined}>
             <div className="p-6 text-center">
               <div className="mb-2 text-3xl">🤝</div>
-              <div className="text-xl font-semibold text-turquoise mb-1 ${retroText}">
+              <div
+                className={`text-xl font-semibold mb-1 ${cartoonSubtitle} cartoon-outline`}
+              >
                 FORM ALLIANCES
               </div>
-              <div className="text-lavender/80">
+              <div className="text-[#1a1135]">
                 Team up with friends to control exclusive routes.
                 <br />
                 More allies = more profits!
@@ -281,41 +219,47 @@ const ExampleHomePage = () => {
         whileInView="visible"
         viewport={{ once: true, amount: 0.3 }}
       >
-        <h2 className="text-2xl md:text-3xl font-bold text-turquoise text-center mb-8 ${retroText}">
+        <h2 className={`text-2xl md:text-3xl text-center mb-8 ${cartoonTitle}`}>
           BUILT TO LAST
         </h2>
         <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
-          <Card className={retroCard} onClick={undefined}>
+          <Card className={cartoonCard} onClick={undefined}>
             <div className="p-6 text-center">
               <div className="mb-2 text-3xl">🏛️</div>
-              <div className="text-xl font-semibold text-turquoise mb-1 ${retroText}">
+              <div
+                className={`text-xl font-semibold mb-1 ${cartoonSubtitle} cartoon-outline`}
+              >
                 REAL VALUE BACKING
               </div>
-              <div className="text-lavender/80">
+              <div className="text-[#1a1135]">
                 Every token backed by real assets.
                 <br />
                 No empty promises here!
               </div>
             </div>
           </Card>
-          <Card className={retroCard} onClick={undefined}>
+          <Card className={cartoonCard} onClick={undefined}>
             <div className="p-6 text-center">
               <div className="mb-2 text-3xl">💸</div>
-              <div className="text-xl font-semibold text-turquoise mb-1 ${retroText}">
+              <div
+                className={`text-xl font-semibold mb-1 ${cartoonSubtitle} cartoon-outline`}
+              >
                 MULTIPLE MONEY STREAMS
               </div>
-              <div className="text-lavender/80">
+              <div className="text-[#1a1135]">
                 Not just another one-trick DeFi pony.
               </div>
             </div>
           </Card>
-          <Card className={retroCard} onClick={undefined}>
+          <Card className={cartoonCard} onClick={undefined}>
             <div className="p-6 text-center">
               <div className="mb-2 text-3xl">🧠</div>
-              <div className="text-xl font-semibold text-turquoise mb-1 ${retroText}">
+              <div
+                className={`text-xl font-semibold mb-1 ${cartoonSubtitle} cartoon-outline`}
+              >
                 STRATEGY &gt; CAPITAL
               </div>
-              <div className="text-lavender/80">
+              <div className="text-[#1a1135]">
                 Smart players can outperform big wallets.
                 <br />
                 Brain beats bank!
@@ -334,58 +278,58 @@ const ExampleHomePage = () => {
         whileInView="visible"
         viewport={{ once: true, amount: 0.3 }}
       >
-        <h2 className="text-3xl md:text-4xl font-bold text-turquoise text-center mb-4 ${retroText}">
+        <h2 className={`text-3xl md:text-4xl text-center mb-4 ${cartoonTitle}`}>
           JOIN THE REALM
         </h2>
-        <p className="text-xl text-lavender/80 text-center mb-8 ${retroText}">
+        <p
+          className={`text-xl text-center mb-8 ${cartoonSubtitle} cartoon-typewriter cartoon-outline`}
+        >
           WHERE TRADERS BECOME LEGENDS
         </p>
         <div className="flex flex-wrap justify-center gap-4 mb-8">
-          <Button
-            className="px-6 py-3 font-bold rounded-lg shadow bg-turquoise text-deepViolet hover:bg-turquoise/80"
-            onClick={undefined}
-          >
+          <Button className={cartoonBtn} onClick={undefined}>
             Discord
           </Button>
-          <Button
-            className="px-6 py-3 font-bold rounded-lg shadow bg-turquoise text-deepViolet hover:bg-turquoise/80"
-            onClick={undefined}
-          >
+          <Button className={cartoonBtn} onClick={undefined}>
             Twitter
           </Button>
-          <Button
-            className="px-6 py-3 font-bold rounded-lg shadow bg-turquoise text-deepViolet hover:bg-turquoise/80"
-            onClick={undefined}
-          >
+          <Button className={cartoonBtn} onClick={undefined}>
             Telegram
           </Button>
         </div>
-        <div className="flex flex-wrap justify-center gap-4 mb-4">
+        {/* <div className="flex flex-wrap justify-center gap-4 mb-4">
           <Button
-            className="px-6 py-3 font-bold rounded-lg shadow bg-lavender/10 text-lavender hover:bg-lavender/20"
+            className={cartoonBtn + " bg-[#ffe7a0] text-[#1a1135]"}
             onClick={undefined}
           >
             Docs
           </Button>
           <Button
-            className="px-6 py-3 font-bold rounded-lg shadow bg-lavender/10 text-lavender hover:bg-lavender/20"
+            className={cartoonBtn + " bg-[#ffe7a0] text-[#1a1135]"}
             onClick={undefined}
           >
             How to Play
           </Button>
           <Button
-            className="px-6 py-3 font-bold rounded-lg shadow bg-lavender/10 text-lavender hover:bg-lavender/20"
+            className={cartoonBtn + " bg-[#ffe7a0] text-[#1a1135]"}
             onClick={undefined}
           >
             FAQ
           </Button>
-        </div>
+        </div> */}
       </motion.section>
 
       {/* Footer */}
-      <footer className="py-8 border-t border-lavender/20">
+      <footer className="py-8 border-t border-[#ffd84f]/40">
         <div className="container px-4 mx-auto text-center">
-          <p className={`text-lavender/60 ${retroText}`}>© 2025 RealmFinance</p>
+          <div className="mb-4 gap-4 flex justify-center items-center">
+            <span className="">Docs</span>
+            <span className=""> How to Play</span>
+            <span className="">FAQ</span>
+          </div>
+          <p className={`text-[#ffaa33]/80 cartoon-subtitle cartoon-outline`}>
+            © 2025 RealmFinance
+          </p>
         </div>
       </footer>
     </motion.div>
