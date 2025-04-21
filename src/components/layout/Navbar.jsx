@@ -1,10 +1,17 @@
+/* eslint-disable no-unused-vars */
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
-// eslint-disable-next-line no-unused-vars
 import { motion } from "framer-motion";
 import { useWallet } from "../../contextsWalletContext";
 import Button from "../common/Button";
 import Logo from "../../assets/logo.svg"; // Adjust the path to your logo image
+
+const cartoonBg = `cartoon-bg`;
+const cartoonCard = `cartoon-card cartoon-shadow`;
+const cartoonTitle = `cartoon-title cartoon-outline cartoon-bounce`;
+const cartoonSubtitle = `cartoon-subtitle`;
+const cartoonBtn = `cartoon-btn cartoon-bounce`;
+const cartoonTypewriter = `cartoon-typewriter`;
 
 const Navbar = () => {
   const { account, isConnected, connectWallet, disconnectWallet } = useWallet();
@@ -43,9 +50,7 @@ const Navbar = () => {
               <span className="text-2xl">
                 <img src={Logo} alt="image" height={50} width={50} />
               </span>
-              <span className="text-xl font-bold text-turquoise">
-                TradeRealm
-              </span>
+              <span className="text-2xl font-bangers">TradeRealm </span>
             </motion.div>
           </Link>
 

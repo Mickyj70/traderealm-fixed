@@ -82,9 +82,28 @@ const ExampleHomePage = () => {
               </span>
             </div>
           </div>
-          <Button className={cartoonBtn} onClick={undefined}>
-            START YOUR EMPIRE
-          </Button>
+          <div className="">
+            <Button
+              className={`mr-4 ${cartoonBtn}`}
+              onClick={() => {
+                window.location.href = "/council";
+              }}
+            >
+              START YOUR EMPIRE
+            </Button>
+
+            <Button
+              className={cartoonBtn}
+              onClick={() =>
+                window.open(
+                  "https://realm-finance.gitbook.io/realm-finance",
+                  "_blank"
+                )
+              }
+            >
+              Learn More
+            </Button>
+          </div>
         </div>
         {/* Animation Block */}
         <div className="items-center justify-center flex-1 hidden w-full max-w-xl md:flex md:max-w-2xl lg:max-w-3xl">

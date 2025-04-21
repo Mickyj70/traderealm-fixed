@@ -8,6 +8,8 @@ import Button from "../common/Button";
 import LoadingSpinner from "../common/LoadingSpinner";
 import Logo from "../../assets/logo.svg"; // Adjust the path to your logo image
 
+const cartoonTitle = `cartoon-title cartoon-outline cartoon-bounce`;
+
 const Layout = ({ children }) => {
   const location = useLocation();
   const { wallet, connectWallet, disconnectWallet } = useWallet();
@@ -107,9 +109,7 @@ const Layout = ({ children }) => {
               <span className="text-2xl">
                 <img src={Logo} alt="image" height={50} width={50} />
               </span>
-              <span className="text-xl font-bold text-turquoise">
-                TradeRealm
-              </span>
+              <span className="text-2xl font-bangers">TradeRealm </span>
             </Link>
 
             <div className="space-y-2">
@@ -157,7 +157,7 @@ const Layout = ({ children }) => {
           <header className="sticky top-0 z-20 border-b bg-deepViolet/50 backdrop-blur-sm border-lavender/20">
             <div className="flex items-center justify-between px-4 py-4 mx-auto">
               <div className="flex items-center space-x-4">
-                <h1 className="text-xl font-bold text-turquoise">
+                <h1 className="text-2xl font-bold font-bangers text-turquoise">
                   {navItems.find((item) => item.path === location.pathname)
                     ?.label || "TradeRealm"}
                 </h1>

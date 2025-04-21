@@ -1,105 +1,354 @@
-import React, { useEffect, useState } from "react";
-// import { useScroll, useTransform } from "framer-motion";
-// import { useWallet } from "../contexts/WalletContext";
-import Button from "../components/common/Button";
-import LoadingSpinner from "../components/common/LoadingSpinner";
-import HeroSection from "../components/landing/HeroSection";
-import MetricsDisplay from "../components/landing/MetricsDisplay";
-import HowItWorks from "../components/landing/HowItWorks";
-// eslint-disable-next-line no-unused-vars
+/* eslint-disable no-unused-vars */
+import React, { useEffect, useRef, useState, useCallback } from "react";
 import { motion } from "framer-motion";
-import FeaturesShowcase from "../components/landing/FeaturesShowcase";
-import RoadmapTimeline from "../components/landing/RoadmapTimeline";
+import Button from "../components/common/Button";
+import Card from "../components/common/Card";
+import AnimatedTradeMap from "../components/landing/AnimatedTradeMapHero";
 
-const LandingPage = () => {
-  // const { wallet, connectWallet } = useWallet();
-  const [isLoading, setIsLoading] = useState(true);
-  const [metrics, setMetrics] = useState({
-    tvl: 0,
-    treasury: 0,
-    backingPrice: 0,
-  });
+const cartoonBg = `cartoon-bg`;
+const cartoonCard = `cartoon-card cartoon-shadow`;
+const cartoonTitle = `cartoon-title cartoon-outline cartoon-bounce`;
+const cartoonSubtitle = `cartoon-subtitle`;
+const cartoonBtn = `cartoon-btn cartoon-bounce`;
+const cartoonTypewriter = `cartoon-typewriter`;
 
-  // const { scrollYProgress } = useScroll();
-  // // const opacity = useTransform(scrollYProgress, [0, 0.1], [1, 0]);
-  // // const y = useTransform(scrollYProgress, [0, 0.1], [0, -100]);
+// Page and section entrance/scroll-in animations
+const pageVariants = {
+  hidden: { opacity: 0, y: 40 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 1.2, ease: [0.23, 1, 0.32, 1] },
+  },
+};
+const sectionVariants = {
+  hidden: { opacity: 0, y: 60 },
+  visible: (i = 1) => ({
+    opacity: 1,
+    y: 0,
+    transition: { delay: i * 0.18, duration: 1, ease: [0.23, 1, 0.32, 1] },
+  }),
+};
 
-  // Mock data for demonstration
+const ExampleHomePage = () => {
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setMetrics({
-        tvl: 15000000,
-        treasury: 5000000,
-        backingPrice: 1.25,
-      });
-      setIsLoading(false);
-    }, 1500);
-
-    return () => clearTimeout(timer);
+    window.scrollTo(0, 0);
   }, []);
-
-  const pageVariants = {
-    initial: { opacity: 0 },
-    animate: {
-      opacity: 1,
-      transition: {
-        duration: 0.5,
-        staggerChildren: 0.1,
-      },
-    },
-  };
-
-  if (isLoading) {
-    return (
-      <div className="flex items-center justify-center min-h-screen">
-        <LoadingSpinner size="large" />
-      </div>
-    );
-  }
 
   return (
     <motion.div
-      className="min-h-screen bg-deepViolet"
+      className={`flex flex-col min-h-screen ${cartoonBg}`}
+      initial="hidden"
+      animate="visible"
       variants={pageVariants}
-      initial="initial"
-      animate="animate"
     >
-      {/* Floating Connect Button */}
-      {/* <motion.div className="fixed z-50 top-4 right-4" style={{ opacity, y }}>
-        {!wallet ? (
-          <Button
-            onClick={connectWallet}
-            className="bg-turquoise text-deepViolet hover:bg-turquoise/80"
+      {/* HERO */}
+      <motion.section
+        className="flex flex-col md:flex-row items-center justify-center min-h-[70vh] py-20 px-4 text-center md:text-left gap-12 md:gap-24 relative"
+        variants={sectionVariants}
+        custom={0}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.5 }}
+      >
+        {/* Text Block */}
+        <div className="flex-1 max-w-xl md:max-w-2xl lg:max-w-3xl">
+          <h1
+            className={`text-7xl md:text-7xl mb-6 tracking-tight ${cartoonTitle}`}
           >
-            Connect Wallet
-          </Button>
-        ) : (
-          <div className="px-4 py-2 border rounded-lg bg-lavender/10 border-lavender/20 text-lavender">
-            {wallet.slice(0, 6)}...{wallet.slice(-4)}
+            REALM FINANCE
+          </h1>
+          <div
+            className={`mb-8 text-2xl md:text-3xl ${cartoonSubtitle} space-y-2`}
+          >
+            <div>
+              <span className="font-bold text-[#ffaa33] cartoon-outline cartoon-bounce">
+                TRADE
+              </span>{" "}
+              •{" "}
+              <span className="font-bold text-[#ffaa33] cartoon-outline cartoon-bounce">
+                BATTLE
+              </span>{" "}
+              •{" "}
+              <span className="font-bold text-[#ffaa33] cartoon-outline cartoon-bounce">
+                PROFIT
+              </span>
+            </div>
+            <div>
+              <span className="cartoon-outline">STRATEGY MEETS DEFI</span>
+            </div>
+            <div>
+              <span className={`cartoon-typewriter cartoon-outline`}>
+                RULE THE FINANCIAL REALM
+              </span>
+            </div>
           </div>
-        )}
-      </motion.div> */}
+          <div className="">
+            <Button
+              className={`mr-4 ${cartoonBtn}`}
+              onClick={() => {
+                window.location.href = "/council";
+              }}
+            >
+              START YOUR EMPIRE
+            </Button>
 
-      {/* Hero Section */}
-      <HeroSection />
+            <Button
+              className={cartoonBtn}
+              onClick={() =>
+                window.open(
+                  "https://realm-finance.gitbook.io/realm-finance",
+                  "_blank"
+                )
+              }
+            >
+              Learn More
+            </Button>
+          </div>
+        </div>
+        {/* Animation Block */}
+        <div className="items-center justify-center flex-1 hidden w-full max-w-xl md:flex md:max-w-2xl lg:max-w-3xl">
+          <AnimatedTradeMap />
+        </div>
+      </motion.section>
 
-      {/* Metrics Display */}
-      <MetricsDisplay metrics={metrics} />
+      {/* BECOME A TRADE BARON */}
+      <motion.section
+        className="container px-4 py-12 mx-auto"
+        variants={sectionVariants}
+        custom={1}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.3 }}
+      >
+        <h2 className={`text-2xl md:text-3xl text-center mb-8 ${cartoonTitle}`}>
+          BECOME A TRADE BARON
+        </h2>
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
+          <Card className={cartoonCard} onClick={undefined}>
+            <div className="p-6 text-center">
+              <div className="mb-2 text-3xl">🦙</div>
+              <div
+                className={`text-xl font-semibold mb-1 ${cartoonSubtitle} cartoon-outline`}
+              >
+                STAKE & EARN
+              </div>
+              <div className="text-[#1a1135]">
+                Watch your tokens multiply with juicy auto-compounding rewards.
+              </div>
+            </div>
+          </Card>
+          <Card className={cartoonCard} onClick={undefined}>
+            <div className="p-6 text-center">
+              <div className="mb-2 text-3xl">💰</div>
+              <div
+                className={`text-xl font-semibold mb-1 ${cartoonSubtitle} cartoon-outline`}
+              >
+                BOND FOR DISCOUNTS
+              </div>
+              <div className="text-[#1a1135]">
+                Trade assets for discounted tokens and power up your treasury.
+              </div>
+            </div>
+          </Card>
+          <Card className={cartoonCard} onClick={undefined}>
+            <div className="p-6 text-center">
+              <div className="mb-2 text-3xl">🚩</div>
+              <div
+                className={`text-xl font-semibold mb-1 ${cartoonSubtitle} cartoon-outline`}
+              >
+                CONTROL THE ROUTES
+              </div>
+              <div className="text-[#1a1135]">
+                Claim trade routes and collect sweet, sweet tariff revenue.
+              </div>
+            </div>
+          </Card>
+        </div>
+      </motion.section>
 
-      {/* How It Works */}
-      <HowItWorks />
+      {/* STRATEGY = PROFIT */}
+      <motion.section
+        className="container px-4 py-12 mx-auto"
+        variants={sectionVariants}
+        custom={2}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.3 }}
+      >
+        <h2 className={`text-2xl md:text-3xl text-center mb-8 ${cartoonTitle}`}>
+          STRATEGY = PROFIT
+        </h2>
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
+          <Card className={cartoonCard} onClick={undefined}>
+            <div className="p-6 text-center">
+              <div className="mb-2 text-3xl">⚔️</div>
+              <div
+                className={`text-xl font-semibold mb-1 ${cartoonSubtitle} cartoon-outline`}
+              >
+                EPIC TRADE WARS
+              </div>
+              <div className="text-[#1a1135]">
+                Battle other barons for control of the most valuable routes.
+                <br />
+                <span className="font-bold text-[#ffaa33] cartoon-outline cartoon-bounce">
+                  Weekly contests with massive rewards!
+                </span>
+              </div>
+            </div>
+          </Card>
+          <Card className={cartoonCard} onClick={undefined}>
+            <div className="p-6 text-center">
+              <div className="mb-2 text-3xl">📊</div>
+              <div
+                className={`text-xl font-semibold mb-1 ${cartoonSubtitle} cartoon-outline`}
+              >
+                TARIFF TACTICS
+              </div>
+              <div className="text-[#1a1135]">
+                Too high? Traffic dies. Too low? Profits suffer.
+                <br />
+                Find the sweet spot and rake in the revenue.
+              </div>
+            </div>
+          </Card>
+          <Card className={cartoonCard} onClick={undefined}>
+            <div className="p-6 text-center">
+              <div className="mb-2 text-3xl">🤝</div>
+              <div
+                className={`text-xl font-semibold mb-1 ${cartoonSubtitle} cartoon-outline`}
+              >
+                FORM ALLIANCES
+              </div>
+              <div className="text-[#1a1135]">
+                Team up with friends to control exclusive routes.
+                <br />
+                More allies = more profits!
+              </div>
+            </div>
+          </Card>
+        </div>
+      </motion.section>
 
-      {/* Features Showcase */}
-      <FeaturesShowcase />
+      {/* BUILT TO LAST */}
+      <motion.section
+        className="container px-4 py-12 mx-auto"
+        variants={sectionVariants}
+        custom={3}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.3 }}
+      >
+        <h2 className={`text-2xl md:text-3xl text-center mb-8 ${cartoonTitle}`}>
+          BUILT TO LAST
+        </h2>
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
+          <Card className={cartoonCard} onClick={undefined}>
+            <div className="p-6 text-center">
+              <div className="mb-2 text-3xl">🏛️</div>
+              <div
+                className={`text-xl font-semibold mb-1 ${cartoonSubtitle} cartoon-outline`}
+              >
+                REAL VALUE BACKING
+              </div>
+              <div className="text-[#1a1135]">
+                Every token backed by real assets.
+                <br />
+                No empty promises here!
+              </div>
+            </div>
+          </Card>
+          <Card className={cartoonCard} onClick={undefined}>
+            <div className="p-6 text-center">
+              <div className="mb-2 text-3xl">💸</div>
+              <div
+                className={`text-xl font-semibold mb-1 ${cartoonSubtitle} cartoon-outline`}
+              >
+                MULTIPLE MONEY STREAMS
+              </div>
+              <div className="text-[#1a1135]">
+                Not just another one-trick DeFi pony.
+              </div>
+            </div>
+          </Card>
+          <Card className={cartoonCard} onClick={undefined}>
+            <div className="p-6 text-center">
+              <div className="mb-2 text-3xl">🧠</div>
+              <div
+                className={`text-xl font-semibold mb-1 ${cartoonSubtitle} cartoon-outline`}
+              >
+                STRATEGY &gt; CAPITAL
+              </div>
+              <div className="text-[#1a1135]">
+                Smart players can outperform big wallets.
+                <br />
+                Brain beats bank!
+              </div>
+            </div>
+          </Card>
+        </div>
+      </motion.section>
 
-      {/* Roadmap Timeline */}
-      <RoadmapTimeline />
+      {/* JOIN THE REALM */}
+      <motion.section
+        className="container px-4 py-16 mx-auto"
+        variants={sectionVariants}
+        custom={4}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.3 }}
+      >
+        <h2 className={`text-3xl md:text-4xl text-center mb-4 ${cartoonTitle}`}>
+          JOIN THE REALM
+        </h2>
+        <p
+          className={`text-xl text-center mb-8 ${cartoonSubtitle} cartoon-typewriter cartoon-outline`}
+        >
+          WHERE TRADERS BECOME LEGENDS
+        </p>
+        <div className="flex flex-wrap justify-center gap-4 mb-8">
+          <Button className={cartoonBtn} onClick={undefined}>
+            Discord
+          </Button>
+          <Button className={cartoonBtn} onClick={undefined}>
+            Twitter
+          </Button>
+          <Button className={cartoonBtn} onClick={undefined}>
+            Telegram
+          </Button>
+        </div>
+        {/* <div className="flex flex-wrap justify-center gap-4 mb-4">
+          <Button
+            className={cartoonBtn + " bg-[#ffe7a0] text-[#1a1135]"}
+            onClick={undefined}
+          >
+            Docs
+          </Button>
+          <Button
+            className={cartoonBtn + " bg-[#ffe7a0] text-[#1a1135]"}
+            onClick={undefined}
+          >
+            How to Play
+          </Button>
+          <Button
+            className={cartoonBtn + " bg-[#ffe7a0] text-[#1a1135]"}
+            onClick={undefined}
+          >
+            FAQ
+          </Button>
+        </div> */}
+      </motion.section>
 
       {/* Footer */}
-      <footer className="py-8 border-t border-lavender/20">
+      <footer className="py-8 border-t border-[#ffd84f]/40">
         <div className="container px-4 mx-auto text-center">
-          <p className="text-lavender/60">
-            © 2025 TradeRealm. All rights reserved.
+          <div className="flex items-center justify-center gap-4 mb-4">
+            <span className="">Docs</span>
+            <span className=""> How to Play</span>
+            <span className="">FAQ</span>
+          </div>
+          <p className={`text-[#ffaa33]/80 cartoon-subtitle cartoon-outline`}>
+            © 2025 RealmFinance
           </p>
         </div>
       </footer>
@@ -107,4 +356,4 @@ const LandingPage = () => {
   );
 };
 
-export default LandingPage;
+export default ExampleHomePage;
