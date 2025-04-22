@@ -30,7 +30,7 @@ const sectionVariants = {
   }),
 };
 
-const ExampleHomePage = () => {
+const LandingPage = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -62,15 +62,15 @@ const ExampleHomePage = () => {
             className={`mb-8 text-xl md:text-3xl ${cartoonSubtitle} space-y-2`}
           >
             <div>
-              <span className="font-bold text-[#ffaa33] cartoon-outline cartoon-bounce">
+              <span className="font-bold text-[#ff6b9d] cartoon-outline cartoon-bounce">
                 TRADE
               </span>{" "}
               •{" "}
-              <span className="font-bold text-[#ffaa33] cartoon-outline cartoon-bounce">
+              <span className="font-bold text-[#d6adff] cartoon-outline cartoon-bounce">
                 BATTLE
               </span>{" "}
               •{" "}
-              <span className="font-bold text-[#ffaa33] cartoon-outline cartoon-bounce">
+              <span className="font-bold text-[#4fffb0] cartoon-outline cartoon-bounce">
                 PROFIT
               </span>
             </div>
@@ -85,7 +85,7 @@ const ExampleHomePage = () => {
           </div>
           <div className="">
             <Button
-              className={`mr-4 ${cartoonBtn}`}
+              className={`mr-4 ${cartoonBtn} bg-[#ff6b9d] border-[#4fffb0] text-[#1a1135]`}
               onClick={() => {
                 window.location.href = "/council";
               }}
@@ -94,7 +94,7 @@ const ExampleHomePage = () => {
             </Button>
 
             <Button
-              className={cartoonBtn}
+              className={`${cartoonBtn} bg-[#d6adff] border-[#4fffb0] text-[#1a1135]`}
               onClick={() =>
                 window.open(
                   "https://realm-finance.gitbook.io/realm-finance",
@@ -129,7 +129,7 @@ const ExampleHomePage = () => {
             <div className="p-6 text-center">
               <div className="mb-2 text-3xl">🦙</div>
               <div
-                className={`text-xl font-semibold mb-1 ${cartoonSubtitle} cartoon-outline`}
+                className={`text-xl font-semibold mb-1 ${cartoonSubtitle} cartoon-outline text-[#1a1135]`}
               >
                 STAKE & EARN
               </div>
@@ -142,7 +142,7 @@ const ExampleHomePage = () => {
             <div className="p-6 text-center">
               <div className="mb-2 text-3xl">💰</div>
               <div
-                className={`text-xl font-semibold mb-1 ${cartoonSubtitle} cartoon-outline`}
+                className={`text-xl font-semibold mb-1 ${cartoonSubtitle} cartoon-outline text-[#1a1135]`}
               >
                 BOND FOR DISCOUNTS
               </div>
@@ -155,7 +155,7 @@ const ExampleHomePage = () => {
             <div className="p-6 text-center">
               <div className="mb-2 text-3xl">🚩</div>
               <div
-                className={`text-xl font-semibold mb-1 ${cartoonSubtitle} cartoon-outline`}
+                className={`text-xl font-semibold mb-1 ${cartoonSubtitle} cartoon-outline text-[#1a1135]`}
               >
                 CONTROL THE ROUTES
               </div>
@@ -184,14 +184,14 @@ const ExampleHomePage = () => {
             <div className="p-6 text-center">
               <div className="mb-2 text-3xl">⚔️</div>
               <div
-                className={`text-xl font-semibold mb-1 ${cartoonSubtitle} cartoon-outline`}
+                className={`text-xl font-semibold mb-1 ${cartoonSubtitle} cartoon-outline text-[#1a1135]`}
               >
                 EPIC TRADE WARS
               </div>
               <div className="text-[#1a1135]">
                 Battle other barons for control of the most valuable routes.
                 <br />
-                <span className="font-bold text-[#ffaa33] cartoon-outline cartoon-bounce">
+                <span className="font-bold text-[#ff6b9d] cartoon-outline cartoon-bounce">
                   Weekly contests with massive rewards!
                 </span>
               </div>
@@ -201,7 +201,7 @@ const ExampleHomePage = () => {
             <div className="p-6 text-center">
               <div className="mb-2 text-3xl">📊</div>
               <div
-                className={`text-xl font-semibold mb-1 ${cartoonSubtitle} cartoon-outline`}
+                className={`text-xl font-semibold mb-1 ${cartoonSubtitle} cartoon-outline text-[#1a1135]`}
               >
                 TARIFF TACTICS
               </div>
@@ -216,7 +216,7 @@ const ExampleHomePage = () => {
             <div className="p-6 text-center">
               <div className="mb-2 text-3xl">🤝</div>
               <div
-                className={`text-xl font-semibold mb-1 ${cartoonSubtitle} cartoon-outline`}
+                className={`text-xl font-semibold mb-1 ${cartoonSubtitle} cartoon-outline text-[#1a1135]`}
               >
                 FORM ALLIANCES
               </div>
@@ -247,7 +247,7 @@ const ExampleHomePage = () => {
             <div className="p-6 text-center">
               <div className="mb-2 text-3xl">🏛️</div>
               <div
-                className={`text-xl font-semibold mb-1 ${cartoonSubtitle} cartoon-outline`}
+                className={`text-xl font-semibold mb-1 ${cartoonSubtitle} cartoon-outline text-[#1a1135]`}
               >
                 REAL VALUE BACKING
               </div>
@@ -262,7 +262,7 @@ const ExampleHomePage = () => {
             <div className="p-6 text-center">
               <div className="mb-2 text-3xl">💸</div>
               <div
-                className={`text-xl font-semibold mb-1 ${cartoonSubtitle} cartoon-outline`}
+                className={`text-xl font-semibold mb-1 ${cartoonSubtitle} cartoon-outline text-[#1a1135]`}
               >
                 MULTIPLE MONEY STREAMS
               </div>
@@ -275,7 +275,7 @@ const ExampleHomePage = () => {
             <div className="p-6 text-center">
               <div className="mb-2 text-3xl">🧠</div>
               <div
-                className={`text-xl font-semibold mb-1 ${cartoonSubtitle} cartoon-outline`}
+                className={`text-xl font-semibold mb-1 ${cartoonSubtitle} cartoon-outline text-[#1a1135]`}
               >
                 STRATEGY &gt; CAPITAL
               </div>
@@ -302,52 +302,52 @@ const ExampleHomePage = () => {
           JOIN THE REALM
         </h2>
         <p
-          className={`text-lg text-center mb-8 max-w-full  whitespace-normal break-words ${cartoonSubtitle} cartoon-typewriter cartoon-outline`}
+          className={`text-lg text-center mb-8 max-w-full whitespace-normal break-words ${cartoonSubtitle} cartoon-typewriter cartoon-outline`}
         >
           WHERE TRADERS BECOME LEGENDS
         </p>{" "}
         <div className="flex flex-wrap justify-center gap-4 mb-8">
-          <Button className={cartoonBtn} onClick={undefined}>
+          <Button
+            className={`${cartoonBtn} bg-[#ff6b9d] border-[#4fffb0] text-[#1a1135]`}
+            onClick={() =>
+              window.open(
+                "https://realm-finance.gitbook.io/realm-finance",
+                "_blank"
+              )
+            }
+          >
             Documentation
           </Button>
-          <Button className={cartoonBtn} onClick={undefined}>
+          <Button
+            className={`${cartoonBtn} bg-[#d6adff] border-[#4fffb0] text-[#1a1135]`}
+            onClick={() => window.open("https://twitter.com", "_blank")}
+          >
             Twitter
           </Button>
-          <Button className={cartoonBtn} onClick={undefined}>
+          <Button
+            className={`${cartoonBtn} bg-[#4fffb0] border-[#d6adff] text-[#1a1135]`}
+            onClick={() => window.open("https://t.me", "_blank")}
+          >
             Telegram
           </Button>
         </div>
-        {/* <div className="flex flex-wrap justify-center gap-4 mb-4">
-          <Button
-            className={cartoonBtn + " bg-[#ffe7a0] text-[#1a1135]"}
-            onClick={undefined}
-          >
-            Docs
-          </Button>
-          <Button
-            className={cartoonBtn + " bg-[#ffe7a0] text-[#1a1135]"}
-            onClick={undefined}
-          >
-            How to Play
-          </Button>
-          <Button
-            className={cartoonBtn + " bg-[#ffe7a0] text-[#1a1135]"}
-            onClick={undefined}
-          >
-            FAQ
-          </Button>
-        </div> */}
       </motion.section>
 
       {/* Footer */}
-      <footer className="py-8 border-t border-[#ffd84f]/40">
+      <footer className="py-8 border-t border-[#4fffb0]/40">
         <div className="container px-4 mx-auto text-center">
           <div className="flex items-center justify-center gap-4 mb-4">
-            <span className="">Docs</span>
-            <span className=""> How to Play</span>
-            <span className="">FAQ</span>
+            <span className="text-[#d6adff] hover:text-[#ff6b9d] transition-colors cursor-pointer">
+              Docs
+            </span>
+            <span className="text-[#d6adff] hover:text-[#ff6b9d] transition-colors cursor-pointer">
+              How to Play
+            </span>
+            <span className="text-[#d6adff] hover:text-[#ff6b9d] transition-colors cursor-pointer">
+              FAQ
+            </span>
           </div>
-          <p className={`text-[#ffaa33]/80 cartoon-subtitle cartoon-outline`}>
+          <p className={`text-[#4fffb0]/80 cartoon-subtitle cartoon-outline`}>
             © 2025 RealmFinance
           </p>
         </div>
@@ -356,4 +356,4 @@ const ExampleHomePage = () => {
   );
 };
 
-export default ExampleHomePage;
+export default LandingPage;
