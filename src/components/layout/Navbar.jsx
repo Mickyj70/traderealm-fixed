@@ -4,7 +4,7 @@ import { Link, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useWallet } from "../../contextsWalletContext";
 import Button from "../common/Button";
-import Logo from "../../assets/logo.svg"; // Adjust the path to your logo image
+import Logo from "../../assets/updatedlogo.jpg"; // Adjust the path to your logo image
 
 const cartoonBg = `cartoon-bg`;
 const cartoonCard = `cartoon-card cartoon-shadow`;
