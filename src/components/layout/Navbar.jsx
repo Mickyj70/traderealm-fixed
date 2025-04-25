@@ -72,7 +72,7 @@ const Navbar = () => {
           </div>
 
           {/* Wallet Connection */}
-          <div className="flex items-center">
+          {/* <div className="flex items-center">
             {isConnected ? (
               <div className="flex items-center space-x-8">
                 <div className="text-sm text-lavender">
@@ -91,7 +91,7 @@ const Navbar = () => {
                 Connect Wallet
               </Button>
             )}
-          </div>
+          </div> */}
         </div>
       </div>
     </motion.nav>

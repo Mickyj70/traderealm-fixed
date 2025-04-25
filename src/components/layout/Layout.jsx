@@ -157,7 +157,7 @@ const Layout = ({ children }) => {
         {!shouldHideNavAndHeader && (
           <header className="sticky top-0 z-20 border-b bg-deepViolet/50 backdrop-blur-sm border-lavender/20">
             <div className="flex items-center justify-between p-6 mx-auto align-middle">
-              <div className="flex items-center space-x-4">
+              <div className="flex items-center">
                 <span className="text-2xl">
                   <img src={Logo} alt="image" height={50} width={50} />
                 </span>
@@ -168,26 +168,27 @@ const Layout = ({ children }) => {
               </div>
 
               <div className="flex items-center space-x-4">
-                {wallet ? (
-                  <div className="flex items-center space-x-4">
-                    <span className="text-sm text-lavender">
-                      {wallet.slice(0, 6)}...{wallet.slice(-4)}
-                    </span>
+                {location.pathname !== "/" &&
+                  (wallet ? (
+                    <div className="flex items-center space-x-4">
+                      <span className="text-sm text-lavender">
+                        {wallet.slice(0, 6)}...{wallet.slice(-4)}
+                      </span>
+                      <Button
+                        onClick={handleWalletDisconnect}
+                        className="bg-lavender/10 hover:bg-lavender/20 text-lavender"
+                      >
+                        Disconnect
+                      </Button>
+                    </div>
+                  ) : (
                     <Button
-                      onClick={handleWalletDisconnect}
-                      className="bg-lavender/10 hover:bg-lavender/20 text-lavender"
+                      onClick={handleWalletConnect}
+                      className="bg-turquoise text-deepViolet hover:bg-turquoise/80"
                     >
-                      Disconnect
+                      Connect Wallet
                     </Button>
-                  </div>
-                ) : (
-                  <Button
-                    onClick={handleWalletConnect}
-                    className="bg-turquoise text-deepViolet hover:bg-turquoise/80"
-                  >
-                    Connect Wallet
-                  </Button>
-                )}
+                  ))}
               </div>
             </div>
           </header>
