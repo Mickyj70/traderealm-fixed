@@ -7,7 +7,7 @@ import { useWallet } from "../../contexts/WalletContext";
 import { useNotification } from "../../contexts/NotificationContext";
 import Button from "../common/Button";
 import LoadingSpinner from "../common/LoadingSpinner";
-import Logo from "../../assets/updatedlogo.jpg"; // Adjust the path to your logo image
+import Logo from "../../assets/updated-logo.svg"; // Adjust the path to your logo image
 
 // const cartoonTitle = `cartoon-title cartoon-outline cartoon-bounce`;
 

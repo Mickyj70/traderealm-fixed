@@ -89,6 +89,7 @@ const ExampleHomePage = () => {
             <motion.h1
               className={`text-6xl md:text-7xl mb-6 tracking-tight ${cartoonTitle} text-[${colors.teal}]`}
               whileHover="hover"
+              whileInView="hover"
               variants={glitchTextVariants}
             >
               REALM FINANCE
@@ -104,6 +105,11 @@ const ExampleHomePage = () => {
                     scale: 1.05,
                     transition: { duration: 0.2 },
                   }}
+                  whileInView={{
+                    textShadow: "0 0 8px rgba(255, 45, 85, 0.8)",
+                    scale: 1.05,
+                    transition: { duration: 0.2 },
+                  }}
                 >
                   TRADE
                 </motion.span>{" "}
@@ -115,6 +121,11 @@ const ExampleHomePage = () => {
                     scale: 1.05,
                     transition: { duration: 0.2 },
                   }}
+                  whileInView={{
+                    textShadow: "0 0 8px rgba(128, 0, 255, 0.8)",
+                    scale: 1.05,
+                    transition: { duration: 0.2 },
+                  }}
                 >
                   BATTLE
                 </motion.span>{" "}
@@ -122,6 +133,11 @@ const ExampleHomePage = () => {
                 <motion.span
                   className="font-bold text-[#00FFFF] cartoon-outline cartoon-bounce"
                   whileHover={{
+                    textShadow: "0 0 8px rgba(0, 255, 255, 0.8)",
+                    scale: 1.05,
+                    transition: { duration: 0.2 },
+                  }}
+                  whileInView={{
                     textShadow: "0 0 8px rgba(0, 255, 255, 0.8)",
                     scale: 1.05,
                     transition: { duration: 0.2 },
@@ -143,15 +159,16 @@ const ExampleHomePage = () => {
                 </span>
               </div>
             </div>
-            <div className="">
+            <div className="relative">
               <Button
-                className={`mr-4 ${cartoonBtn} bg-[#FF2D55] border-[#00FFFF] text-white hover:bg-[#FF0080] hover:border-[#8000FF] transition-all duration-300`}
-                onClick={() => {
-                  window.location.href = "/council";
-                }}
+                className={`mr-4 ${cartoonBtn} bg-[#FF2D55] border-[#00FFFF] text-white hover:bg-[#FF0080] hover:border-[#8000FF] transition-all duration-300 opacity-60 cursor-not-allowed`}
+                disabled
               >
                 START YOUR EMPIRE
               </Button>
+              <span className="absolute -top-2 left-12 text-[#FFD84F] font-bold z-50 animate-pulse">
+                Coming Soon!!
+              </span>
 
               <Button
                 className={`${cartoonBtn} bg-[#8000FF] border-[#00FFFF] text-white hover:bg-[#6E00FF] hover:border-[#FF2D55] transition-all duration-300`}
