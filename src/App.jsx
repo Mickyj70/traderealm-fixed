@@ -19,7 +19,18 @@ import BaronsLedger from "./pages/BaronsLedger";
 import GrandAssembly from "./pages/GrandAssembly";
 import TradeRealmAppPopups from "./pages/traderealm-popups";
 import TradeRealmAppSimpleWar from "./pages/traderealm-simple-war";
+import TradeRealmApp from "./pages/Presale-page";
+import Dapp from "./pages/DAPP";
+import TradeRealmReferralPage from "./pages/ReferralPage";
+import TradeWarComponent from "./pages/tradewars";
+import AlliancesPage from "./components/presale/alliances";
+import ImportLicensesPage from "./components/presale/licenses";
+import WarRoomComponent from "./components/presale/warroom";
+import TradeRealmAppSupport from "./pages/tradeRealmAppSupport";
+
+//!test page
 import ExampleHomePage from "./pages/example";
+
 import NotFound from "./components/NotFound";
 
 const AnimatedRoutes = () => {
@@ -37,6 +48,18 @@ const AnimatedRoutes = () => {
         <Route path="/assembly" element={<GrandAssembly />} />
         <Route path="/popups" element={<TradeRealmAppPopups />} />
         <Route path="/simple-war" element={<TradeRealmAppSimpleWar />} />
+        <Route path="/presale" element={<TradeRealmApp />} />
+        <Route path="/presale/tradewars" element={<TradeWarComponent />} />
+        <Route path="/presale/alliances" element={<AlliancesPage />} />
+        <Route path="/presale/licenses" element={<ImportLicensesPage />} />
+        <Route
+          path="/presale/tradewars/warroom"
+          element={<WarRoomComponent />}
+        />
+
+        <Route path="/referral" element={<TradeRealmReferralPage />} />
+        <Route path="/dapp" element={<Dapp />} />
+        <Route path="/support" element={<TradeRealmAppSupport />} />
 
         {/* Example route for the Trade Realm app */}
         <Route path="/example" element={<ExampleHomePage />} />

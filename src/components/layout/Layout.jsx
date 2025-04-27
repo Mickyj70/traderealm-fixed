@@ -66,7 +66,18 @@ const Layout = ({ children }) => {
   const isSidebarVisible = isLargeScreen || isNavOpen;
 
   // Pages that should NOT show sidebar or header
-  const hideNavAndHeaderRoutes = ["/simple-war", "/popups"];
+  const hideNavAndHeaderRoutes = [
+    "/simple-war",
+    "/popups",
+    "/presale",
+    "/presale/tradewars",
+    "/presale/alliances",
+    "/presale/licenses",
+    "/presale/tradewars/warroom",
+    "/referral",
+    "/dapp",
+    "/support",
+  ];
   const shouldHideNavAndHeader = hideNavAndHeaderRoutes.includes(
     location.pathname
   );
