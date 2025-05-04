@@ -467,14 +467,18 @@ const ExampleHomePage = () => {
             </Button>
             <Button
               className={`${cartoonBtn} bg-[#8000FF] border-[#00FFFF] text-white hover:bg-[#6E00FF] hover:border-[#FF2D55] transition-all duration-300 relative overflow-hidden group`}
-              onClick={() => window.open("https://twitter.com", "_blank")}
+              onClick={() =>
+                window.open("https://x.com/realmfinance?s=21", "_blank")
+              }
             >
               <span className="relative z-10">Twitter</span>
               <span className="absolute inset-0 bg-gradient-to-r from-[#8000FF] to-[#6E00FF] opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
             </Button>
             <Button
               className={`${cartoonBtn} bg-[#00FFFF] border-[#FF2D55] text-[#000000] hover:bg-[#00CFFF] hover:border-[#8000FF] transition-all duration-300 relative overflow-hidden group`}
-              onClick={() => window.open("https://t.me", "_blank")}
+              onClick={() =>
+                window.open("https://t.me/+6rVr6rsgtxQ5MzE0", "_blank")
+              }
             >
               <span className="relative z-10">Telegram</span>
               <span className="absolute inset-0 bg-gradient-to-r from-[#00FFFF] to-[#00CFFF] opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>

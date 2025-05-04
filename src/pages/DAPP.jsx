@@ -20,7 +20,17 @@ import {
   Bell,
   Clock,
   BarChart,
+  Star,
+  Award,
+  CheckCircle,
+  Sparkles,
+  Gift,
 } from "lucide-react";
+import PresalePage from "./presale/Presale-page";
+import ImportLicensesPage from "../components/presale/licenses";
+// import WarRoomComponent from "../components/presale/warroom";
+import TradeWarComponent from "./tradewars";
+import AlliancesPage from "../components/presale/alliances";
 
 // Main App Component
 const Dapp = () => {
@@ -37,6 +47,7 @@ const Dapp = () => {
   const [tariffRate, setTariffRate] = useState(5);
   const [stakeAmount, setStakeAmount] = useState("");
   const [activeTab, setActiveTab] = useState("routes");
+  const [selectedTier, setSelectedTier] = useState(null);
   const [tradeWarCountdown, setTradeWarCountdown] = useState(
     3 * 24 * 60 * 60 + 17 * 60 * 60 + 22 * 60
   );
@@ -330,6 +341,8 @@ const Dapp = () => {
                   <span>Dashboard</span>
                 </button>
               </li>
+
+              {/* trade routes  */}
               <li>
                 <button
                   onClick={() => setActiveTab("routes")}
@@ -343,6 +356,26 @@ const Dapp = () => {
                   <span>Trade Routes</span>
                 </button>
               </li>
+
+              {/* presale  */}
+              <li>
+                <button
+                  onClick={() => setActiveTab("presale")}
+                  className={`flex w-full items-center gap-3 p-3 rounded-md hover:bg-indigo-800 transition-all ${
+                    activeTab === "presale" ? "bg-indigo-700" : ""
+                  }`}
+                >
+                  <CreditCard size={20} />
+                  <span className="relative">
+                    Presale
+                    <span className="absolute flex w-3 h-3 -top-1 -right-2">
+                      <span className="absolute inline-flex w-full h-full bg-yellow-400 rounded-full opacity-75 animate-ping"></span>
+                      <span className="relative inline-flex w-3 h-3 bg-yellow-500 rounded-full"></span>
+                    </span>
+                  </span>
+                </button>
+              </li>
+
               <li>
                 <button
                   onClick={() => {
@@ -418,6 +451,37 @@ const Dapp = () => {
                   )}
                 </button>
               </li>
+              <li>
+                <button
+                  onClick={() => setActiveTab("supporters")}
+                  className={`flex items-center gap-3 p-3 rounded-md ${
+                    activeTab === "supporters"
+                      ? "bg-indigo-700"
+                      : "hover:bg-indigo-800"
+                  } transition-all`}
+                >
+                  <span className="relative">
+                    <span className="absolute flex w-3 h-3 -top-1 -right-1">
+                      <span className="absolute inline-flex w-full h-full bg-yellow-400 rounded-full opacity-75 animate-ping"></span>
+                      <span className="relative inline-flex w-3 h-3 bg-yellow-500 rounded-full"></span>
+                    </span>
+                    <svg
+                      width="20"
+                      height="20"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    >
+                      <path d="M12 1v4M4.93 6.5l2.83 2.83M1 12h4M4.93 17.5l2.83-2.83M12 23v-4M19.07 17.5l-2.83-2.83M23 12h-4M19.07 6.5l-2.83 2.83" />
+                    </svg>
+                  </span>
+                  <span>Early Supporters</span>
+                </button>
+              </li>
+
               <li>
                 <a
                   href="#"
@@ -561,91 +625,7 @@ const Dapp = () => {
           {/* Trade Wars Tab */}
           {activeTab === "tradewars" && (
             <div className="absolute inset-0 w-full h-full">
-              {/* Trade War Banner */}
-              <div className="absolute z-30 flex items-center gap-3 p-3 transform -translate-x-1/2 bg-red-900 border-2 border-red-700 rounded-md top-4 left-1/2">
-                <Trophy size={24} className="text-yellow-400" />
-                <div>
-                  <h3 className="font-bold text-yellow-400">
-                    Weekly Trade War
-                  </h3>
-                  <div className="text-sm">
-                    Begins in:{" "}
-                    <span className="font-bold text-red-400">
-                      {formatCountdown(tradeWarCountdown)}
-                    </span>
-                  </div>
-                </div>
-              </div>
-
-              {/* Battle lines for war zones */}
-              <svg className="absolute inset-0 z-10 w-full h-full pointer-events-none">
-                {tradeWarZones.map((zone, i) =>
-                  routes
-                    .filter(
-                      (route) =>
-                        Math.abs(route.position.x - zone.position.x) < 30 &&
-                        Math.abs(route.position.y - zone.position.y) < 30
-                    )
-                    .map((target, j) => (
-                      <line
-                        key={`${zone.id}-${target.id}-${j}`}
-                        x1={`${zone.position.x}%`}
-                        y1={`${zone.position.y}%`}
-                        x2={`${target.position.x}%`}
-                        y2={`${target.position.y}%`}
-                        stroke="#FF000050"
-                        strokeWidth="3"
-                        strokeDasharray="10,5"
-                        className="battle-line"
-                      />
-                    ))
-                )}
-              </svg>
-
-              {/* Trade War Zones */}
-              {tradeWarZones.map((zone) => (
-                <div
-                  key={zone.id}
-                  className="absolute z-20 transition-all duration-300 transform -translate-x-1/2 -translate-y-1/2 cursor-pointer hover:scale-110"
-                  style={{
-                    left: `${zone.position.x}%`,
-                    top: `${zone.position.y}%`,
-                  }}
-                  onClick={() => setShowTradeWarModal(true)}
-                >
-                  {/* Zone Node */}
-                  <div className="war-zone-node">
-                    <span className="text-2xl">{zone.pixelIcon}</span>
-                    <div className="absolute w-1 h-1 transform -translate-x-1/2 bg-red-500 rounded-full -bottom-2 left-1/2 pulse-animation"></div>
-                  </div>
-
-                  {/* Zone Label */}
-                  <div className="absolute px-2 py-1 mt-2 text-xs font-semibold transform -translate-x-1/2 bg-red-900 border border-red-700 rounded top-full left-1/2 whitespace-nowrap">
-                    {zone.name}
-                  </div>
-                </div>
-              ))}
-
-              {/* Regular routes in dimmed state */}
-              {routes.map((route) => (
-                <div
-                  key={route.id}
-                  className="absolute transform -translate-x-1/2 -translate-y-1/2 opacity-50 z-15"
-                  style={{
-                    left: `${route.position.x}%`,
-                    top: `${route.position.y}%`,
-                  }}
-                >
-                  {/* Node */}
-                  <div
-                    className={`route-node ${
-                      route.premium ? "premium-route" : ""
-                    }`}
-                  >
-                    <span className="text-2xl">{route.pixelIcon}</span>
-                  </div>
-                </div>
-              ))}
+              <TradeWarComponent />
             </div>
           )}
 
@@ -950,408 +930,24 @@ const Dapp = () => {
             </div>
           )}
 
+          {/* Presale Tab */}
+          {activeTab === "presale" && (
+            <div className="absolute inset-0 w-full h-full p-6 overflow-auto bg-gradient-to-b from-purple-900 to-indigo-950">
+              <PresalePage />
+            </div>
+          )}
+
           {/* Alliances Tab */}
           {activeTab === "alliances" && (
             <div className="absolute inset-0 w-full h-full p-6 overflow-auto">
-              <div className="max-w-4xl mx-auto">
-                <h2 className="mb-6 text-2xl font-bold text-center text-yellow-400">
-                  Trade Alliances
-                </h2>
-
-                <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-                  {/* Shadow Network */}
-                  <div className="p-4 transition-all bg-indigo-900 border-4 border-gray-800 rounded-md hover:border-purple-700">
-                    <div className="flex items-start justify-between mb-3">
-                      <div>
-                        <h3 className="text-lg font-bold">Shadow Network</h3>
-                        <div className="mt-1 text-xs opacity-70">
-                          Luxury Goods Alliance
-                        </div>
-                      </div>
-                      <div className="text-2xl">🕸️</div>
-                    </div>
-
-                    <div className="space-y-2 text-sm">
-                      <div>
-                        <span className="text-xs opacity-70">Requirement:</span>
-                        <div className="p-2 mt-1 text-xs bg-gray-900 rounded">
-                          Hold 1,000+ $SHADOW tokens
-                        </div>
-                      </div>
-
-                      <div>
-                        <span className="text-xs opacity-70">Benefits:</span>
-                        <ul className="mt-1 space-y-1 text-xs text-blue-300 list-disc list-inside">
-                          <li>20% higher transaction volume</li>
-                          <li>Hidden transaction bonuses</li>
-                          <li>Special war mechanics</li>
-                        </ul>
-                      </div>
-
-                      <div className="pt-3">
-                        <button
-                          className="w-full py-2 text-sm font-semibold transition-all bg-gray-800 rounded-md hover:bg-gray-700"
-                          onClick={() => setShowAllianceModal(true)}
-                        >
-                          View Alliance
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* X33 Fleet */}
-                  <div className="p-4 transition-all bg-indigo-900 border-4 border-blue-900 rounded-md hover:border-blue-700">
-                    <div className="flex items-start justify-between mb-3">
-                      <div>
-                        <h3 className="text-lg font-bold">X33 Trade Fleet</h3>
-                        <div className="mt-1 text-xs opacity-70">
-                          Naval Network
-                        </div>
-                      </div>
-                      <div className="text-2xl">⚓</div>
-                    </div>
-
-                    <div className="space-y-2 text-sm">
-                      <div>
-                        <span className="text-xs opacity-70">Requirement:</span>
-                        <div className="p-2 mt-1 text-xs bg-blue-800 bg-opacity-50 rounded">
-                          Hold any X33 tokens
-                        </div>
-                      </div>
-
-                      <div>
-                        <span className="text-xs opacity-70">Benefits:</span>
-                        <ul className="mt-1 space-y-1 text-xs text-blue-300 list-disc list-inside">
-                          <li>10% faster rebasing</li>
-                          <li>Multi-node connections</li>
-                          <li>Defensive war bonuses</li>
-                        </ul>
-                      </div>
-
-                      <div className="pt-3">
-                        <button
-                          className="w-full py-2 text-sm font-semibold transition-all bg-blue-800 rounded-md hover:bg-blue-700"
-                          onClick={() => setShowAllianceModal(true)}
-                        >
-                          Join Alliance
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* DERP Guild */}
-                  <div className="p-4 transition-all bg-indigo-900 border-4 border-purple-900 rounded-md hover:border-purple-700">
-                    <div className="flex items-start justify-between mb-3">
-                      <div>
-                        <h3 className="text-lg font-bold">DERP Guild</h3>
-                        <div className="mt-1 text-xs opacity-70">
-                          Exploration Alliance
-                        </div>
-                      </div>
-                      <div className="text-2xl">🧭</div>
-                    </div>
-
-                    <div className="space-y-2 text-sm">
-                      <div>
-                        <span className="text-xs opacity-70">Requirement:</span>
-                        <div className="p-2 mt-1 text-xs bg-purple-900 bg-opacity-50 rounded">
-                          Hold at least one DERP NFT
-                        </div>
-                      </div>
-
-                      <div>
-                        <span className="text-xs opacity-70">Benefits:</span>
-                        <ul className="mt-1 space-y-1 text-xs text-blue-300 list-disc list-inside">
-                          <li>Random 3x yield multipliers</li>
-                          <li>Special diplomacy options</li>
-                          <li>Surprise rewards</li>
-                        </ul>
-                      </div>
-
-                      <div className="pt-3">
-                        <button
-                          className="w-full py-2 text-sm font-semibold transition-all bg-purple-800 rounded-md hover:bg-purple-700"
-                          onClick={() => setShowAllianceModal(true)}
-                        >
-                          Join Alliance
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Your Alliance */}
-                <div className="p-6 mt-8 bg-indigo-900 border-4 border-indigo-700 rounded-md">
-                  <div className="flex items-start justify-between mb-4">
-                    <div>
-                      <h3 className="text-xl font-bold text-yellow-400">
-                        Your Alliance: Eastern Federation
-                      </h3>
-                      <div className="mt-1 text-sm opacity-70">
-                        Trading Consortium
-                      </div>
-                    </div>
-                    <Crown size={24} className="text-yellow-400" />
-                  </div>
-
-                  <div className="grid grid-cols-1 gap-4 mb-4 md:grid-cols-3">
-                    <div className="p-3 bg-indigo-800 rounded-md">
-                      <div className="mb-1 text-xs opacity-70">Members</div>
-                      <div className="text-xl font-bold">142</div>
-                    </div>
-
-                    <div className="p-3 bg-indigo-800 rounded-md">
-                      <div className="mb-1 text-xs opacity-70">
-                        Total Staked
-                      </div>
-                      <div className="text-xl font-bold">648,500 $BARON</div>
-                    </div>
-
-                    <div className="p-3 bg-indigo-800 rounded-md">
-                      <div className="mb-1 text-xs opacity-70">War Ranking</div>
-                      <div className="text-xl font-bold text-yellow-400">
-                        #3
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="p-4 mb-4 bg-indigo-800 rounded-md">
-                    <h4 className="mb-2 font-semibold">Alliance Bonuses</h4>
-                    <div className="grid grid-cols-1 gap-3 text-sm md:grid-cols-2">
-                      <div className="flex items-center gap-2">
-                        <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                        <span>+5% Staking Rewards</span>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                        <span>-10% Import License Costs</span>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                        <span>+15% Trade War Rewards</span>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                        <span>Access to Eastern Trade Routes</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="flex gap-3">
-                    <button className="flex-1 py-2 font-semibold transition-all bg-indigo-700 rounded-md hover:bg-indigo-600">
-                      Alliance Chat
-                    </button>
-                    <button className="flex-1 py-2 font-semibold transition-all bg-indigo-700 rounded-md hover:bg-indigo-600">
-                      Trade Strategy
-                    </button>
-                  </div>
-                </div>
-              </div>
+              <AlliancesPage />
             </div>
           )}
 
           {/* Import Licenses (Bonding) Tab */}
           {activeTab === "bonds" && (
             <div className="absolute inset-0 w-full h-full p-6 overflow-auto">
-              <div className="max-w-4xl mx-auto">
-                <div className="flex items-center justify-between mb-6">
-                  <h2 className="text-2xl font-bold text-yellow-400">
-                    Import Licenses
-                  </h2>
-                  <div className="p-2 text-sm bg-indigo-900 border-2 border-indigo-700 rounded-md">
-                    Treasury Balance: $2,450,831
-                  </div>
-                </div>
-
-                <div className="p-6 mb-6 bg-indigo-900 border-4 border-indigo-700 rounded-md">
-                  <div className="mb-4 text-center">
-                    <h3 className="text-lg font-bold">
-                      Trade (Bond) Assets for $BARON
-                    </h3>
-                    <p className="mt-1 text-sm opacity-70">
-                      Acquire $BARON tokens at a discount by contributing to the
-                      treasury
-                    </p>
-                  </div>
-
-                  <div className="grid grid-cols-1 gap-6 mt-6 md:grid-cols-2">
-                    {/* ETH Bond */}
-                    <div className="p-4 bg-indigo-800 border border-indigo-700 rounded-md">
-                      <div className="flex justify-between mb-3">
-                        <div className="font-semibold">ETH License</div>
-                        <div className="text-sm text-green-400">
-                          -8.5% Discount
-                        </div>
-                      </div>
-
-                      <div className="space-y-2 text-sm">
-                        <div className="flex justify-between">
-                          <span className="opacity-70">Market Price:</span>
-                          <span>$1.24 per $BARON</span>
-                        </div>
-                        <div className="flex justify-between">
-                          <span className="opacity-70">Bond Price:</span>
-                          <span className="text-green-400">
-                            $1.13 per $BARON
-                          </span>
-                        </div>
-                        <div className="flex justify-between">
-                          <span className="opacity-70">Vesting Period:</span>
-                          <span>5 days linear</span>
-                        </div>
-                      </div>
-
-                      <button className="w-full py-2 mt-4 font-semibold transition-all bg-indigo-700 rounded-md hover:bg-indigo-600">
-                        Purchase License
-                      </button>
-                    </div>
-
-                    {/* DAI Bond */}
-                    <div className="p-4 bg-indigo-800 border border-indigo-700 rounded-md">
-                      <div className="flex justify-between mb-3">
-                        <div className="font-semibold">DAI License</div>
-                        <div className="text-sm text-green-400">
-                          -7.2% Discount
-                        </div>
-                      </div>
-
-                      <div className="space-y-2 text-sm">
-                        <div className="flex justify-between">
-                          <span className="opacity-70">Market Price:</span>
-                          <span>$1.24 per $BARON</span>
-                        </div>
-                        <div className="flex justify-between">
-                          <span className="opacity-70">Bond Price:</span>
-                          <span className="text-green-400">
-                            $1.15 per $BARON
-                          </span>
-                        </div>
-                        <div className="flex justify-between">
-                          <span className="opacity-70">Vesting Period:</span>
-                          <span>5 days linear</span>
-                        </div>
-                      </div>
-
-                      <button className="w-full py-2 mt-4 font-semibold transition-all bg-indigo-700 rounded-md hover:bg-indigo-600">
-                        Purchase License
-                      </button>
-                    </div>
-
-                    {/* LP Bond */}
-                    <div className="p-4 bg-indigo-800 border border-indigo-700 rounded-md">
-                      <div className="flex justify-between mb-3">
-                        <div className="font-semibold">
-                          BARON-ETH LP License
-                        </div>
-                        <div className="text-sm text-green-400">
-                          -12.4% Discount
-                        </div>
-                      </div>
-
-                      <div className="space-y-2 text-sm">
-                        <div className="flex justify-between">
-                          <span className="opacity-70">Market Price:</span>
-                          <span>$1.24 per $BARON</span>
-                        </div>
-                        <div className="flex justify-between">
-                          <span className="opacity-70">Bond Price:</span>
-                          <span className="text-green-400">
-                            $1.09 per $BARON
-                          </span>
-                        </div>
-                        <div className="flex justify-between">
-                          <span className="opacity-70">Vesting Period:</span>
-                          <span>5 days linear</span>
-                        </div>
-                      </div>
-
-                      <button className="w-full py-2 mt-4 font-semibold transition-all bg-green-700 rounded-md hover:bg-green-600">
-                        Best Value ✓
-                      </button>
-                    </div>
-
-                    {/* USDC Bond */}
-                    <div className="p-4 bg-indigo-800 border border-indigo-700 rounded-md">
-                      <div className="flex justify-between mb-3">
-                        <div className="font-semibold">USDC License</div>
-                        <div className="text-sm text-green-400">
-                          -6.8% Discount
-                        </div>
-                      </div>
-
-                      <div className="space-y-2 text-sm">
-                        <div className="flex justify-between">
-                          <span className="opacity-70">Market Price:</span>
-                          <span>$1.24 per $BARON</span>
-                        </div>
-                        <div className="flex justify-between">
-                          <span className="opacity-70">Bond Price:</span>
-                          <span className="text-green-400">
-                            $1.16 per $BARON
-                          </span>
-                        </div>
-                        <div className="flex justify-between">
-                          <span className="opacity-70">Vesting Period:</span>
-                          <span>5 days linear</span>
-                        </div>
-                      </div>
-
-                      <button className="w-full py-2 mt-4 font-semibold transition-all bg-indigo-700 rounded-md hover:bg-indigo-600">
-                        Purchase License
-                      </button>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Current Bonds */}
-                <div className="p-6 bg-indigo-900 border-4 border-indigo-700 rounded-md">
-                  <h3 className="mb-4 text-lg font-bold text-yellow-400">
-                    Your Active Licenses
-                  </h3>
-
-                  <div className="overflow-x-auto">
-                    <table className="w-full text-sm">
-                      <thead>
-                        <tr className="border-b border-indigo-700">
-                          <th className="pb-2 text-left">Type</th>
-                          <th className="pb-2 text-right">Amount</th>
-                          <th className="pb-2 text-right">Vested</th>
-                          <th className="pb-2 text-right">Claimable</th>
-                          <th className="pb-2 text-right">Actions</th>
-                        </tr>
-                      </thead>
-                      <tbody className="divide-y divide-indigo-800">
-                        <tr>
-                          <td className="py-3">ETH License</td>
-                          <td className="py-3 text-right">320 $BARON</td>
-                          <td className="py-3 text-right">65%</td>
-                          <td className="py-3 text-right text-green-400">
-                            208 $BARON
-                          </td>
-                          <td className="py-3 text-right">
-                            <button className="px-2 py-1 text-xs font-semibold bg-green-700 rounded hover:bg-green-600">
-                              Claim
-                            </button>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td className="py-3">BARON-ETH LP</td>
-                          <td className="py-3 text-right">750 $BARON</td>
-                          <td className="py-3 text-right">32%</td>
-                          <td className="py-3 text-right text-green-400">
-                            240 $BARON
-                          </td>
-                          <td className="py-3 text-right">
-                            <button className="px-2 py-1 text-xs font-semibold bg-green-700 rounded hover:bg-green-600">
-                              Claim
-                            </button>
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-              </div>
+              <ImportLicensesPage />
             </div>
           )}
 
@@ -1430,6 +1026,777 @@ const Dapp = () => {
                   >
                     Set Tariffs
                   </button>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* support page */}
+          {activeTab === "supporters" && (
+            <div className="absolute inset-0 w-full h-full overflow-auto bg-gradient-to-b from-purple-900 to-indigo-950">
+              <div className="max-w-5xl px-4 py-8 mx-auto">
+                {/* Header with sparkling effects */}
+                <div className="relative mb-8 text-center">
+                  <h2 className="mb-2 text-3xl font-bold text-yellow-400">
+                    Early Supporter Program
+                  </h2>
+                  <p className="text-lg text-blue-200">
+                    Join the founding community of Trade Barons!
+                  </p>
+
+                  {/* Decorative elements */}
+                  <div className="absolute text-yellow-500 -top-4 left-1/4 animate-pulse">
+                    ✨
+                  </div>
+                  <div
+                    className="absolute top-0 text-yellow-500 right-1/4 animate-pulse"
+                    style={{ animationDelay: "0.5s" }}
+                  >
+                    ✨
+                  </div>
+                  <div
+                    className="absolute text-yellow-500 top-8 left-1/3 animate-pulse"
+                    style={{ animationDelay: "1s" }}
+                  >
+                    ✨
+                  </div>
+                  <div
+                    className="absolute text-yellow-500 -bottom-4 right-1/3 animate-pulse"
+                    style={{ animationDelay: "1.5s" }}
+                  >
+                    ✨
+                  </div>
+                </div>
+
+                {/* Intro section */}
+                <div className="p-6 mb-8 bg-indigo-900 border-2 border-indigo-700 rounded-lg bg-opacity-70">
+                  <div className="flex items-start">
+                    <Gift
+                      className="flex-shrink-0 mr-4 text-yellow-400"
+                      size={36}
+                    />
+                    <div>
+                      <h3 className="mb-2 text-xl font-bold text-yellow-400">
+                        Shape the Future of Realm Finance!
+                      </h3>
+                      <p className="mb-4 text-blue-200">
+                        Early explorers don't just get better rewards - they
+                        help shape the world! From naming trade routes to
+                        suggesting future features, our founding Barons are
+                        writing the first chapters of this story together.
+                      </p>
+                      <div className="flex justify-center mt-6">
+                        <button className="px-6 py-3 font-bold text-black transition-transform transform rounded-md bg-gradient-to-r from-yellow-500 to-yellow-600 hover:scale-105 hover:shadow-glow">
+                          Join the Testnet
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Tier Selection */}
+                <h3 className="mb-4 text-xl font-bold text-center text-yellow-400">
+                  Tiered Benefits System
+                </h3>
+                <p className="mb-6 text-center text-blue-200">
+                  Your rewards scale with your early participation - choose your
+                  adventure level!
+                </p>
+
+                <div className="grid grid-cols-1 gap-4 mb-8 md:grid-cols-2 lg:grid-cols-4">
+                  {/* Diamond Tier */}
+                  <div
+                    className={`relative bg-indigo-900 bg-opacity-70 rounded-lg border-2 ${
+                      selectedTier === "diamond"
+                        ? "border-yellow-400 shadow-glow"
+                        : "border-indigo-700"
+                    } p-4 cursor-pointer transition-all hover:shadow-lg`}
+                    onClick={() => setSelectedTier("diamond")}
+                  >
+                    <div className="absolute -top-3 -right-3">
+                      <div className="p-1 bg-indigo-800 rounded-full">
+                        <Sparkles size={20} className="text-blue-200" />
+                      </div>
+                    </div>
+                    <div className="mb-3 text-center">
+                      <div className="inline-block p-2 bg-blue-900 rounded-full">
+                        <span className="text-3xl">💎</span>
+                      </div>
+                      <h4 className="mt-2 text-lg font-bold text-blue-200">
+                        Diamond Tier
+                      </h4>
+                    </div>
+                    <div className="text-sm text-blue-300">
+                      <p className="mb-1 font-semibold">Qualification:</p>
+                      <p className="mb-2">
+                        Large presale participants + active testnet users (top
+                        5%)
+                      </p>
+                      <p className="mb-1 font-semibold">Key Benefits:</p>
+                      <ul className="list-disc list-inside">
+                        <li>20% bonus APY (90 days)</li>
+                        <li>15% reduced stake requirements</li>
+                        <li>Private strategy sessions</li>
+                      </ul>
+                    </div>
+                  </div>
+
+                  {/* Gold Tier */}
+                  <div
+                    className={`relative bg-indigo-900 bg-opacity-70 rounded-lg border-2 ${
+                      selectedTier === "gold"
+                        ? "border-yellow-400 shadow-glow"
+                        : "border-indigo-700"
+                    } p-4 cursor-pointer transition-all hover:shadow-lg`}
+                    onClick={() => setSelectedTier("gold")}
+                  >
+                    <div className="mb-3 text-center">
+                      <div className="inline-block p-2 bg-blue-900 rounded-full">
+                        <span className="text-3xl">🏆</span>
+                      </div>
+                      <h4 className="mt-2 text-lg font-bold text-blue-200">
+                        Gold Tier
+                      </h4>
+                    </div>
+                    <div className="text-sm text-blue-300">
+                      <p className="mb-1 font-semibold">Qualification:</p>
+                      <p className="mb-2">
+                        Medium presale participants + regular testnet users
+                        (next 15%)
+                      </p>
+                      <p className="mb-1 font-semibold">Key Benefits:</p>
+                      <ul className="list-disc list-inside">
+                        <li>15% bonus APY (60 days)</li>
+                        <li>10% reduced stake requirements</li>
+                        <li>Early feature access (7 days)</li>
+                      </ul>
+                    </div>
+                  </div>
+
+                  {/* Silver Tier */}
+                  <div
+                    className={`relative bg-indigo-900 bg-opacity-70 rounded-lg border-2 ${
+                      selectedTier === "silver"
+                        ? "border-yellow-400 shadow-glow"
+                        : "border-indigo-700"
+                    } p-4 cursor-pointer transition-all hover:shadow-lg`}
+                    onClick={() => setSelectedTier("silver")}
+                  >
+                    <div className="mb-3 text-center">
+                      <div className="inline-block p-2 bg-blue-900 rounded-full">
+                        <span className="text-3xl">🥈</span>
+                      </div>
+                      <h4 className="mt-2 text-lg font-bold text-blue-200">
+                        Silver Tier
+                      </h4>
+                    </div>
+                    <div className="text-sm text-blue-300">
+                      <p className="mb-1 font-semibold">Qualification:</p>
+                      <p className="mb-2">
+                        Small presale participants or active testnet users (next
+                        30%)
+                      </p>
+                      <p className="mb-1 font-semibold">Key Benefits:</p>
+                      <ul className="list-disc list-inside">
+                        <li>10% bonus APY (30 days)</li>
+                        <li>5% reduced stake requirements</li>
+                        <li>Early feature notifications</li>
+                      </ul>
+                    </div>
+                  </div>
+
+                  {/* Bronze Tier */}
+                  <div
+                    className={`relative bg-indigo-900 bg-opacity-70 rounded-lg border-2 ${
+                      selectedTier === "bronze"
+                        ? "border-yellow-400 shadow-glow"
+                        : "border-indigo-700"
+                    } p-4 cursor-pointer transition-all hover:shadow-lg`}
+                    onClick={() => setSelectedTier("bronze")}
+                  >
+                    <div className="mb-3 text-center">
+                      <div className="inline-block p-2 bg-blue-900 rounded-full">
+                        <span className="text-3xl">🥉</span>
+                      </div>
+                      <h4 className="mt-2 text-lg font-bold text-blue-200">
+                        Bronze Tier
+                      </h4>
+                    </div>
+                    <div className="text-sm text-blue-300">
+                      <p className="mb-1 font-semibold">Qualification:</p>
+                      <p className="mb-2">
+                        Any presale participant or testnet user (remaining 50%)
+                      </p>
+                      <p className="mb-1 font-semibold">Key Benefits:</p>
+                      <ul className="list-disc list-inside">
+                        <li>5% bonus APY (14 days)</li>
+                        <li>Special profile badge</li>
+                        <li>Early supporter recognition</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Selected Tier Details */}
+                {selectedTier && (
+                  <div className="p-6 mb-8 bg-indigo-800 border-2 border-indigo-600 rounded-lg animate-fadeIn">
+                    <h3 className="mb-4 text-xl font-bold text-yellow-400">
+                      {selectedTier === "diamond" && "Diamond Tier Details"}
+                      {selectedTier === "gold" && "Gold Tier Details"}
+                      {selectedTier === "silver" && "Silver Tier Details"}
+                      {selectedTier === "bronze" && "Bronze Tier Details"}
+                    </h3>
+
+                    <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+                      <div className="p-4 bg-indigo-900 rounded-md">
+                        <div className="flex items-center mb-3">
+                          <Trophy className="mr-2 text-yellow-400" size={20} />
+                          <h4 className="font-bold text-blue-200">
+                            Staking Rewards
+                          </h4>
+                        </div>
+                        <ul className="space-y-2 text-sm text-blue-300">
+                          {selectedTier === "diamond" && (
+                            <>
+                              <li className="flex items-start">
+                                <CheckCircle
+                                  className="flex-shrink-0 mt-1 mr-2 text-green-400"
+                                  size={16}
+                                />
+                                <span>
+                                  20% bonus on initial staking APY for 90 days
+                                </span>
+                              </li>
+                              <li className="flex items-start">
+                                <CheckCircle
+                                  className="flex-shrink-0 mt-1 mr-2 text-green-400"
+                                  size={16}
+                                />
+                                <span>Priority rebase processing</span>
+                              </li>
+                              <li className="flex items-start">
+                                <CheckCircle
+                                  className="flex-shrink-0 mt-1 mr-2 text-green-400"
+                                  size={16}
+                                />
+                                <span>
+                                  Bonus yield multiplier during Trade Wars
+                                </span>
+                              </li>
+                            </>
+                          )}
+                          {selectedTier === "gold" && (
+                            <>
+                              <li className="flex items-start">
+                                <CheckCircle
+                                  className="flex-shrink-0 mt-1 mr-2 text-green-400"
+                                  size={16}
+                                />
+                                <span>
+                                  15% bonus on initial staking APY for 60 days
+                                </span>
+                              </li>
+                              <li className="flex items-start">
+                                <CheckCircle
+                                  className="flex-shrink-0 mt-1 mr-2 text-green-400"
+                                  size={16}
+                                />
+                                <span>
+                                  Enhanced rebase rates during peak hours
+                                </span>
+                              </li>
+                            </>
+                          )}
+                          {selectedTier === "silver" && (
+                            <>
+                              <li className="flex items-start">
+                                <CheckCircle
+                                  className="flex-shrink-0 mt-1 mr-2 text-green-400"
+                                  size={16}
+                                />
+                                <span>
+                                  10% bonus on initial staking APY for 30 days
+                                </span>
+                              </li>
+                              <li className="flex items-start">
+                                <CheckCircle
+                                  className="flex-shrink-0 mt-1 mr-2 text-green-400"
+                                  size={16}
+                                />
+                                <span>Special weekend boost events</span>
+                              </li>
+                            </>
+                          )}
+                          {selectedTier === "bronze" && (
+                            <>
+                              <li className="flex items-start">
+                                <CheckCircle
+                                  className="flex-shrink-0 mt-1 mr-2 text-green-400"
+                                  size={16}
+                                />
+                                <span>
+                                  5% bonus on initial staking APY for 14 days
+                                </span>
+                              </li>
+                              <li className="flex items-start">
+                                <CheckCircle
+                                  className="flex-shrink-0 mt-1 mr-2 text-green-400"
+                                  size={16}
+                                />
+                                <span>One-time bonus reward event</span>
+                              </li>
+                            </>
+                          )}
+                        </ul>
+                      </div>
+
+                      <div className="p-4 bg-indigo-900 rounded-md">
+                        <div className="flex items-center mb-3">
+                          <Map className="mr-2 text-yellow-400" size={20} />
+                          <h4 className="font-bold text-blue-200">
+                            Trade Route Benefits
+                          </h4>
+                        </div>
+                        <ul className="space-y-2 text-sm text-blue-300">
+                          {selectedTier === "diamond" && (
+                            <>
+                              <li className="flex items-start">
+                                <CheckCircle
+                                  className="flex-shrink-0 mt-1 mr-2 text-green-400"
+                                  size={16}
+                                />
+                                <span>
+                                  15% reduction on minimum stake requirements
+                                  for all routes
+                                </span>
+                              </li>
+                              <li className="flex items-start">
+                                <CheckCircle
+                                  className="flex-shrink-0 mt-1 mr-2 text-green-400"
+                                  size={16}
+                                />
+                                <span>
+                                  First access to new trade routes (14-day
+                                  exclusivity)
+                                </span>
+                              </li>
+                              <li className="flex items-start">
+                                <CheckCircle
+                                  className="flex-shrink-0 mt-1 mr-2 text-green-400"
+                                  size={16}
+                                />
+                                <span>
+                                  Ability to name one seasonal trade route
+                                </span>
+                              </li>
+                            </>
+                          )}
+                          {selectedTier === "gold" && (
+                            <>
+                              <li className="flex items-start">
+                                <CheckCircle
+                                  className="flex-shrink-0 mt-1 mr-2 text-green-400"
+                                  size={16}
+                                />
+                                <span>
+                                  10% reduction on minimum stake requirements
+                                  for standard routes
+                                </span>
+                              </li>
+                              <li className="flex items-start">
+                                <CheckCircle
+                                  className="flex-shrink-0 mt-1 mr-2 text-green-400"
+                                  size={16}
+                                />
+                                <span>
+                                  Early access to new trade routes (7 days)
+                                </span>
+                              </li>
+                              <li className="flex items-start">
+                                <CheckCircle
+                                  className="flex-shrink-0 mt-1 mr-2 text-green-400"
+                                  size={16}
+                                />
+                                <span>Random route discovery bonuses</span>
+                              </li>
+                            </>
+                          )}
+                          {selectedTier === "silver" && (
+                            <>
+                              <li className="flex items-start">
+                                <CheckCircle
+                                  className="flex-shrink-0 mt-1 mr-2 text-green-400"
+                                  size={16}
+                                />
+                                <span>
+                                  5% reduction on minimum stake requirements for
+                                  standard routes
+                                </span>
+                              </li>
+                              <li className="flex items-start">
+                                <CheckCircle
+                                  className="flex-shrink-0 mt-1 mr-2 text-green-400"
+                                  size={16}
+                                />
+                                <span>
+                                  Special route events with bonus yields
+                                </span>
+                              </li>
+                            </>
+                          )}
+                          {selectedTier === "bronze" && (
+                            <>
+                              <li className="flex items-start">
+                                <CheckCircle
+                                  className="flex-shrink-0 mt-1 mr-2 text-green-400"
+                                  size={16}
+                                />
+                                <span>
+                                  Access to special "Newcomer's Route" for first
+                                  30 days
+                                </span>
+                              </li>
+                              <li className="flex items-start">
+                                <CheckCircle
+                                  className="flex-shrink-0 mt-1 mr-2 text-green-400"
+                                  size={16}
+                                />
+                                <span>One-time route control boost</span>
+                              </li>
+                            </>
+                          )}
+                        </ul>
+                      </div>
+
+                      <div className="p-4 bg-indigo-900 rounded-md">
+                        <div className="flex items-center mb-3">
+                          <Users className="mr-2 text-yellow-400" size={20} />
+                          <h4 className="font-bold text-blue-200">
+                            Community & Governance
+                          </h4>
+                        </div>
+                        <ul className="space-y-2 text-sm text-blue-300">
+                          {selectedTier === "diamond" && (
+                            <>
+                              <li className="flex items-start">
+                                <CheckCircle
+                                  className="flex-shrink-0 mt-1 mr-2 text-green-400"
+                                  size={16}
+                                />
+                                <span>
+                                  Exclusive access to private Telegram strategy
+                                  sessions
+                                </span>
+                              </li>
+                              <li className="flex items-start">
+                                <CheckCircle
+                                  className="flex-shrink-0 mt-1 mr-2 text-green-400"
+                                  size={16}
+                                />
+                                <span>
+                                  Monthly roundtable discussions with core team
+                                </span>
+                              </li>
+                              <li className="flex items-start">
+                                <CheckCircle
+                                  className="flex-shrink-0 mt-1 mr-2 text-green-400"
+                                  size={16}
+                                />
+                                <span>Diamond supporter badge and NFT</span>
+                              </li>
+                            </>
+                          )}
+                          {selectedTier === "gold" && (
+                            <>
+                              <li className="flex items-start">
+                                <CheckCircle
+                                  className="flex-shrink-0 mt-1 mr-2 text-green-400"
+                                  size={16}
+                                />
+                                <span>Enhanced in-app analytics features</span>
+                              </li>
+                              <li className="flex items-start">
+                                <CheckCircle
+                                  className="flex-shrink-0 mt-1 mr-2 text-green-400"
+                                  size={16}
+                                />
+                                <span>
+                                  Quarterly strategy sessions with the team
+                                </span>
+                              </li>
+                              <li className="flex items-start">
+                                <CheckCircle
+                                  className="flex-shrink-0 mt-1 mr-2 text-green-400"
+                                  size={16}
+                                />
+                                <span>Gold supporter badge</span>
+                              </li>
+                            </>
+                          )}
+                          {selectedTier === "silver" && (
+                            <>
+                              <li className="flex items-start">
+                                <CheckCircle
+                                  className="flex-shrink-0 mt-1 mr-2 text-green-400"
+                                  size={16}
+                                />
+                                <span>
+                                  Early notification of upcoming features and
+                                  events
+                                </span>
+                              </li>
+                              <li className="flex items-start">
+                                <CheckCircle
+                                  className="flex-shrink-0 mt-1 mr-2 text-green-400"
+                                  size={16}
+                                />
+                                <span>Silver supporter badge</span>
+                              </li>
+                              <li className="flex items-start">
+                                <CheckCircle
+                                  className="flex-shrink-0 mt-1 mr-2 text-green-400"
+                                  size={16}
+                                />
+                                <span>
+                                  Enhanced voting power (1.5x) for first 3
+                                  months
+                                </span>
+                              </li>
+                            </>
+                          )}
+                          {selectedTier === "bronze" && (
+                            <>
+                              <li className="flex items-start">
+                                <CheckCircle
+                                  className="flex-shrink-0 mt-1 mr-2 text-green-400"
+                                  size={16}
+                                />
+                                <span>
+                                  Special profile badge in app and Telegram
+                                </span>
+                              </li>
+                              <li className="flex items-start">
+                                <CheckCircle
+                                  className="flex-shrink-0 mt-1 mr-2 text-green-400"
+                                  size={16}
+                                />
+                                <span>
+                                  Access to early supporter community channels
+                                </span>
+                              </li>
+                              <li className="flex items-start">
+                                <CheckCircle
+                                  className="flex-shrink-0 mt-1 mr-2 text-green-400"
+                                  size={16}
+                                />
+                                <span>
+                                  Voting power boost on first proposal
+                                </span>
+                              </li>
+                            </>
+                          )}
+                        </ul>
+                      </div>
+                    </div>
+
+                    <div className="flex justify-center mt-6">
+                      <button className="px-6 py-3 font-bold text-black transition-transform transform rounded-md bg-gradient-to-r from-yellow-500 to-yellow-600 hover:scale-105 hover:shadow-glow">
+                        {selectedTier === "diamond" && "Apply for Diamond Tier"}
+                        {selectedTier === "gold" && "Reserve Gold Tier Spot"}
+                        {selectedTier === "silver" && "Join Silver Tier"}
+                        {selectedTier === "bronze" && "Secure Bronze Tier"}
+                      </button>
+                    </div>
+                  </div>
+                )}
+
+                {/* Point System */}
+                <div className="p-6 mb-8 bg-indigo-900 border-2 border-indigo-700 rounded-lg bg-opacity-70">
+                  <h3 className="mb-4 text-xl font-bold text-yellow-400">
+                    Point System: Earn Your Way Up!
+                  </h3>
+
+                  <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+                    <div className="p-4 bg-indigo-800 rounded-md">
+                      <div className="flex items-center mb-3">
+                        <div className="flex items-center justify-center w-10 h-10 mr-3 text-xl bg-blue-900 rounded-full">
+                          🎯
+                        </div>
+                        <h4 className="font-bold text-blue-200">
+                          Activity Points
+                        </h4>
+                      </div>
+                      <ul className="space-y-2 text-sm text-blue-300">
+                        <li>• Daily login streaks (5pts/day)</li>
+                        <li>• Testnet transactions (10pts each)</li>
+                        <li>• Completing challenges (25pts each)</li>
+                        <li>• Trading volume (1pt per 100 $BARON)</li>
+                        <li>• Route management (15pts/day)</li>
+                      </ul>
+                      <div className="h-3 mt-4 overflow-hidden bg-indigo-900 rounded-full">
+                        <div
+                          className="h-full bg-green-500"
+                          style={{ width: "65%" }}
+                        ></div>
+                      </div>
+                      <div className="mt-1 text-xs text-right text-blue-300">
+                        65/100 points
+                      </div>
+                    </div>
+
+                    <div className="p-4 bg-indigo-800 rounded-md">
+                      <div className="flex items-center mb-3">
+                        <div className="flex items-center justify-center w-10 h-10 mr-3 text-xl bg-blue-900 rounded-full">
+                          🧠
+                        </div>
+                        <h4 className="font-bold text-blue-200">
+                          Quality Points
+                        </h4>
+                      </div>
+                      <ul className="space-y-2 text-sm text-blue-300">
+                        <li>• Bug reports (50pts each)</li>
+                        <li>• Feature suggestions (25pts if implemented)</li>
+                        <li>• Documentation help (30pts per section)</li>
+                        <li>• Interface feedback (15pts per item)</li>
+                        <li>• Strategy sharing (20pts per strategy)</li>
+                      </ul>
+                      <div className="h-3 mt-4 overflow-hidden bg-indigo-900 rounded-full">
+                        <div
+                          className="h-full bg-green-500"
+                          style={{ width: "40%" }}
+                        ></div>
+                      </div>
+                      <div className="mt-1 text-xs text-right text-blue-300">
+                        40/100 points
+                      </div>
+                    </div>
+
+                    <div className="p-4 bg-indigo-800 rounded-md">
+                      <div className="flex items-center mb-3">
+                        <div className="flex items-center justify-center w-10 h-10 mr-3 text-xl bg-blue-900 rounded-full">
+                          👥
+                        </div>
+                        <h4 className="font-bold text-blue-200">
+                          Community Points
+                        </h4>
+                      </div>
+                      <ul className="space-y-2 text-sm text-blue-300">
+                        <li>• Referrals (50pts per active user)</li>
+                        <li>• Helping others (15pts per instance)</li>
+                        <li>• Creating content (75pts per piece)</li>
+                        <li>• Community events (30pts per event)</li>
+                        <li>• Social media engagement (5pts per action)</li>
+                      </ul>
+                      <div className="h-3 mt-4 overflow-hidden bg-indigo-900 rounded-full">
+                        <div
+                          className="h-full bg-green-500"
+                          style={{ width: "25%" }}
+                        ></div>
+                      </div>
+                      <div className="mt-1 text-xs text-right text-blue-300">
+                        25/100 points
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="mt-6 text-center">
+                    <p className="mb-4 text-blue-200">
+                      Your current tier projection based on points:{" "}
+                      <span className="font-bold text-yellow-400">
+                        Silver Tier
+                      </span>
+                    </p>
+                    <div className="h-4 max-w-lg mx-auto overflow-hidden bg-indigo-800 rounded-full">
+                      <div
+                        className="h-full bg-gradient-to-r from-blue-500 via-yellow-500 to-yellow-300"
+                        style={{ width: "43%" }}
+                      ></div>
+                    </div>
+                    <div className="flex justify-between max-w-lg mx-auto mt-1 text-xs text-blue-300">
+                      <span>Bronze</span>
+                      <span>Silver</span>
+                      <span>Gold</span>
+                      <span>Diamond</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Governance Access */}
+                <div className="p-6 mb-8 bg-indigo-900 border-2 border-indigo-700 rounded-lg bg-opacity-70">
+                  <h3 className="mb-4 text-xl font-bold text-yellow-400">
+                    Community Governance Access
+                  </h3>
+                  <p className="mb-4 text-blue-200">
+                    Early supporters get a louder voice in shaping the Realm's
+                    future!
+                  </p>
+
+                  <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+                    <div className="p-4 bg-indigo-800 rounded-md">
+                      <div className="flex items-center mb-3">
+                        <Trophy className="mr-2 text-yellow-400" size={20} />
+                        <h4 className="font-bold text-blue-200">
+                          Proposal Rights
+                        </h4>
+                      </div>
+                      <p className="text-sm text-blue-300">
+                        Lower thresholds for submitting governance proposals -
+                        your ideas matter! Early supporters can submit proposals
+                        with as little as 500 $BARON compared to the standard
+                        2,500.
+                      </p>
+                    </div>
+
+                    <div className="p-4 bg-indigo-800 rounded-md">
+                      <div className="flex items-center mb-3">
+                        <Award className="mr-2 text-yellow-400" size={20} />
+                        <h4 className="font-bold text-blue-200">
+                          Voting Power
+                        </h4>
+                      </div>
+                      <p className="text-sm text-blue-300">
+                        Weighted voting multiplier during the first 6 months -
+                        your vote counts more! Diamond tier supporters get 2.5x
+                        voting power, with Gold (2x), Silver (1.5x) and Bronze
+                        (1.25x) tiers following.
+                      </p>
+                    </div>
+
+                    <div className="p-4 bg-indigo-800 rounded-md">
+                      <div className="flex items-center mb-3">
+                        <Users className="mr-2 text-yellow-400" size={20} />
+                        <h4 className="font-bold text-blue-200">
+                          Direct Access
+                        </h4>
+                      </div>
+                      <p className="text-sm text-blue-300">
+                        Monthly roundtable discussions with the core team - talk
+                        to the architects! Diamond and Gold tier supporters get
+                        invited to exclusive strategy sessions where key
+                        protocol decisions are discussed.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Call to Action */}
+                <div className="text-center">
+                  <h3 className="mb-4 text-xl font-bold text-yellow-400">
+                    Ready to Shape the Future?
+                  </h3>
+                  <p className="mb-6 text-blue-200">
+                    Join our testnet today and secure your place in Realm
+                    Finance history!
+                  </p>
+                  <button className="px-8 py-4 font-bold text-white transition-transform transform rounded-md shadow-lg bg-gradient-to-r from-purple-600 to-blue-600 hover:scale-105 hover:shadow-glow">
+                    Register for Testnet
+                  </button>
+                  <div className="mt-4 text-sm text-blue-300">
+                    Limited spots available. Testnet starts in:{" "}
+                    <span className="font-mono text-yellow-400">
+                      2d 14h 35m
+                    </span>
+                  </div>
                 </div>
               </div>
             </div>
