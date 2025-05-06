@@ -2,20 +2,67 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/updated-logo.svg" />
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="./src/assets/updated-logo.svg"
+    />
     <link
       href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
       rel="stylesheet"
     />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- SEO Meta Tags -->
+    <meta
+      name="description"
+      content="Realm Finance DAO - Decentralized trading platform for financial markets with real-time data and analysis tools."
+    />
+    <meta
+      name="keywords"
+      content="trading, finance, DAO, decentralized, investments, stocks, cryptocurrency, market analysis"
+    />
+    <meta name="author" content="Realm Finance DAO Team" />
+    <!-- Open Graph / Social Media Meta Tags -->
+    <meta
+      property="og:title"
+      content="Realm Finance DAO - Decentralized Trading Platform"
+    />
+    <meta
+      property="og:description"
+      content="Advanced decentralized trading platform for financial markets with real-time data."
+    />
+    <meta
+      property="og:image"
+      content="https://www.realmfinancedao.xyz/social-preview-image.jpg"
+    />
+    <meta property="og:url" content="https://www.realmfinancedao.xyz" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <!-- Canonical URL -->
+    <meta rel="canonical" href="https://www.realmfinancedao.xyz" />
+    <meta http-equiv="Cache-Control" content="max-age=86400, must-revalidate" />
     <style>
       @import url("https://fonts.googleapis.com/css2?family=Bangers&display=swap");
       @import url("https://fonts.googleapis.com/css2?family=Bangers&family=Orbitron:wght@400..900&display=swap");
     </style>
-    <title>Realm Finance</title>
+    <title>Realm Finance DAO | Decentralized Trading Platform</title>
   </head>
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Realm Finance DAO",
+        "description": "Decentralized trading platform for financial markets",
+        "applicationCategory": "FinanceApplication",
+        "operatingSystem": "Web",
+        "url": "https://www.realmfinancedao.xyz",
+        "offers": {
+          "@type": "Offer",
+          "category": "Decentralized Finance"
+        }
+      }
+    </script>
   </body>
 </html>

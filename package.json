@@ -19,6 +19,7 @@
     "react-dom": "^19.1.0",
     "react-router-dom": "^7.5.0",
     "react-scripts": "^5.0.1",
+    "vite-plugin-ssr": "^0.4.142",
     "web-vitals": "^4.2.4"
   },
   "devDependencies": {
