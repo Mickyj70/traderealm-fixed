@@ -193,7 +193,7 @@ const LandingPage = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.2 }}
-                className="p-6 rounded-xl bg-[#1A0B2E] border-2 border-[#8000FF] relative group overflow-hidden"
+                className="p-6 rounded-xl bg-[#1A0B2E] border-2 border-[#8159aa] relative group overflow-hidden"
                 style={{
                   boxShadow: "0 0 20px rgba(0, 255, 240, 0.2)",
                 }}
@@ -218,7 +218,7 @@ const LandingPage = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.3 }}
-                className="p-6 rounded-xl bg-[#1A0B2E] border-2 border-[#8000FF] relative group overflow-hidden"
+                className="p-6 rounded-xl bg-[#1A0B2E] border-2 border-[#8159aa] relative group overflow-hidden"
                 style={{
                   boxShadow: "0 0 20px rgba(0, 255, 240, 0.2)",
                 }}
@@ -243,7 +243,7 @@ const LandingPage = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.4 }}
-                className="p-6 rounded-xl bg-[#1A0B2E] border-2 border-[#8000FF] relative group overflow-hidden"
+                className="p-6 rounded-xl bg-[#1A0B2E] border-2 border-[#8159aa] relative group overflow-hidden"
                 style={{
                   boxShadow: "0 0 20px rgba(0, 255, 240, 0.2)",
                 }}
@@ -293,7 +293,7 @@ const LandingPage = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.2 }}
-                className="p-6 rounded-xl bg-[#1A0B2E] max-w-[720px] w-full border-2 border-[#8000FF] relative group overflow-hidden"
+                className="p-6 rounded-xl bg-[#1A0B2E] max-w-[720px] w-full border-2 border-[#8159aa] relative group overflow-hidden"
                 style={{
                   boxShadow: "0 0 20px rgba(0, 255, 240, 0.2)",
                 }}
@@ -330,7 +330,7 @@ const LandingPage = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.2 }}
-                className="p-6 rounded-xl bg-[#1A0B2E]  w-full border-2 border-[#8000FF] relative group overflow-hidden"
+                className="p-6 rounded-xl bg-[#1A0B2E]  w-full border-2 border-[#8159aa] relative group overflow-hidden"
                 style={{
                   boxShadow: "0 0 20px rgba(0, 255, 240, 0.2)",
                 }}
@@ -353,7 +353,7 @@ const LandingPage = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.2 }}
-                className="p-6 rounded-xl bg-[#1A0B2E]  w-full border-2 border-[#8000FF] relative group overflow-hidden"
+                className="p-6 rounded-xl bg-[#1A0B2E]  w-full border-2 border-[#8159aa] relative group overflow-hidden"
                 style={{
                   boxShadow: "0 0 20px rgba(0, 255, 240, 0.2)",
                 }}
@@ -404,7 +404,7 @@ const LandingPage = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.2 }}
-                className="p-6 rounded-xl bg-[#1A0B2E] max-w-[720px] w-full border-2 border-[#8000FF] relative group overflow-hidden"
+                className="p-6 rounded-xl bg-[#1A0B2E] max-w-[720px] w-full border-2 border-[#8159aa] relative group overflow-hidden"
                 style={{
                   boxShadow: "0 0 20px rgba(0, 255, 240, 0.2)",
                 }}
@@ -436,7 +436,7 @@ const LandingPage = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.2 }}
-                className="p-6 rounded-xl bg-[#1A0B2E]  w-full border-2 border-[#8000FF] relative group overflow-hidden"
+                className="p-6 rounded-xl bg-[#1A0B2E]  w-full border-2 border-[#8159aa] relative group overflow-hidden"
                 style={{
                   boxShadow: "0 0 20px rgba(0, 255, 240, 0.2)",
                 }}
@@ -458,7 +458,7 @@ const LandingPage = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.2 }}
-                className="p-6 rounded-xl bg-[#1A0B2E]  w-full border-2 border-[#8000FF] relative group overflow-hidden"
+                className="p-6 rounded-xl bg-[#1A0B2E]  w-full border-2 border-[#8159aa] relative group overflow-hidden"
                 style={{
                   boxShadow: "0 0 20px rgba(0, 255, 240, 0.2)",
                 }}
