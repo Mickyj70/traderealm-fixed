@@ -4,14 +4,14 @@ export default {
   theme: {
     extend: {
       colors: {
-        spider: {
-          black: "#000000",
-          red: "#FF2D55",
-          purple: "#8000FF",
-          electric: "#00FFFF",
-          pink: "#FF0080",
-          gray: "#1C1C1C",
-        },
+        // spider: {
+        //   black: "#000000",
+        //   red: "#FF2D55",
+        //   purple: "#8000FF",
+        //   electric: "#00FFFF",
+        //   pink: "#FF0080",
+        //   gray: "#1C1C1C",
+        // },
         deepViolet: "#1A1135",
         turquoise: "#4FFFB0",
         lavender: "#D6ADFF",
@@ -22,12 +22,14 @@ export default {
         warning: "#FFAA33",
         error: "#FF4D6B",
         info: "#33BBFF",
+        navbg: "#290852",
       },
       fontFamily: {
         sans: ["Space Grotesk", "sans-serif"],
         mono: ["JetBrains Mono", "monospace"],
         bangers: ["Bangers", "cursive"],
         orbitron: ["Orbitron", "sans-serif"],
+        traderealm: ["TradeRealm", "sans-serif"],
       },
       boxShadow: {
         glow: "0 0 15px rgba(79, 255, 176, 0.4)",
