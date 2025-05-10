@@ -17,10 +17,59 @@ import tradeRoutes from "../assets/Trade Routes.svg";
 import backgroundbottom from "../assets/down bg.svg";
 import bottomlogotilted from "../assets/logo-tilted.svg";
 
+// Updated class constants with new color scheme
+const cartoonBg = `cartoon-bg glitch-bg`;
+const cartoonCard = `cartoon-card glitch-card`;
+const cartoonTitle = `cartoon-title glitch-title`;
+const cartoonSubtitle = `cartoon-subtitle`;
+const cartoonBtn = `cartoon-btn glitch-btn`;
+const cartoonTypewriter = `cartoon-typewriter`;
+
+// Page and section entrance/scroll-in animations
+const pageVariants = {
+  hidden: { opacity: 0, y: 40 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 1.2, ease: [0.23, 1, 0.32, 1] },
+  },
+};
+
+const sectionVariants = {
+  hidden: { opacity: 0, y: 60 },
+  visible: (i = 1) => ({
+    opacity: 1,
+    y: 0,
+    transition: { delay: i * 0.18, duration: 1, ease: [0.23, 1, 0.32, 1] },
+  }),
+};
+
+// Glitch animation variants
+const glitchTextVariants = {
+  hover: {
+    textShadow: [
+      "2px 2px 0 rgba(255, 45, 85, 0.7), -2px -2px 0 rgba(0, 207, 255, 0.7)",
+      "2px -2px 0 rgba(255, 45, 85, 0.7), -2px 2px 0 rgba(0, 207, 255, 0.7)",
+      "-2px 2px 0 rgba(255, 45, 85, 0.7), 2px -2px 0 rgba(0, 207, 255, 0.7)",
+      "-2px -2px 0 rgba(255, 45, 85, 0.7), 2px 2px 0 rgba(0, 207, 255, 0.7)",
+    ],
+    transition: {
+      duration: 0.5,
+      repeat: Infinity,
+      repeatType: "reverse", // Reverse the animation on repeat,
+    },
+  },
+};
+
 const LandingPage = () => {
   return (
-    <div className="w-full h-full overflow-x-hidden ">
-      <div className="min-h-screen bg-gradient-to-b from-[#1B0036] to-[#1A1135] text-white">
+    <motion.div
+      className="w-full h-full overflow-x-hidden "
+      initial="hidden"
+      animate="visible"
+      variants={pageVariants}
+    >
+      <motion.div className="min-h-screen bg-gradient-to-b from-[#1B0036] to-[#1A1135] text-white">
         {/* Hero Section */}
         <div className="container relative px-4 py-20 text-center">
           {/* Logo and Title */}
@@ -38,16 +87,45 @@ const LandingPage = () => {
 
             <div className="space-y-4">
               <div className="flex items-center justify-center space-x-4 text-xl">
-                <span className="text-[#FF3366] font-bold">TRADE</span>
-                <span className="text-white">•</span>
-                <span className="text-[#8000FF] font-bold">BATTLE</span>
-                <span className="text-white">•</span>
-                <span className="text-[#00CFFF] font-bold">PROFIT</span>
+                <motion.span
+                  className="font-bold text-[#FF2D55] cartoon-outline  pr-2"
+                  animate={{
+                    textShadow: "0 0 8px rgba(255, 45, 85, 0.8)",
+                    scale: 1.05,
+                    transition: { duration: 0.2 },
+                  }}
+                >
+                  TRADE
+                </motion.span>{" "}
+                •{" "}
+                <motion.span
+                  className="font-bold text-[#8000FF] cartoon-outline  pr-2"
+                  animate={{
+                    textShadow: "0 0 8px rgba(128, 0, 255, 0.8)",
+                    scale: 1.05,
+                    transition: { duration: 0.2 },
+                  }}
+                >
+                  BATTLE
+                </motion.span>{" "}
+                •{" "}
+                <motion.span
+                  className="font-bold text-[#00FFFF] cartoon-outline  pr-2"
+                  animate={{
+                    textShadow: "0 0 8px rgba(0, 255, 255, 0.8)",
+                    scale: 1.05,
+                    transition: { duration: 0.2 },
+                  }}
+                >
+                  PROFIT
+                </motion.span>
               </div>
               <p className="text-lg text-[#ffff]">Strategy meets DeFi</p>
-              <p className="text-2xl font-bold text-[#FF3366]">
+              <span
+                className={`${cartoonTypewriter} cartoon-outline text-2xl text-[#FF0080]`}
+              >
                 RULE THE FINANCIAL REALM
-              </p>
+              </span>
             </div>
           </motion.div>
 
@@ -78,9 +156,9 @@ const LandingPage = () => {
             </Link>
           </motion.div>
         </div>
-      </div>
+      </motion.div>
       {/* Section with curved top */}
-      <div className="relative min-h-screen bg-gradient-to-b from-[#150429] to-[#1A1135] left-0 right-0 rounded-t-[10%] text-white">
+      <motion.div className="relative min-h-screen bg-gradient-to-b from-[#150429] to-[#1A1135] left-0 right-0 rounded-t-[10%] text-white">
         <div className="container relative px-4 pt-20 pb-2 mb-10 text-center ">
           <motion.div
             initial={{ y: 20, opacity: 0 }}
@@ -88,12 +166,23 @@ const LandingPage = () => {
             transition={{ duration: 0.5, delay: 0.4 }}
             className="mb-1 text-center"
           >
-            <h2 className="text-3xl font-bold text-[#66FFB4] mb-10">
+            <motion.h2
+              className={`text-2xl md:text-3xl text-center mb-8 ${cartoonTitle} text-[#00FFFF]`}
+              animate="hover"
+              variants={glitchTextVariants}
+            >
               BECOME A TRADE BARON
-            </h2>
+            </motion.h2>
 
             {/* Feature Grid */}
-            <div className="grid max-w-5xl grid-cols-1 gap-8 mx-auto md:grid-cols-3">
+            <motion.section
+              className="grid max-w-5xl grid-cols-1 gap-8 mx-auto md:grid-cols-3"
+              variants={sectionVariants}
+              custom={0}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.5 }}
+            >
               {/* Stake and Earn */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
@@ -167,7 +256,7 @@ const LandingPage = () => {
                   </p>
                 </div>
               </motion.div>
-            </div>
+            </motion.section>
           </motion.div>
         </div>
 
@@ -179,11 +268,22 @@ const LandingPage = () => {
             transition={{ duration: 0.5 }}
             className="mb-1 text-center"
           >
-            <h2 className="text-3xl font-bold text-[#66FFB4] mb-16">
+            <motion.h2
+              className={`text-2xl md:text-3xl text-center mb-8 ${cartoonTitle} text-[#00FFFF]`}
+              animate="hover"
+              variants={glitchTextVariants}
+            >
               STRATEGY = PROFIT
-            </h2>
+            </motion.h2>
 
-            <div className="flex justify-center w-full mx-auto mb-5">
+            <motion.section
+              className="flex justify-center w-full mx-auto mb-5"
+              variants={sectionVariants}
+              custom={0}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.5 }}
+            >
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -211,9 +311,16 @@ const LandingPage = () => {
                   </p>
                 </div>
               </motion.div>
-            </div>
+            </motion.section>
 
-            <div className="flex justify-center max-w-[720px] mx-auto mb-5 gap-x-3 ">
+            <motion.section
+              variants={sectionVariants}
+              custom={0}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.5 }}
+              className="flex justify-center max-w-[720px] mx-auto mb-5 gap-x-3 "
+            >
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -260,7 +367,7 @@ const LandingPage = () => {
                   </p>
                 </div>
               </motion.div>
-            </div>
+            </motion.section>
           </motion.div>
         </div>
 
@@ -272,11 +379,22 @@ const LandingPage = () => {
             transition={{ duration: 0.5 }}
             className="mb-1 text-center"
           >
-            <h2 className="text-3xl font-bold text-[#66FFB4] mb-16">
+            <motion.h2
+              className={`text-2xl md:text-3xl text-center mb-8 ${cartoonTitle} text-[#00FFFF]`}
+              animate="hover"
+              variants={glitchTextVariants}
+            >
               BUILT TO LAST
-            </h2>
+            </motion.h2>
 
-            <div className="flex justify-center w-full mx-auto mb-5">
+            <motion.section
+              variants={sectionVariants}
+              custom={0}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.5 }}
+              className="flex justify-center w-full mx-auto mb-5"
+            >
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -299,9 +417,16 @@ const LandingPage = () => {
                   </p>
                 </div>
               </motion.div>
-            </div>
+            </motion.section>
 
-            <div className="flex justify-center max-w-[720px] mx-auto mb-5 gap-x-3 ">
+            <motion.section
+              variants={sectionVariants}
+              custom={0}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.5 }}
+              className="flex justify-center max-w-[720px] mx-auto mb-5 gap-x-3 "
+            >
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -346,7 +471,7 @@ const LandingPage = () => {
                   </p>
                 </div>
               </motion.div>
-            </div>
+            </motion.section>
           </motion.div>
         </div>
 
@@ -364,10 +489,14 @@ const LandingPage = () => {
 
         <div className="container px-4 mx-auto mt-10 ">
           <div className="flex flex-col items-center justify-center gap-x-4">
-            <p className="text-3xl font-normal font-traderealm text-[#66FFB4]">
+            <motion.h2
+              className={`text-2xl md:text-3xl text-center mb-8 ${cartoonTitle} text-[#00FFFF]`}
+              animate="hover"
+              variants={glitchTextVariants}
+            >
               {" "}
               JOIN THE REALM
-            </p>
+            </motion.h2>
             <p className="text-base text-white">WHERE TRADERS BECOME LEGENDS</p>
           </div>
         </div>
@@ -401,8 +530,8 @@ const LandingPage = () => {
             />
           </div>
         </div>
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
   );
 };
 
