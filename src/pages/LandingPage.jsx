@@ -17,6 +17,59 @@ import tradeRoutes from "../assets/Trade Routes.svg";
 import backgroundbottom from "../assets/down bg.svg";
 import bottomlogotilted from "../assets/logo-tilted.svg";
 
+// Border animation keyframes
+// Add this CSS at the top of your file, after your imports but before your component
+
+// Border animation keyframes for single color
+const animatedBorderStyles = `
+  @keyframes borderFlow {
+    0% {
+      background-position: 0% 0%;
+    }
+    100% {
+      background-position: 300% 0%;
+    }
+  }
+
+  .animated-border {
+    position: relative;
+    background-color: #1A0B2E;
+    z-index: 1;
+    border: none !important;
+  }
+
+  .animated-border::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    z-index: -1;
+    background: linear-gradient(90deg, 
+      rgba(129, 89, 170, 0.3), 
+      rgba(129, 89, 170, 1), 
+      rgba(129, 89, 170, 0.3), 
+      rgba(129, 89, 170, 0.3)
+    );
+    background-size: 300% 100%;
+    border-radius: inherit;
+    animation: borderFlow 6s linear infinite;
+  }
+
+  .animated-border::after {
+    content: '';
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    right: 2px;
+    bottom: 2px;
+    background-color: #1A0B2E;
+    border-radius: inherit;
+    z-index: -1;
+  }
+`;
+
 // Updated class constants with new color scheme
 const cartoonBg = `cartoon-bg glitch-bg`;
 const cartoonCard = `cartoon-card glitch-card`;
@@ -62,6 +115,16 @@ const glitchTextVariants = {
 };
 
 const LandingPage = () => {
+  useEffect(() => {
+    // Inject the animated border styles
+    const styleElement = document.createElement("style");
+    styleElement.textContent = animatedBorderStyles;
+    document.head.appendChild(styleElement);
+
+    return () => {
+      document.head.removeChild(styleElement);
+    };
+  }, []);
   return (
     <motion.div
       className="w-full h-full overflow-x-hidden "
@@ -193,7 +256,7 @@ const LandingPage = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.2 }}
-                className="p-6 rounded-xl bg-[#1A0B2E] border-2 border-[#8159aa] relative group overflow-hidden"
+                className="relative p-6 overflow-hidden rounded-xl animated-border group"
                 style={{
                   boxShadow: "0 0 20px rgba(0, 255, 240, 0.2)",
                 }}
@@ -218,7 +281,7 @@ const LandingPage = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.3 }}
-                className="p-6 rounded-xl bg-[#1A0B2E] border-2 border-[#8159aa] relative group overflow-hidden"
+                className="relative p-6 overflow-hidden rounded-xl animated-border group"
                 style={{
                   boxShadow: "0 0 20px rgba(0, 255, 240, 0.2)",
                 }}
@@ -243,7 +306,7 @@ const LandingPage = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.4 }}
-                className="p-6 rounded-xl bg-[#1A0B2E] border-2 border-[#8159aa] relative group overflow-hidden"
+                className="relative p-6 overflow-hidden rounded-xl animated-border group"
                 style={{
                   boxShadow: "0 0 20px rgba(0, 255, 240, 0.2)",
                 }}
@@ -293,7 +356,7 @@ const LandingPage = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.2 }}
-                className="p-6 rounded-xl bg-[#1A0B2E] max-w-[720px] w-full border-2 border-[#8159aa] relative group overflow-hidden"
+                className="p-6 rounded-xl  max-w-[720px] w-full animated-border relative group overflow-hidden"
                 style={{
                   boxShadow: "0 0 20px rgba(0, 255, 240, 0.2)",
                 }}
@@ -330,7 +393,7 @@ const LandingPage = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.2 }}
-                className="p-6 rounded-xl bg-[#1A0B2E]  w-full border-2 border-[#8159aa] relative group overflow-hidden"
+                className="relative w-full p-6 overflow-hidden rounded-xl animated-border group"
                 style={{
                   boxShadow: "0 0 20px rgba(0, 255, 240, 0.2)",
                 }}
@@ -353,7 +416,7 @@ const LandingPage = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.2 }}
-                className="p-6 rounded-xl bg-[#1A0B2E]  w-full border-2 border-[#8159aa] relative group overflow-hidden"
+                className="relative w-full p-6 overflow-hidden rounded-xl animated-border group"
                 style={{
                   boxShadow: "0 0 20px rgba(0, 255, 240, 0.2)",
                 }}
@@ -404,7 +467,7 @@ const LandingPage = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.2 }}
-                className="p-6 rounded-xl bg-[#1A0B2E] max-w-[720px] w-full border-2 border-[#8159aa] relative group overflow-hidden"
+                className="p-6 rounded-xl animated-border max-w-[720px] w-full  relative group overflow-hidden"
                 style={{
                   boxShadow: "0 0 20px rgba(0, 255, 240, 0.2)",
                 }}
@@ -436,7 +499,7 @@ const LandingPage = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.2 }}
-                className="p-6 rounded-xl bg-[#1A0B2E]  w-full border-2 border-[#8159aa] relative group overflow-hidden"
+                className="relative w-full p-6 overflow-hidden rounded-xl animated-border group"
                 style={{
                   boxShadow: "0 0 20px rgba(0, 255, 240, 0.2)",
                 }}
@@ -458,7 +521,7 @@ const LandingPage = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.2 }}
-                className="p-6 rounded-xl bg-[#1A0B2E]  w-full border-2 border-[#8159aa] relative group overflow-hidden"
+                className="relative w-full p-6 overflow-hidden rounded-xl animated-border group"
                 style={{
                   boxShadow: "0 0 20px rgba(0, 255, 240, 0.2)",
                 }}
