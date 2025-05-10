@@ -3,6 +3,7 @@ import React, { useEffect, useRef, useState, useCallback } from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import Logo from "../assets/Hero Main.svg";
+
 import icon1 from "../assets/icons1.svg";
 import icon2 from "../assets/icons2.svg";
 import icon3 from "../assets/icons3.svg";
@@ -13,6 +14,8 @@ import icon7 from "../assets/icons7.svg";
 import icon8 from "../assets/icons8.svg";
 import icon9 from "../assets/icons9.svg";
 import tradeRoutes from "../assets/Trade Routes.svg";
+import backgroundbottom from "../assets/down bg.svg";
+import bottomlogotilted from "../assets/logo-tilted.svg";
 
 const LandingPage = () => {
   return (
@@ -77,7 +80,7 @@ const LandingPage = () => {
         </div>
       </div>
       {/* Section with curved top */}
-      <div className="relative min-h-screen bg-gradient-to-b from-[#150429] to-[#1A1135] left-0 right-0 rounded-t-[90%] text-white">
+      <div className="relative min-h-screen bg-gradient-to-b from-[#150429] to-[#1A1135] left-0 right-0 rounded-t-[10%] text-white">
         <div className="container relative px-4 pt-20 pb-2 mb-10 text-center ">
           <motion.div
             initial={{ y: 20, opacity: 0 }}
@@ -185,7 +188,7 @@ const LandingPage = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.2 }}
-                className="p-6 rounded-xl bg-[#1A0B2E] max-w-[784px] w-full border-2 border-[#8000FF] relative group overflow-hidden"
+                className="p-6 rounded-xl bg-[#1A0B2E] max-w-[720px] w-full border-2 border-[#8000FF] relative group overflow-hidden"
                 style={{
                   boxShadow: "0 0 20px rgba(0, 255, 240, 0.2)",
                 }}
@@ -345,6 +348,58 @@ const LandingPage = () => {
               </motion.div>
             </div>
           </motion.div>
+        </div>
+
+        {/* trade routes */}
+        <div className="container px-4 mx-auto mt-10 ">
+          <div className="flex justify-center">
+            <p className="px-8 py-2 text-3xl font-bold bg-[#FFB800] hover:bg-[#FFB800]/90 text-black border-4 border-black rounded-lg transform hover:-translate-y-1 transition-transform duration-200 shadow-[0_6px_0_0_rgba(0,0,0,1)] hover:shadow-[0_4px_0_0_rgba(0,0,0,1)] active:shadow-[0_2px_0_0_rgba(0,0,0,1)] active:translate-y-1">
+              TRADE ROUTES
+            </p>
+          </div>
+          <div className="flex justify-center mt-10">
+            <img src={tradeRoutes} alt="tr" />
+          </div>
+        </div>
+
+        <div className="container px-4 mx-auto mt-10 ">
+          <div className="flex flex-col items-center justify-center gap-x-4">
+            <p className="text-3xl font-normal font-traderealm text-[#66FFB4]">
+              {" "}
+              JOIN THE REALM
+            </p>
+            <p className="text-base text-white">WHERE TRADERS BECOME LEGENDS</p>
+          </div>
+        </div>
+
+        {/* Add the background image at the bottom */}
+        <div className="relative mt-10">
+          <img
+            src={backgroundbottom}
+            alt="Background"
+            className="object-cover w-full h-auto"
+            style={{
+              position: "absolute",
+              bottom: 0,
+              left: 0,
+              right: 0,
+              zIndex: 0,
+              opacity: 0.7, // Adjust opacity as needed
+            }}
+          />
+          <div className="relative z-10 h-40">
+            {/* Add the tilted logo to the bottom right corner */}
+            <img
+              src={bottomlogotilted}
+              alt="Trade Realm Logo"
+              className="absolute bottom-0 right-0 w-96 md:w-96 lg:w-[600px]"
+              style={{
+                zIndex: 10,
+                marginRight: "0px",
+                marginBottom: "0px",
+              }}
+            />
+          </div>
         </div>
       </div>
     </div>
