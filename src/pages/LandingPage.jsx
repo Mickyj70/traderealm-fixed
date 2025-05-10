@@ -69,9 +69,9 @@ const LandingPage = () => {
       animate="visible"
       variants={pageVariants}
     >
-      <motion.div className="min-h-screen bg-gradient-to-b from-[#1B0036] to-[#1A1135] text-white">
+      <motion.div className="h-full bg-gradient-to-b from-[#1B0036] to-[#1A1135] text-white">
         {/* Hero Section */}
-        <div className="container relative px-4 py-20 text-center">
+        <div className="container relative px-4 pt-20 text-center">
           {/* Logo and Title */}
           <motion.div
             initial={{ y: -20, opacity: 0 }}
@@ -134,32 +134,37 @@ const LandingPage = () => {
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="flex flex-col justify-center mb-20 space-y-4 sm:flex-row sm:space-y-0 sm:space-x-6"
+            className="flex flex-col justify-center mb-10 space-y-4 sm:flex-row sm:space-y-0 sm:space-x-6"
           >
-            <Link
-              to="/app"
+            <a
+              href="#"
               className="px-8 py-2 font-bold bg-[#FF3366] hover:bg-[#FF3366]/90 text-black border-4 border-black rounded-lg transform hover:-translate-y-1 transition-transform duration-200 shadow-[0_6px_0_0_rgba(0,0,0,1)] hover:shadow-[0_4px_0_0_rgba(0,0,0,1)] active:shadow-[0_2px_0_0_rgba(0,0,0,1)] active:translate-y-1 text-center mx-4 sm:mx-0"
             >
               ENTER APP
-            </Link>
-            <Link
-              to="/docs"
+            </a>
+            <a
+              href="https://realm-finance.gitbook.io/realm-finance"
+              target="_blank"
+              rel="noopener noreferrer"
               className="px-8 py-2 font-bold bg-[#6B46C1] hover:bg-[#6B46C1]/90 text-black border-4 border-black rounded-lg transform hover:-translate-y-1 transition-transform duration-200 shadow-[0_6px_0_0_rgba(0,0,0,1)] hover:shadow-[0_4px_0_0_rgba(0,0,0,1)] active:shadow-[0_2px_0_0_rgba(0,0,0,1)] active:translate-y-1 text-center mx-4 sm:mx-0"
             >
               DOCUMENTATION
-            </Link>
-            <Link
-              to="/telegram"
+            </a>
+
+            <a
+              href="https://t.me/+6rVr6rsgtxQ5MzE0"
+              target="_blank"
+              rel="noopener noreferrer"
               className="px-8 py-2 font-bold bg-[#66FFB4] hover:bg-[#66FFB4]/90 text-black border-4 border-black rounded-lg transform hover:-translate-y-1 transition-transform duration-200 shadow-[0_6px_0_0_rgba(0,0,0,1)] hover:shadow-[0_4px_0_0_rgba(0,0,0,1)] active:shadow-[0_2px_0_0_rgba(0,0,0,1)] active:translate-y-1 text-center mx-4 sm:mx-0"
             >
               TELEGRAM
-            </Link>
+            </a>
           </motion.div>
         </div>
       </motion.div>
       {/* Section with curved top */}
       <motion.div className="relative min-h-screen bg-gradient-to-b from-[#150429] to-[#1A1135] left-0 right-0 rounded-t-[10%] text-white">
-        <div className="container relative px-4 pt-20 pb-2 mb-10 text-center ">
+        <div className="container relative px-4 pt-10 pb-2 mb-10 text-center ">
           <motion.div
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
