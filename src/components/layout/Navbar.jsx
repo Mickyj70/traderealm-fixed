@@ -7,11 +7,11 @@ import { BsTwitterX } from "react-icons/bs";
 const Navbar = () => {
   return (
     <div className="z-50 flex items-center justify-between w-full h-full p-4 bg-navbg">
-      <div className="flex items-center space-x-2">
+      <div className="flex items-center space-x-1">
         <span className="text-2xl">
           <img src={Logo} alt="image" height={50} width={50} />
         </span>
-        <h1 className="text-3xl font-normal text-[#66FFB4] font-traderealm">
+        <h1 className="text-2xl md:text-3xl lg:text-3xl font-normal text-[#66FFB4] font-traderealm">
           REALMFI
         </h1>
       </div>
@@ -35,7 +35,7 @@ const Navbar = () => {
         <div>
           <Link
             to="/"
-            className="px-8 py-2 font-bold bg-[#FFB800] hover:bg-[#FFB800]/90 text-black border-4 border-black rounded-lg transform hover:-translate-y-1 transition-transform duration-200 shadow-[0_6px_0_0_rgba(0,0,0,1)] hover:shadow-[0_4px_0_0_rgba(0,0,0,1)] active:shadow-[0_2px_0_0_rgba(0,0,0,1)] active:translate-y-1"
+            className="px-4 py-1 text-sm sm:px-5 sm:py-1.5 md:px-6 md:py-2 lg:px-8 lg:py-2 font-bold bg-[#FFB800] hover:bg-[#FFB800]/90 text-black border-2 sm:border-3 md:border-4 border-black rounded-lg transform hover:-translate-y-1 transition-transform duration-200 shadow-[0_4px_0_0_rgba(0,0,0,1)] md:shadow-[0_6px_0_0_rgba(0,0,0,1)] hover:shadow-[0_3px_0_0_rgba(0,0,0,1)] md:hover:shadow-[0_4px_0_0_rgba(0,0,0,1)] active:shadow-[0_1px_0_0_rgba(0,0,0,1)] md:active:shadow-[0_2px_0_0_rgba(0,0,0,1)] active:translate-y-1"
           >
             ENTER APP
           </Link>
