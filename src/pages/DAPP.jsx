@@ -41,7 +41,6 @@ const Dapp = () => {
   const [showTariffModal, setShowTariffModal] = useState(false);
   const [showStakingModal, setShowStakingModal] = useState(false);
   const [showTradeWarModal, setShowTradeWarModal] = useState(false);
-  const [showFoundersPassModal, setShowFoundersPassModal] = useState(false);
   const [showAllianceModal, setShowAllianceModal] = useState(false);
   const [controlAmount, setControlAmount] = useState("");
   const [tariffRate, setTariffRate] = useState(5);
@@ -51,7 +50,6 @@ const Dapp = () => {
   const [tradeWarCountdown, setTradeWarCountdown] = useState(
     3 * 24 * 60 * 60 + 17 * 60 * 60 + 22 * 60
   );
-  const [hasFoundersPass, setHasFoundersPass] = useState(false);
 
   // Countdown timer for Trade War
   useEffect(() => {
@@ -281,14 +279,14 @@ const Dapp = () => {
     setShowTariffModal(false);
     setShowStakingModal(false);
     setShowTradeWarModal(false);
-    setShowFoundersPassModal(false);
+
     setShowAllianceModal(false);
   };
 
   return (
-    <div className="flex flex-col h-screen overflow-hidden text-white bg-black">
+    <div className="flex flex-col h-screen overflow-hidden text-white bg-gradient-to-b from-[#1B0036] to-[#1A1135]">
       {/* Header */}
-      <header className="z-40 flex items-center justify-between p-4 bg-indigo-900 border-b-4 border-indigo-700">
+      <header className="z-40 flex items-center justify-between p-4 bg-gradient-to-b from-[#1B0036] to-[#1A1135] border-b-2 border-[#6B46C1]">
         <div className="flex items-center gap-2">
           <button
             onClick={() => setShowSidebar(!showSidebar)}
@@ -322,9 +320,9 @@ const Dapp = () => {
 
         {/* Sidebar */}
         <div
-          className={`bg-indigo-950 border-r-4 border-indigo-800 w-64 flex-shrink-0 transition-all ${
+          className={`bg-gradient-to-b from-[#1B0036] to-[#1A1135] border-r-2 border-[#6B46C1] w-64 flex-shrink-0 transition-all ${
             showSidebar ? "translate-x-0" : "-translate-x-full"
-          } md:translate-x-0 absolute md:relative h-full z-30`}
+          } md:translate-x-0 absolute md:relative h-full z-30 overflow-auto`}
         >
           <nav className="p-4">
             <ul className="space-y-4">
@@ -437,20 +435,7 @@ const Dapp = () => {
                   <span>Alliances</span>
                 </button>
               </li>
-              <li>
-                <button
-                  onClick={() => setShowFoundersPassModal(true)}
-                  className={`flex items-center gap-3 p-3 rounded-md w-full text-left transition-all hover:bg-indigo-800`}
-                >
-                  <Crown size={20} className="text-yellow-400" />
-                  <span>Founder's Pass</span>
-                  {!hasFoundersPass && (
-                    <span className="px-2 py-1 ml-auto text-xs bg-purple-800 rounded-md">
-                      NEW
-                    </span>
-                  )}
-                </button>
-              </li>
+
               <li>
                 <button
                   onClick={() => setActiveTab("supporters")}
@@ -481,21 +466,11 @@ const Dapp = () => {
                   <span>Early Supporters</span>
                 </button>
               </li>
-
-              <li>
-                <a
-                  href="#"
-                  className="flex items-center gap-3 p-3 transition-all rounded-md hover:bg-indigo-800"
-                >
-                  <FileText size={20} />
-                  <span>Docs</span>
-                </a>
-              </li>
             </ul>
           </nav>
 
           {/* Stats in sidebar */}
-          <div className="p-4 mx-4 mt-4 bg-indigo-900 rounded-md">
+          <div className="p-4 mx-4 mt-1 bg-indigo-900 rounded-md">
             <h3 className="mb-2 font-semibold text-yellow-400">Your Empire</h3>
             <div className="space-y-2 text-sm">
               <div className="flex justify-between">
@@ -517,7 +492,7 @@ const Dapp = () => {
         {/* Main Content Area */}
         <main className="relative flex-1 overflow-hidden">
           {/* Common Background for all tabs */}
-          <div className="absolute inset-0 w-full h-full bg-gradient-to-b from-blue-900 to-indigo-950">
+          <div className="absolute inset-0 w-full h-full bg-gradient-to-b from-[#1B0036] to-[#1A1135]">
             {/* Animated stars background */}
             <div className="stars"></div>
 
@@ -1848,7 +1823,6 @@ const Dapp = () => {
             showTariffModal ||
             showStakingModal ||
             showTradeWarModal ||
-            showFoundersPassModal ||
             showAllianceModal) && (
             <div
               className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-75"
@@ -2353,139 +2327,6 @@ const Dapp = () => {
                 </div>
               )}
 
-              {/* Founder's Pass Modal */}
-              {showFoundersPassModal && (
-                <div
-                  className="w-full max-w-md p-6 mx-4 bg-indigo-900 border-4 border-yellow-600 rounded-md popup-enter"
-                  onClick={(e) => e.stopPropagation()}
-                >
-                  <div className="flex items-start justify-between mb-4">
-                    <h3 className="text-lg font-bold text-yellow-400">
-                      Founder's Pass
-                    </h3>
-                    <button
-                      onClick={() => setShowFoundersPassModal(false)}
-                      className="p-1 rounded-md hover:bg-indigo-800"
-                    >
-                      <X size={18} />
-                    </button>
-                  </div>
-
-                  <div className="mb-6 text-center">
-                    <div className="mb-2 text-6xl">🏆</div>
-                    <h4 className="text-xl font-bold">Exclusive Opportunity</h4>
-                    <p className="mt-1 text-sm opacity-80">
-                      Limited to only 1,000 early supporters
-                    </p>
-                  </div>
-
-                  <div className="space-y-4">
-                    <div className="p-4 bg-yellow-900 rounded-md bg-opacity-30">
-                      <h4 className="mb-2 font-semibold text-yellow-400">
-                        Founder's Pass Benefits
-                      </h4>
-                      <ul className="space-y-2 text-sm">
-                        <li className="flex items-start gap-2">
-                          <div className="mt-1 text-yellow-400">✦</div>
-                          <div>2x $BARON Staking Multiplier for life</div>
-                        </li>
-                        <li className="flex items-start gap-2">
-                          <div className="mt-1 text-yellow-400">✦</div>
-                          <div>
-                            Exclusive access to The White House premium route
-                          </div>
-                        </li>
-                        <li className="flex items-start gap-2">
-                          <div className="mt-1 text-yellow-400">✦</div>
-                          <div>1.5x voting power on protocol decisions</div>
-                        </li>
-                        <li className="flex items-start gap-2">
-                          <div className="mt-1 text-yellow-400">✦</div>
-                          <div>
-                            2% of all protocol fees distributed to holders
-                          </div>
-                        </li>
-                        <li className="flex items-start gap-2">
-                          <div className="mt-1 text-yellow-400">✦</div>
-                          <div>Early access to new features and routes</div>
-                        </li>
-                      </ul>
-                    </div>
-
-                    <div className="p-4 bg-indigo-800 rounded-md">
-                      <h4 className="mb-2 font-semibold">How to Qualify</h4>
-                      <ul className="space-y-3 text-sm">
-                        <li className="flex items-start gap-2">
-                          <div className="flex items-center justify-center flex-shrink-0 w-6 h-6 bg-indigo-700 rounded-full">
-                            1
-                          </div>
-                          <div>
-                            <div className="font-semibold">
-                              Register for Presale
-                            </div>
-                            <div className="text-xs opacity-70">
-                              Complete eligibility verification
-                            </div>
-                          </div>
-                        </li>
-                        <li className="flex items-start gap-2">
-                          <div className="flex items-center justify-center flex-shrink-0 w-6 h-6 bg-indigo-700 rounded-full">
-                            2
-                          </div>
-                          <div>
-                            <div className="font-semibold">
-                              Join Testnet Event
-                            </div>
-                            <div className="text-xs opacity-70">
-                              Limited-time opportunity to participate
-                            </div>
-                          </div>
-                        </li>
-                        <li className="flex items-start gap-2">
-                          <div className="flex items-center justify-center flex-shrink-0 w-6 h-6 bg-indigo-700 rounded-full">
-                            3
-                          </div>
-                          <div>
-                            <div className="font-semibold">
-                              Complete Challenges
-                            </div>
-                            <div className="text-xs opacity-70">
-                              Demonstrate understanding of protocol mechanics
-                            </div>
-                          </div>
-                        </li>
-                        <li className="flex items-start gap-2">
-                          <div className="flex items-center justify-center flex-shrink-0 w-6 h-6 bg-indigo-700 rounded-full">
-                            4
-                          </div>
-                          <div>
-                            <div className="font-semibold">Earn Your Pass</div>
-                            <div className="text-xs opacity-70">
-                              Successfully complete all requirements
-                            </div>
-                          </div>
-                        </li>
-                      </ul>
-                    </div>
-
-                    <div className="pt-2">
-                      <button
-                        className="w-full py-3 font-semibold transition-all bg-yellow-600 rounded-md hover:bg-yellow-500"
-                        onClick={() => {
-                          setHasFoundersPass(true);
-                          setShowFoundersPassModal(false);
-                        }}
-                      >
-                        Register for Presale
-                      </button>
-                      <div className="mt-2 text-xs text-center opacity-70">
-                        Join the TradeRealm community for more information
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              )}
-
               {/* Alliance Modal */}
               {showAllianceModal && (
                 <div
@@ -2595,10 +2436,10 @@ const Dapp = () => {
 
       {/* Global Stats Bar */}
       <footer className="z-40 flex items-center justify-between p-2 bg-indigo-900 border-t-4 border-indigo-700">
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-2">
           <div className="text-xs md:text-sm">
             <span className="mr-1 opacity-70">Treasury:</span>
-            <span className="font-mono">$2,450,831</span>
+            <span className="font-mono">$2,450</span>
           </div>
           <div className="text-xs md:text-sm">
             <span className="mr-1 opacity-70">Backing:</span>
@@ -2606,12 +2447,13 @@ const Dapp = () => {
           </div>
         </div>
         <div className="flex items-center">
-          <div className="flex items-center gap-1 text-xs md:text-sm">
-            <Trophy size={16} className="text-yellow-400" />
+          <div className="flex items-center gap-2 text-xs md:text-sm">
+            <Trophy size={13} className="text-yellow-400" />
             <span>
-              Trade War:{" "}
+              Trade War:
               <span className="font-bold text-red-400">
-                {formatCountdown(tradeWarCountdown)}
+                3D 17H
+                {/* {formatCountdown(tradeWarCountdown)} */}
               </span>
             </span>
           </div>

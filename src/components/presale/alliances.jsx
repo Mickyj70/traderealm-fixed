@@ -440,7 +440,7 @@ const AlliancesPage = () => {
 
         {activeTab === "your-alliance" && (
           <div className="flex items-center gap-4">
-            <div className="flex items-center px-3 py-1 bg-indigo-800 rounded-md">
+            {/* <div className="flex items-center px-3 py-1 bg-indigo-800 rounded-md">
               <Clock size={16} className="mr-1 text-yellow-400" />
               <span className="text-sm">
                 War Council:{" "}
@@ -456,7 +456,7 @@ const AlliancesPage = () => {
               <span className="flex items-center ml-1 font-bold text-green-400">
                 <ArrowUp size={14} /> 2
               </span>
-            </div>
+            </div> */}
           </div>
         )}
       </header>
@@ -596,17 +596,17 @@ const AlliancesPage = () => {
         {activeTab === "your-alliance" && userAlliance && (
           <div className="space-y-6">
             {/* Alliance Header */}
-            <div className="relative p-6 overflow-hidden bg-indigo-900 border-4 border-yellow-600 rounded-md">
+            <div className="relative p-4 overflow-hidden bg-indigo-900 border-4 border-yellow-600 rounded-md sm:p-6">
               {/* Background decoration */}
               <div
                 className="absolute w-40 h-40 rounded-full -top-10 -right-10 opacity-10"
                 style={{ backgroundColor: userAlliance.color }}
               ></div>
 
-              <div className="relative z-10 flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
-                <div className="flex items-center gap-4">
+              <div className="relative z-10 flex flex-col gap-4 sm:gap-6 md:flex-row md:items-center md:justify-between">
+                <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
                   <div
-                    className="p-3 text-5xl rounded-lg"
+                    className="self-start p-3 text-4xl rounded-lg sm:text-5xl"
                     style={{
                       backgroundColor: `${userAlliance.color}30`,
                       border: `3px solid ${userAlliance.color}`,
@@ -615,13 +615,13 @@ const AlliancesPage = () => {
                     {userAlliance.logo}
                   </div>
                   <div>
-                    <h3 className="text-2xl font-bold text-yellow-400">
+                    <h3 className="text-xl font-bold text-yellow-400 sm:text-2xl">
                       {userAlliance.name}
                     </h3>
                     <div className="mt-1 text-sm opacity-70">
                       {userAlliance.type}
                     </div>
-                    <div className="flex items-center gap-2 mt-2">
+                    <div className="flex flex-wrap items-center gap-2 mt-2">
                       <div className="flex items-center px-2 py-1 text-xs bg-indigo-800 rounded">
                         <Users size={12} className="mr-1" />
                         {userAlliance.members} Members
@@ -638,9 +638,9 @@ const AlliancesPage = () => {
                   </div>
                 </div>
 
-                <div className="flex flex-wrap gap-3">
+                <div className="flex flex-wrap w-full gap-2 sm:gap-3 md:w-auto">
                   <button
-                    className="flex items-center gap-2 px-4 py-2 font-semibold transition-all bg-red-700 rounded-md hover:bg-red-600"
+                    className="flex items-center justify-center flex-1 gap-2 px-3 py-2 text-sm font-semibold transition-all bg-red-700 rounded-md md:flex-none sm:px-4 sm:text-base hover:bg-red-600"
                     onClick={() => setShowStrategyModal(true)}
                   >
                     <Sword size={16} />
@@ -650,16 +650,16 @@ const AlliancesPage = () => {
                     )}
                   </button>
                   <button
-                    className="flex items-center gap-2 px-4 py-2 font-semibold transition-all bg-green-700 rounded-md hover:bg-green-600"
+                    className="flex items-center justify-center flex-1 gap-2 px-3 py-2 text-sm font-semibold transition-all bg-green-700 rounded-md md:flex-none sm:px-4 sm:text-base hover:bg-green-600"
                     onClick={() => {
-                      setActiveMission(allianceMissions[2]); // Set resource raid as active mission
+                      setActiveMission(allianceMissions[2]);
                       setShowMissionModal(true);
                     }}
                   >
                     <Target size={16} />
                     <span>Join Mission</span>
                   </button>
-                  <button className="flex items-center gap-2 px-4 py-2 font-semibold transition-all bg-indigo-700 rounded-md hover:bg-indigo-600">
+                  <button className="flex items-center justify-center flex-1 gap-2 px-3 py-2 text-sm font-semibold transition-all bg-indigo-700 rounded-md md:flex-none sm:px-4 sm:text-base hover:bg-indigo-600">
                     <Settings size={16} />
                     <span>Settings</span>
                   </button>
@@ -977,77 +977,79 @@ const AlliancesPage = () => {
                 Global Alliance Rankings
               </h3>
 
-              <div className="overflow-x-auto">
-                <table className="w-full">
-                  <thead className="border-b border-indigo-700">
-                    <tr className="text-left">
-                      <th className="pb-3">Rank</th>
-                      <th className="pb-3">Alliance</th>
-                      <th className="pb-3 text-right">Members</th>
-                      <th className="pb-3 text-right">Territories</th>
-                      <th className="pb-3 text-right">Weekly Change</th>
-                      <th className="pb-3 text-right">Actions</th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-indigo-800">
-                    {allianceRankings.map((alliance, index) => (
-                      <tr
-                        key={index}
-                        className={`${
-                          alliance.name === "Eastern Federation"
-                            ? "bg-indigo-800 bg-opacity-50"
-                            : ""
-                        }`}
-                      >
-                        <td className="py-4 font-bold">{alliance.rank}</td>
-                        <td className="py-4">
-                          <div
-                            className={`font-semibold ${
-                              alliance.name === "Eastern Federation"
-                                ? "text-yellow-400"
-                                : ""
-                            }`}
-                          >
-                            {alliance.name}
-                          </div>
-                        </td>
-                        <td className="py-4 text-right">{alliance.size}</td>
-                        <td className="py-4 text-right">
-                          {alliance.territory}
-                        </td>
-                        <td className="py-4 text-right">
-                          {alliance.change > 0 && (
-                            <span className="text-green-400">
-                              +{alliance.change}
-                            </span>
-                          )}
-                          {alliance.change < 0 && (
-                            <span className="text-red-400">
-                              {alliance.change}
-                            </span>
-                          )}
-                          {alliance.change === 0 && (
-                            <span className="opacity-50">—</span>
-                          )}
-                        </td>
-                        <td className="py-4 text-right">
-                          {alliance.name === "Eastern Federation" ? (
-                            <button
-                              className="px-3 py-1 text-sm transition-all bg-indigo-700 rounded-md hover:bg-indigo-600"
-                              onClick={() => setActiveTab("your-alliance")}
-                            >
-                              View
-                            </button>
-                          ) : (
-                            <button className="px-3 py-1 text-sm transition-all bg-indigo-700 rounded-md hover:bg-indigo-600">
-                              Details
-                            </button>
-                          )}
-                        </td>
+              <div className="px-1 -mx-4 overflow-x-auto sm:mx-0 sm:px-0">
+                <div className="inline-block min-w-full align-middle">
+                  <table className="min-w-full">
+                    <thead className="border-b border-indigo-700">
+                      <tr className="text-left">
+                        <th className="pb-3">Rank</th>
+                        <th className="pb-3">Alliance</th>
+                        <th className="pb-3 text-right">Members</th>
+                        <th className="pb-3 text-right">Territories</th>
+                        <th className="pb-3 text-right">Weekly Change</th>
+                        <th className="pb-3 text-right">Actions</th>
                       </tr>
-                    ))}
-                  </tbody>
-                </table>
+                    </thead>
+                    <tbody className="divide-y divide-indigo-800">
+                      {allianceRankings.map((alliance, index) => (
+                        <tr
+                          key={index}
+                          className={`${
+                            alliance.name === "Eastern Federation"
+                              ? "bg-indigo-800 bg-opacity-50"
+                              : ""
+                          }`}
+                        >
+                          <td className="py-4 font-bold">{alliance.rank}</td>
+                          <td className="py-4">
+                            <div
+                              className={`font-semibold ${
+                                alliance.name === "Eastern Federation"
+                                  ? "text-yellow-400"
+                                  : ""
+                              }`}
+                            >
+                              {alliance.name}
+                            </div>
+                          </td>
+                          <td className="py-4 text-right">{alliance.size}</td>
+                          <td className="py-4 text-right">
+                            {alliance.territory}
+                          </td>
+                          <td className="py-4 text-right">
+                            {alliance.change > 0 && (
+                              <span className="text-green-400">
+                                +{alliance.change}
+                              </span>
+                            )}
+                            {alliance.change < 0 && (
+                              <span className="text-red-400">
+                                {alliance.change}
+                              </span>
+                            )}
+                            {alliance.change === 0 && (
+                              <span className="opacity-50">—</span>
+                            )}
+                          </td>
+                          <td className="py-4 text-right">
+                            {alliance.name === "Eastern Federation" ? (
+                              <button
+                                className="px-3 py-1 text-sm transition-all bg-indigo-700 rounded-md hover:bg-indigo-600"
+                                onClick={() => setActiveTab("your-alliance")}
+                              >
+                                View
+                              </button>
+                            ) : (
+                              <button className="px-3 py-1 text-sm transition-all bg-indigo-700 rounded-md hover:bg-indigo-600">
+                                Details
+                              </button>
+                            )}
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
               </div>
 
               <div className="p-4 mt-6 bg-indigo-800 rounded-md">
@@ -1125,23 +1127,23 @@ const AlliancesPage = () => {
               </h3>
 
               <div className="space-y-4">
-                <div className="p-4 bg-indigo-800 rounded-md">
-                  <div className="flex items-start justify-between mb-2">
+                <div className="p-3 bg-indigo-800 rounded-md sm:p-4">
+                  <div className="flex flex-col gap-2 mb-2 sm:flex-row sm:items-start sm:justify-between sm:gap-0">
                     <div className="flex items-center gap-3">
-                      <Sword size={20} className="text-red-400" />
+                      <Sword size={20} className="flex-shrink-0 text-red-400" />
                       <div>
-                        <div className="font-semibold">
+                        <div className="text-sm font-semibold sm:text-base">
                           Merchant Haven Conflict
                         </div>
                         <div className="text-xs opacity-70">2 days ago</div>
                       </div>
                     </div>
-                    <div className="bg-green-900 text-green-400 text-xs px-2 py-0.5 rounded-full font-semibold">
+                    <div className="bg-green-900 text-green-400 text-xs px-2 py-0.5 rounded-full font-semibold self-start">
                       Victory
                     </div>
                   </div>
 
-                  <div className="flex justify-between text-sm">
+                  <div className="flex flex-col justify-between gap-2 text-sm sm:flex-row sm:gap-0">
                     <div className="flex items-center gap-2">
                       <span className="opacity-70">Eastern Federation</span>
                       <span className="text-green-400">vs.</span>
@@ -1153,23 +1155,23 @@ const AlliancesPage = () => {
                   </div>
                 </div>
 
-                <div className="p-4 bg-indigo-800 rounded-md">
-                  <div className="flex items-start justify-between mb-2">
+                <div className="p-3 bg-indigo-800 rounded-md sm:p-4">
+                  <div className="flex flex-col gap-2 mb-2 sm:flex-row sm:items-start sm:justify-between sm:gap-0">
                     <div className="flex items-center gap-3">
-                      <Sword size={20} className="text-red-400" />
+                      <Sword size={20} className="flex-shrink-0 text-red-400" />
                       <div>
-                        <div className="font-semibold">
+                        <div className="text-sm font-semibold sm:text-base">
                           Golden Strait Dispute
                         </div>
                         <div className="text-xs opacity-70">5 days ago</div>
                       </div>
                     </div>
-                    <div className="bg-red-900 text-red-400 text-xs px-2 py-0.5 rounded-full font-semibold">
+                    <div className="bg-red-900 text-red-400 text-xs px-2 py-0.5 rounded-full font-semibold self-start">
                       Defeat
                     </div>
                   </div>
 
-                  <div className="flex justify-between text-sm">
+                  <div className="flex flex-col justify-between gap-2 text-sm sm:flex-row sm:gap-0">
                     <div className="flex items-center gap-2">
                       <span className="opacity-70">Eastern Federation</span>
                       <span className="text-green-400">vs.</span>
@@ -1179,21 +1181,26 @@ const AlliancesPage = () => {
                   </div>
                 </div>
 
-                <div className="p-4 bg-indigo-800 rounded-md">
-                  <div className="flex items-start justify-between mb-2">
+                <div className="p-3 bg-indigo-800 rounded-md sm:p-4">
+                  <div className="flex flex-col gap-2 mb-2 sm:flex-row sm:items-start sm:justify-between sm:gap-0">
                     <div className="flex items-center gap-3">
-                      <Shield size={20} className="text-blue-400" />
+                      <Shield
+                        size={20}
+                        className="flex-shrink-0 text-blue-400"
+                      />
                       <div>
-                        <div className="font-semibold">Non-Aggression Pact</div>
+                        <div className="text-sm font-semibold sm:text-base">
+                          Non-Aggression Pact
+                        </div>
                         <div className="text-xs opacity-70">1 week ago</div>
                       </div>
                     </div>
-                    <div className="bg-blue-900 text-blue-400 text-xs px-2 py-0.5 rounded-full font-semibold">
+                    <div className="bg-blue-900 text-blue-400 text-xs px-2 py-0.5 rounded-full font-semibold self-start">
                       Diplomacy
                     </div>
                   </div>
 
-                  <div className="flex justify-between text-sm">
+                  <div className="flex flex-col justify-between gap-2 text-sm sm:flex-row sm:gap-0">
                     <div className="flex items-center gap-2">
                       <span className="opacity-70">Eastern Federation</span>
                       <span className="text-green-400">with</span>
