@@ -57,7 +57,7 @@ const PresalePage = () => {
 
   // Countdown timer logic
   const getCountdownTime = () => {
-    const presaleDate = new Date("2025-05-15T12:00:00");
+    const presaleDate = new Date("2025-05-17T12:00:00");
     const now = new Date();
     const difference = presaleDate - now;
 
@@ -165,21 +165,24 @@ const PresalePage = () => {
           {/* Demo toggle switch to show both presale states */}
           <div className="flex justify-center mt-4">
             <button
-              onClick={() => setPresaleStage("registration")}
-              className={`px-4 py-2 rounded-l-md ${
+              onClick={() => {
+                setPresaleStage("registration");
+                setIsRegistered(false); // Reset registration state when switching
+              }}
+              className={`px-4 py-2 rounded-l-md transition-colors duration-200 ${
                 presaleStage === "registration"
                   ? "bg-purple-700 text-white"
-                  : "bg-indigo-800 text-blue-300"
+                  : "bg-indigo-800 text-blue-300 hover:bg-purple-600"
               }`}
             >
               Registration Phase
             </button>
             <button
               onClick={() => setPresaleStage("live")}
-              className={`px-4 py-2 rounded-r-md ${
+              className={`px-4 py-2 rounded-r-md transition-colors duration-200 ${
                 presaleStage === "live"
                   ? "bg-green-700 text-white"
-                  : "bg-indigo-800 text-blue-300"
+                  : "bg-indigo-800 text-blue-300 hover:bg-green-600"
               }`}
             >
               Live Presale
