@@ -498,7 +498,7 @@ const TradeWarComponent = () => {
   };
 
   return (
-    <div className="flex flex-col h-full overflow-x-hidden text-white bg-gradient-to-b from-indigo-900 via-indigo-950 to-indigo-900">
+    <div className="flex flex-col h-full overflow-x-hidden text-white bg-gradient-to-b from-[#1B0036] to-[#1A1135] border-b-2 border-[#6b46c1]">
       {/* Epic War Banner */}
       <div className="relative overflow-hidden">
         <div className="absolute inset-0 z-10 bg-black opacity-40"></div>
@@ -547,7 +547,7 @@ const TradeWarComponent = () => {
           className={`px-4 py-2 rounded-t-lg font-semibold flex items-center ${
             activeTab === "active-wars"
               ? "bg-red-900 text-white"
-              : "bg-indigo-900 text-gray-300 hover:bg-indigo-800"
+              : "bg-gradient-to-b from-[#1B0036] to-[#1A1135] border-2 border-[#6b46c1] text-gray-300 hover:bg-indigo-800"
           }`}
           onClick={() => setActiveTab("active-wars")}
         >
@@ -558,7 +558,7 @@ const TradeWarComponent = () => {
           className={`px-4 py-2 rounded-t-lg font-semibold flex items-center ${
             activeTab === "war-map"
               ? "bg-red-900 text-white"
-              : "bg-indigo-900 text-gray-300 hover:bg-indigo-800"
+              : "bg-gradient-to-b from-[#1B0036] to-[#1A1135] border-2 border-[#6b46c1] text-gray-300 hover:bg-indigo-800"
           }`}
           onClick={() => setActiveTab("war-map")}
         >
@@ -569,7 +569,7 @@ const TradeWarComponent = () => {
           className={`px-4 py-2 rounded-t-lg font-semibold flex items-center ${
             activeTab === "leaderboard"
               ? "bg-red-900 text-white"
-              : "bg-indigo-900 text-gray-300 hover:bg-indigo-800"
+              : "bg-gradient-to-b from-[#1B0036] to-[#1A1135] border-2 border-[#6b46c1] text-gray-300 hover:bg-indigo-800"
           }`}
           onClick={() => setActiveTab("leaderboard")}
         >
@@ -580,7 +580,7 @@ const TradeWarComponent = () => {
           className={`px-4 py-2 rounded-t-lg font-semibold flex items-center ${
             activeTab === "war-room"
               ? "bg-red-900 text-white"
-              : "bg-indigo-900 text-gray-300 hover:bg-indigo-800"
+              : "bg-gradient-to-b from-[#1B0036] to-[#1A1135] border-2 border-[#6b46c1] text-gray-300 hover:bg-indigo-800"
           }`}
           onClick={() => setActiveTab("war-room")}
         >
@@ -590,13 +590,13 @@ const TradeWarComponent = () => {
       </div>
 
       {/* Main Content Area */}
-      <div className="flex-1 p-4 overflow-auto">
+      <div className="flex-1 p-2 overflow-auto">
         {/* Active Wars Tab */}
         {activeTab === "active-wars" && (
           <div className="grid max-w-6xl grid-cols-1 gap-6 mx-auto lg:grid-cols-3">
             {/* Active Wars List */}
             <div className="space-y-4 lg:col-span-2">
-              <div className="overflow-hidden border border-indigo-800 rounded-md shadow-lg bg-indigo-900/50 backdrop-blur-sm">
+              <div className="overflow-hidden  rounded-md shadow-lg bg-gradient-to-b from-[#1B0036] to-[#1A1135] border-2 border-[#6b46c1] backdrop-blur-sm">
                 <div className="flex items-center justify-between p-4 border-b border-indigo-800">
                   <h2 className="flex items-center text-xl font-bold text-red-400">
                     <Flame size={18} className="mr-2" />
@@ -706,8 +706,8 @@ const TradeWarComponent = () => {
                               <button
                                 className={`px-3 py-1 rounded text-xs font-bold ${
                                   deployedDefense?.id === war.id
-                                    ? "bg-blue-700 cursor-default"
-                                    : "bg-blue-600 hover:bg-blue-500"
+                                    ? "bg-gradient-to-b from-[#1B0036] to-[#1A1135] border-2 border-[#6b46c1] cursor-default"
+                                    : "bg-gradient-to-b from-[#1B0036] to-[#1A1135] border-2 border-[#6b46c1] hover:bg-blue-500"
                                 }`}
                                 onClick={(e) => {
                                   e.stopPropagation();
@@ -743,7 +743,7 @@ const TradeWarComponent = () => {
               {selectedWar ? (
                 <>
                   {/* Battle Details Card */}
-                  <div className="overflow-hidden border border-indigo-800 rounded-md shadow-lg bg-indigo-900/50 backdrop-blur-sm">
+                  <div className="overflow-hidden  rounded-md shadow-lg bg-gradient-to-b from-[#1B0036] to-[#1A1135] border-2 border-[#6b46c1] backdrop-blur-sm">
                     <div
                       className="relative h-24"
                       style={{ background: selectedWar.background }}
@@ -884,7 +884,7 @@ const TradeWarComponent = () => {
 
                       {/* Reinforcement Actions */}
                       {selectedWar.defender === "You" && (
-                        <div className="p-3 mb-4 border border-blue-800 rounded-md bg-blue-900/30">
+                        <div className="p-3 mb-4 bg-gradient-to-b from-[#1B0036] to-[#1A1135] border-b-2 border-[#6b46c1]">
                           <div className="flex items-center justify-between mb-2">
                             <div className="font-semibold text-blue-400">
                               Defensive Strategy
@@ -964,7 +964,7 @@ const TradeWarComponent = () => {
                   </div>
                 </>
               ) : (
-                <div className="flex flex-col items-center justify-center p-8 text-center border border-indigo-800 rounded-md shadow-lg bg-indigo-900/50 backdrop-blur-sm">
+                <div className="flex flex-col items-center justify-center p-8 text-center bg-gradient-to-b from-[#1B0036] to-[#1A1135] border-2 border-[#6b46c1] rounded-md shadow-lg  backdrop-blur-sm">
                   <Sword size={40} className="mb-4 text-gray-500" />
                   <h3 className="mb-2 text-xl font-bold text-gray-300">
                     No War Selected
@@ -991,8 +991,8 @@ const TradeWarComponent = () => {
               )}
 
               {/* Your War Stats */}
-              <div className="overflow-hidden border border-indigo-800 rounded-md shadow-lg bg-indigo-900/50 backdrop-blur-sm">
-                <div className="p-3 border-b border-indigo-800">
+              <div className="overflow-hidden bg-gradient-to-b from-[#1B0036] to-[#1A1135] border-2 border-[#6b46c1] rounded-md shadow-lg  backdrop-blur-sm">
+                <div className="p-3 bg-gradient-to-b from-[#1B0036] to-[#1A1135] border-2 border-[#6b46c1]">
                   <h3 className="font-bold text-gray-100">Your War Stats</h3>
                 </div>
                 <div className="p-4">
@@ -1065,7 +1065,7 @@ const TradeWarComponent = () => {
         {/* War Map Tab */}
         {activeTab === "war-map" && (
           <div className="max-w-6xl mx-auto">
-            <div className="p-2 overflow-hidden border border-indigo-800 rounded-md shadow-lg md:p-4 bg-indigo-900/50 backdrop-blur-sm">
+            <div className="p-2 overflow-hidden bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6b46c1] rounded-md shadow-lg md:p-4  backdrop-blur-sm">
               <div className="flex flex-col justify-between mb-4 space-y-2 md:flex-row md:items-center md:space-y-0">
                 <h2 className="flex items-center text-lg font-bold text-yellow-400 md:text-xl">
                   <Map size={20} className="mr-2" />
@@ -1461,8 +1461,8 @@ const TradeWarComponent = () => {
 
         {/* Leaderboard Tab */}
         {activeTab === "leaderboard" && (
-          <div className="max-w-4xl mx-auto">
-            <div className="overflow-hidden border border-indigo-800 rounded-md shadow-lg bg-indigo-900/50 backdrop-blur-sm">
+          <div className="max-w-5xl mx-auto">
+            <div className="overflow-hidden bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6b46c1] rounded-md shadow-lg  backdrop-blur-sm">
               <div className="flex flex-col items-start justify-between p-4 border-b border-indigo-800 sm:flex-row sm:items-center">
                 <h2 className="flex items-center mb-2 text-xl font-bold text-yellow-400 sm:mb-0">
                   <Trophy size={20} className="mr-2" />
@@ -1709,7 +1709,7 @@ const TradeWarComponent = () => {
 
         {/* War Room Tab */}
         {activeTab === "war-room" && (
-          <div className="max-w-6xl mx-auto">
+          <div className="mx-auto max-w-8xl">
             <WarRoomComponent />
           </div>
         )}

@@ -321,7 +321,7 @@ const AlliancesPage = () => {
   const renderAllianceCard = (alliance, isCurrentMember = false) => (
     <div
       key={alliance.id}
-      className={`bg-indigo-900 border-4 rounded-md p-4 hover:border-indigo-500 transition-all ${
+      className={`bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6b46c1] rounded-md p-4 hover:border-indigo-500 transition-all ${
         isCurrentMember ? "border-yellow-600" : "border-indigo-700"
       }`}
     >
@@ -351,15 +351,15 @@ const AlliancesPage = () => {
       <div className="mb-4 text-sm opacity-80">{alliance.description}</div>
 
       <div className="grid grid-cols-3 gap-2 mb-4 text-sm">
-        <div className="p-2 text-center bg-indigo-800 rounded-md">
+        <div className="p-2 text-center bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6b46c1] rounded-md">
           <div className="text-xs opacity-70">Members</div>
           <div className="font-bold">{alliance.members}</div>
         </div>
-        <div className="p-2 text-center bg-indigo-800 rounded-md">
+        <div className="p-2 text-center bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6b46c1] rounded-md">
           <div className="text-xs opacity-70">Ranking</div>
           <div className="font-bold">#{alliance.ranking}</div>
         </div>
-        <div className="p-2 text-center bg-indigo-800 rounded-md">
+        <div className="p-2 text-center bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6b46c1] rounded-md">
           <div className="text-xs opacity-70">Territory</div>
           <div className="font-bold">{alliance.territories}</div>
         </div>
@@ -368,7 +368,7 @@ const AlliancesPage = () => {
       <div className="mb-4 space-y-2 text-sm">
         <div>
           <span className="opacity-70">Requirement:</span>
-          <div className="flex items-center p-2 mt-1 text-xs bg-indigo-800 rounded-md">
+          <div className="flex items-center p-2 mt-1 text-xs bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6b46c1] rounded-md">
             {alliance.accessRequirement === "Open Membership" ? (
               <>
                 <CheckCircle size={14} className="mr-1 text-green-400" />
@@ -385,7 +385,7 @@ const AlliancesPage = () => {
 
         <div>
           <span className="opacity-70">Specialty:</span>
-          <div className="p-2 mt-1 text-xs bg-indigo-800 rounded-md">
+          <div className="p-2 mt-1 text-xs bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6b46c1] rounded-md">
             {alliance.specialty}
           </div>
         </div>
@@ -393,7 +393,7 @@ const AlliancesPage = () => {
 
       {isCurrentMember ? (
         <button
-          className="flex items-center justify-center w-full gap-2 py-2 font-semibold transition-all bg-indigo-700 rounded-md hover:bg-indigo-600"
+          className="flex items-center justify-center w-full gap-2 py-2 font-semibold transition-all bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6b46c1]"
           onClick={() => setActiveTab("your-alliance")}
         >
           <Crown size={16} className="text-yellow-400" />
@@ -423,7 +423,7 @@ const AlliancesPage = () => {
   };
 
   return (
-    <div className="min-h-screen text-white bg-indigo-950">
+    <div className="min-h-screen text-white bg-gradient-to-b from-[#1B0036] to-[#1A1135] ">
       {/* Animated background */}
       <div className="fixed inset-0 z-0 w-full h-full overflow-hidden">
         <div className="stars"></div>
@@ -432,7 +432,7 @@ const AlliancesPage = () => {
       </div>
 
       {/* Header */}
-      <header className="relative z-10 flex items-center justify-between p-4 bg-indigo-900 border-b-4 border-indigo-700">
+      <header className="relative z-10 flex items-center justify-between p-2 bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6b46c1]">
         <h1 className="flex items-center text-xl font-bold tracking-wider text-yellow-400 md:text-2xl">
           <Users className="mr-2" size={24} />
           Trade Alliances
@@ -462,7 +462,7 @@ const AlliancesPage = () => {
       </header>
 
       {/* Tabs */}
-      <div className="relative z-10 px-4 bg-indigo-900 border-b border-indigo-700">
+      <div className="relative z-10 px-4 bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6b46c1]">
         <div className="flex mx-auto space-x-1 max-w-7xl">
           <button
             className={`py-3 px-4 font-semibold border-b-2 transition-all ${
@@ -505,7 +505,7 @@ const AlliancesPage = () => {
         </div>
       </div>
 
-      <main className="relative z-10 p-4 mx-auto md:p-6 max-w-7xl">
+      <main className="relative z-10 p-2 mx-auto md:p-6 max-w-7xl">
         {/* Discover Alliances Tab */}
         {activeTab === "discover" && (
           <div className="space-y-6">
@@ -528,9 +528,9 @@ const AlliancesPage = () => {
               )}
             </div>
 
-            <div className="p-6 mt-8 bg-indigo-900 border-4 border-indigo-700 rounded-md">
+            <div className="p-4 mt-8 bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6b46c1] rounded-md">
               <div className="flex items-center gap-3 mb-4">
-                <div className="p-3 bg-indigo-800 rounded-full">
+                <div className="p-3 bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6b46c1] rounded-full">
                   <Crown size={24} className="text-yellow-400" />
                 </div>
                 <h3 className="text-xl font-bold">Form Your Own Alliance</h3>
@@ -541,7 +541,7 @@ const AlliancesPage = () => {
                 join your trade empire.
               </p>
 
-              <div className="p-4 mb-4 bg-indigo-800 rounded-md">
+              <div className="p-4 mb-4 bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6b46c1] rounded-md">
                 <h4 className="mb-2 font-semibold">Requirements</h4>
                 <ul className="space-y-2 text-sm">
                   <li className="flex items-start gap-2">
@@ -584,7 +584,7 @@ const AlliancesPage = () => {
                 </ul>
               </div>
 
-              <button className="flex items-center justify-center w-full gap-2 py-3 font-semibold transition-all bg-indigo-700 rounded-md hover:bg-indigo-600">
+              <button className="flex items-center justify-center w-full gap-2 py-3 font-semibold transition-all bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6b46c1]">
                 <Flag size={18} />
                 <span>Found New Alliance</span>
               </button>
@@ -596,7 +596,7 @@ const AlliancesPage = () => {
         {activeTab === "your-alliance" && userAlliance && (
           <div className="space-y-6">
             {/* Alliance Header */}
-            <div className="relative p-4 overflow-hidden bg-indigo-900 border-4 border-yellow-600 rounded-md sm:p-6">
+            <div className="relative p-4 overflow-hidden bg-gradient-to-b from-[#1B0036] to-[#1A1135] border-2 border-yellow-600 rounded-md sm:p-6">
               {/* Background decoration */}
               <div
                 className="absolute w-40 h-40 rounded-full -top-10 -right-10 opacity-10"
@@ -622,15 +622,15 @@ const AlliancesPage = () => {
                       {userAlliance.type}
                     </div>
                     <div className="flex flex-wrap items-center gap-2 mt-2">
-                      <div className="flex items-center px-2 py-1 text-xs bg-indigo-800 rounded">
+                      <div className="flex items-center px-2 py-1 text-xs bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6b46c1] rounded">
                         <Users size={12} className="mr-1" />
                         {userAlliance.members} Members
                       </div>
-                      <div className="flex items-center px-2 py-1 text-xs bg-indigo-800 rounded">
+                      <div className="flex items-center px-2 py-1 text-xs bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6b46c1] rounded">
                         <Trophy size={12} className="mr-1 text-yellow-400" />
                         Rank #{userAlliance.ranking}
                       </div>
-                      <div className="flex items-center px-2 py-1 text-xs bg-indigo-800 rounded">
+                      <div className="flex items-center px-2 py-1 text-xs bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6b46c1] rounded">
                         <Map size={12} className="mr-1 text-green-400" />
                         {userAlliance.territories} Territories
                       </div>
@@ -670,7 +670,7 @@ const AlliancesPage = () => {
             {/* Alliance Dashboard */}
             <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
               {/* Alliance Bonuses */}
-              <div className="p-4 bg-indigo-900 border-4 border-indigo-700 rounded-md">
+              <div className="p-4 bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6b46c1] rounded-md">
                 <h4 className="flex items-center gap-2 mb-3 font-semibold">
                   <Award size={18} className="text-yellow-400" />
                   Alliance Bonuses
@@ -689,7 +689,7 @@ const AlliancesPage = () => {
                 <div className="pt-4 mt-4 border-t border-indigo-700">
                   <div className="mb-1 text-xs opacity-70">Special Power</div>
                   <div className="flex items-center gap-2">
-                    <div className="px-2 py-1 font-semibold text-yellow-400 bg-indigo-800 rounded">
+                    <div className="px-2 py-1 font-semibold text-yellow-400 bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6b46c1] rounded">
                       {userAlliance.specialPower}
                     </div>
                     <button className="flex items-center text-xs text-indigo-400 hover:text-indigo-300">
@@ -700,13 +700,13 @@ const AlliancesPage = () => {
               </div>
 
               {/* Active Missions */}
-              <div className="p-4 bg-indigo-900 border-4 border-indigo-700 rounded-md">
+              <div className="p-4 bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6b46c1] rounded-md">
                 <div className="flex items-center justify-between mb-3">
                   <h4 className="flex items-center gap-2 font-semibold">
                     <Target size={18} className="text-red-400" />
                     Active Missions
                   </h4>
-                  <div className="text-xs bg-indigo-800 px-2 py-0.5 rounded-full">
+                  <div className="text-xs bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6b46c1] px-2 py-0.5 rounded-full">
                     {allianceStats.activeMissions} Missions
                   </div>
                 </div>
@@ -714,7 +714,7 @@ const AlliancesPage = () => {
                   {allianceMissions.slice(0, 3).map((mission, index) => (
                     <li
                       key={index}
-                      className="p-2 text-sm transition-all bg-indigo-800 rounded-md cursor-pointer hover:bg-indigo-700"
+                      className="p-2 text-sm transition-all bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6b46c1] rounded-md cursor-pointer hover:bg-indigo-700"
                       onClick={() => {
                         setActiveMission(mission);
                         setShowMissionModal(true);
@@ -754,7 +754,7 @@ const AlliancesPage = () => {
                   ))}
                 </ul>
                 <button
-                  className="w-full mt-3 bg-indigo-700 hover:bg-indigo-600 py-1.5 rounded-md text-sm font-semibold transition-all"
+                  className="w-full mt-3 bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6b46c1] py-1.5 rounded-md text-sm font-semibold transition-all"
                   onClick={() => {
                     // Show all missions
                   }}
@@ -764,7 +764,7 @@ const AlliancesPage = () => {
               </div>
 
               {/* Alliance Resources */}
-              <div className="p-4 bg-indigo-900 border-4 border-indigo-700 rounded-md">
+              <div className="p-4 bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6b46c1] rounded-md">
                 <h4 className="flex items-center gap-2 mb-3 font-semibold">
                   <PieChart size={18} className="text-blue-400" />
                   Alliance Resources
@@ -845,7 +845,7 @@ const AlliancesPage = () => {
             {/* Alliance Communication and Territory */}
             <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
               {/* Alliance Chat */}
-              <div className="flex flex-col p-4 bg-indigo-900 border-4 border-indigo-700 rounded-md h-96">
+              <div className="flex flex-col p-4 bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6b46c1] rounded-md h-96">
                 <h4 className="flex items-center gap-2 mb-3 font-semibold">
                   <MessageCircle size={18} className="text-blue-400" />
                   Alliance Communication
@@ -857,7 +857,7 @@ const AlliancesPage = () => {
                       key={index}
                       className={`${
                         msg.system
-                          ? "bg-indigo-800 text-xs p-2 rounded-md opacity-75 text-center"
+                          ? "bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6b46c1] text-xs p-2 rounded-md opacity-75 text-center"
                           : "flex gap-2"
                       }`}
                     >
@@ -891,10 +891,10 @@ const AlliancesPage = () => {
                     onChange={(e) => setNewMessage(e.target.value)}
                     onKeyPress={handleMessageKeyPress}
                     placeholder="Type a message..."
-                    className="flex-1 p-2 text-sm bg-indigo-800 border border-indigo-700 rounded-l-md"
+                    className="flex-1 p-2 text-sm bg-transparent border border-[#6b45c1] rounded-l-md"
                   />
                   <button
-                    className="px-3 py-2 transition-all bg-indigo-700 hover:bg-indigo-600 rounded-r-md"
+                    className="px-3 py-2 transition-allbg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6b46c1] rounded-r-md"
                     onClick={handleSendMessage}
                   >
                     <ArrowRight size={18} />
@@ -903,7 +903,7 @@ const AlliancesPage = () => {
               </div>
 
               {/* Controlled Territory */}
-              <div className="p-4 bg-indigo-900 border-4 border-indigo-700 rounded-md h-96">
+              <div className="p-4 bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6b46c1] rounded-md h-96">
                 <h4 className="flex items-center gap-2 mb-3 font-semibold">
                   <Map size={18} className="text-green-400" />
                   Controlled Territory
@@ -911,7 +911,7 @@ const AlliancesPage = () => {
 
                 <div className="relative h-full">
                   {/* Map data visualization would go here - placeholder for now */}
-                  <div className="absolute overflow-hidden bg-indigo-800 rounded-lg inset-4">
+                  <div className="absolute overflow-hidden bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6b46c1] rounded-lg inset-4">
                     <div className="w-full h-full territory-map">
                       {/* Zone markers */}
                       <div className="absolute left-[35%] top-[40%] p-3 bg-blue-500 bg-opacity-20 border-2 border-blue-500 rounded-full flex items-center justify-center">
@@ -971,7 +971,7 @@ const AlliancesPage = () => {
         {/* Alliance Rankings Tab */}
         {activeTab === "rankings" && (
           <div className="space-y-6">
-            <div className="p-6 bg-indigo-900 border-4 border-indigo-700 rounded-md">
+            <div className="p-6 bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6b46c1] rounded-md">
               <h3 className="flex items-center gap-2 mb-4 text-xl font-bold">
                 <Trophy size={24} className="text-yellow-400" />
                 Global Alliance Rankings
@@ -1052,10 +1052,10 @@ const AlliancesPage = () => {
                 </div>
               </div>
 
-              <div className="p-4 mt-6 bg-indigo-800 rounded-md">
+              <div className="p-4 mt-6 bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6b46c1] rounded-md">
                 <h4 className="mb-3 font-semibold">Alliance Ranking Rewards</h4>
                 <div className="grid grid-cols-1 gap-4 text-sm md:grid-cols-3">
-                  <div className="p-3 bg-indigo-900 border-l-4 border-yellow-400 rounded-md">
+                  <div className="p-3 bg-gradient-to-b from-[#1B0036] to-[#1A1135] border-l-4  border-yellow-400 rounded-md">
                     <div className="flex items-center gap-2 mb-2">
                       <Trophy size={16} className="text-yellow-400" />
                       <span className="font-semibold">Top Alliance (#1)</span>
@@ -1076,7 +1076,7 @@ const AlliancesPage = () => {
                     </ul>
                   </div>
 
-                  <div className="p-3 bg-indigo-900 border-l-4 border-gray-400 rounded-md">
+                  <div className="p-3 bg-gradient-to-b from-[#1B0036] to-[#1A1135]  border-l-4 border-gray-400 rounded-md">
                     <div className="flex items-center gap-2 mb-2">
                       <Award size={16} className="text-gray-400" />
                       <span className="font-semibold">Silver Tier (#2-3)</span>
@@ -1097,7 +1097,7 @@ const AlliancesPage = () => {
                     </ul>
                   </div>
 
-                  <div className="p-3 bg-indigo-900 border-l-4 border-yellow-700 rounded-md">
+                  <div className="p-3 bg-gradient-to-b from-[#1B0036] to-[#1A1135]  border-l-4 border-yellow-700 rounded-md">
                     <div className="flex items-center gap-2 mb-2">
                       <Award size={16} className="text-yellow-700" />
                       <span className="font-semibold">Bronze Tier (#4-10)</span>
@@ -1121,13 +1121,13 @@ const AlliancesPage = () => {
               </div>
             </div>
 
-            <div className="p-6 bg-indigo-900 border-4 border-indigo-700 rounded-md">
+            <div className="p-6 bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6b46c1] rounded-md">
               <h3 className="mb-4 text-xl font-bold">
                 Recent Alliance Conflicts
               </h3>
 
               <div className="space-y-4">
-                <div className="p-3 bg-indigo-800 rounded-md sm:p-4">
+                <div className="p-3 bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6b46c1] rounded-md sm:p-4">
                   <div className="flex flex-col gap-2 mb-2 sm:flex-row sm:items-start sm:justify-between sm:gap-0">
                     <div className="flex items-center gap-3">
                       <Sword size={20} className="flex-shrink-0 text-red-400" />
@@ -1155,7 +1155,7 @@ const AlliancesPage = () => {
                   </div>
                 </div>
 
-                <div className="p-3 bg-indigo-800 rounded-md sm:p-4">
+                <div className="p-3 bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6b46c1] rounded-md sm:p-4">
                   <div className="flex flex-col gap-2 mb-2 sm:flex-row sm:items-start sm:justify-between sm:gap-0">
                     <div className="flex items-center gap-3">
                       <Sword size={20} className="flex-shrink-0 text-red-400" />
@@ -1181,7 +1181,7 @@ const AlliancesPage = () => {
                   </div>
                 </div>
 
-                <div className="p-3 bg-indigo-800 rounded-md sm:p-4">
+                <div className="p-3 bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6b46c1] rounded-md sm:p-4">
                   <div className="flex flex-col gap-2 mb-2 sm:flex-row sm:items-start sm:justify-between sm:gap-0">
                     <div className="flex items-center gap-3">
                       <Shield

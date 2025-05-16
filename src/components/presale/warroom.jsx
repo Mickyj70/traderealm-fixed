@@ -554,10 +554,10 @@ const WarRoomComponent = () => {
 
   // Command Center tab content
   const renderCommandCenter = () => (
-    <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
+    <div className="grid grid-cols-1 gap-6 lg:grid-cols-3 bg-gradient-to-b from-[#1B0036] to-[#1A1135] ">
       {/* Active Wars Section */}
       <div className="lg:col-span-2">
-        <div className="overflow-hidden border border-indigo-800 rounded-md shadow-lg bg-indigo-900/50 backdrop-blur-sm">
+        <div className="overflow-hidden bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6b46c1] rounded-md shadow-lg  backdrop-blur-sm">
           <div className="flex items-center justify-between p-4 border-b border-indigo-800">
             <h3 className="flex items-center font-bold text-purple-400">
               <Sword size={18} className="mr-2" />
@@ -791,7 +791,7 @@ const WarRoomComponent = () => {
         )}
 
         {/* Territories Section */}
-        <div className="mt-6 overflow-hidden border border-indigo-800 rounded-md shadow-lg bg-indigo-900/50 backdrop-blur-sm">
+        <div className="mt-6 overflow-hidden bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6b46c1]  rounded-md shadow-lg  backdrop-blur-sm">
           <div className="flex items-center justify-between p-4 border-b border-indigo-800">
             <h3 className="flex items-center font-bold text-purple-400">
               <Map size={18} className="mr-2" />
@@ -814,7 +814,7 @@ const WarRoomComponent = () => {
                   className={`p-3 rounded-md border ${
                     territory.controller === "You"
                       ? "bg-green-900/30 border-green-800"
-                      : "bg-indigo-800/50 border-indigo-700"
+                      : "bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6b46c1] "
                   } ${
                     selectedTerritory?.id === territory.id
                       ? "ring-2 ring-yellow-400"
@@ -908,7 +908,7 @@ const WarRoomComponent = () => {
       {/* Command Center Sidebar */}
       <div className="space-y-6">
         {/* War Stats */}
-        <div className="overflow-hidden border border-indigo-800 rounded-md shadow-lg bg-indigo-900/50 backdrop-blur-sm">
+        <div className="overflow-hidden bg-gradient-to-b from-[#1B0036] to-[#1A1135] border-b-2 border-[#6b46c1] rounded-md shadow-lg backdrop-blur-sm">
           <div className="p-3 border-b border-indigo-800">
             <h3 className="font-bold text-purple-400">Your War Stats</h3>
           </div>
@@ -965,7 +965,7 @@ const WarRoomComponent = () => {
         </div>
 
         {/* Troop Overview */}
-        <div className="overflow-hidden border border-indigo-800 rounded-md shadow-lg bg-indigo-900/50 backdrop-blur-sm">
+        <div className="overflow-hidden bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6b46c1]  rounded-md shadow-lg  backdrop-blur-sm">
           <div className="p-3 border-b border-indigo-800">
             <h3 className="font-bold text-purple-400">Troop Overview</h3>
           </div>
@@ -1030,7 +1030,7 @@ const WarRoomComponent = () => {
         </div>
 
         {/* Current Strategy */}
-        <div className="overflow-hidden border border-indigo-800 rounded-md shadow-lg bg-indigo-900/50 backdrop-blur-sm">
+        <div className="overflow-hidden bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6b46c1]  rounded-md shadow-lg  backdrop-blur-sm">
           <div className="p-3 border-b border-indigo-800">
             <h3 className="font-bold text-purple-400">Current Strategy</h3>
           </div>
@@ -1040,7 +1040,7 @@ const WarRoomComponent = () => {
               .map((strategy) => (
                 <div
                   key={strategy.id}
-                  className="p-3 border border-indigo-700 rounded-md bg-indigo-800/50"
+                  className="p-2  rounded-md bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6b46c1] "
                 >
                   <div className="flex items-center mb-2">
                     {strategy.icon}
@@ -1083,7 +1083,7 @@ const WarRoomComponent = () => {
         </div>
 
         {/* Alliance Support */}
-        <div className="overflow-hidden border border-indigo-800 rounded-md shadow-lg bg-indigo-900/50 backdrop-blur-sm">
+        <div className="overflow-hidden bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6b46c1]  rounded-md shadow-lg  backdrop-blur-sm">
           <div className="p-3 border-b border-indigo-800">
             <h3 className="font-bold text-purple-400">Alliance Support</h3>
           </div>
@@ -1127,13 +1127,13 @@ const WarRoomComponent = () => {
   const renderIntelligence = () => (
     <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
       <div className="lg:col-span-2">
-        <div className="overflow-hidden border border-indigo-800 rounded-md shadow-lg bg-indigo-900/50 backdrop-blur-sm">
+        <div className="overflow-hidden bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6b46c1] rounded-md shadow-lg  backdrop-blur-sm">
           <div className="flex items-center justify-between p-4 border-b border-indigo-800">
             <h3 className="flex items-center font-bold text-purple-400">
               <Eye size={18} className="mr-2" />
               Intelligence Reports
             </h3>
-            <button className="flex items-center px-3 py-1 text-xs font-bold bg-indigo-700 rounded hover:bg-indigo-600">
+            <button className="flex items-center px-3 py-1 text-xs font-bold bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6b46c1] rounded hover:bg-indigo-600">
               <RefreshCw size={12} className="mr-1" />
               Gather Intelligence
             </button>
@@ -1144,7 +1144,7 @@ const WarRoomComponent = () => {
               {intelligenceReports.map((report) => (
                 <div
                   key={report.id}
-                  className={`bg-indigo-800/50 p-4 rounded-md border ${
+                  className={`bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6b46c1] p-4 rounded-md  ${
                     report.urgency === "high"
                       ? "border-red-700"
                       : report.urgency === "medium"
@@ -1220,7 +1220,7 @@ const WarRoomComponent = () => {
         </div>
 
         {/* Additional intel section for threat assessment */}
-        <div className="mt-6 overflow-hidden border border-indigo-800 rounded-md shadow-lg bg-indigo-900/50 backdrop-blur-sm">
+        <div className="mt-6 overflow-hidden bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6b46c1] rounded-md shadow-lg  backdrop-blur-sm">
           <div className="p-4 border-b border-indigo-800">
             <h3 className="flex items-center font-bold text-purple-400">
               <AlertTriangle size={18} className="mr-2" />
@@ -1285,7 +1285,7 @@ const WarRoomComponent = () => {
               </div>
             </div>
 
-            <div className="p-3 mt-4 rounded-md bg-indigo-800/50">
+            <div className="p-3 mt-4 rounded-md bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6b46c1]">
               <div className="mb-2 font-semibold">Strategic Recommendation</div>
               <p className="text-sm text-gray-300">
                 Focus defensive resources on Eastern Silk Road to counter
@@ -1298,23 +1298,23 @@ const WarRoomComponent = () => {
       </div>
 
       <div className="space-y-6">
-        <div className="overflow-hidden border border-indigo-800 rounded-md shadow-lg bg-indigo-900/50 backdrop-blur-sm">
+        <div className="overflow-hidden bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6b46c1] rounded-md shadow-lg  backdrop-blur-sm">
           <div className="p-3 border-b border-indigo-800">
             <h3 className="font-bold text-purple-400">Intel Dashboard</h3>
           </div>
           <div className="p-4">
             <div className="grid grid-cols-2 gap-3 mb-4">
-              <div className="p-3 text-center rounded-md bg-indigo-800/50">
+              <div className="p-3 text-center rounded-md bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6b46c1]">
                 <div className="text-xl font-bold text-yellow-400">3</div>
                 <div className="text-xs text-gray-300">Active Reports</div>
               </div>
-              <div className="p-3 text-center rounded-md bg-indigo-800/50">
+              <div className="p-3 text-center rounded-md bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6b46c1]">
                 <div className="text-xl font-bold text-blue-400">5</div>
                 <div className="text-xs text-gray-300">Agents in Field</div>
               </div>
             </div>
 
-            <div className="p-3 mb-4 rounded-md bg-indigo-800/50">
+            <div className="p-3 mb-4 rounded-md bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6b46c1]">
               <div className="mb-2 text-sm font-semibold">
                 Intelligence Network
               </div>
@@ -1322,7 +1322,7 @@ const WarRoomComponent = () => {
                 <span>Network Strength:</span>
                 <span className="text-yellow-400">Tier 2 (Enhanced)</span>
               </div>
-              <div className="h-2 overflow-hidden rounded-full bg-indigo-950">
+              <div className="h-2 overflow-hidden rounded-full bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6b46c1]">
                 <div
                   className="h-full bg-yellow-500 rounded-full"
                   style={{ width: "60%" }}
@@ -1336,7 +1336,7 @@ const WarRoomComponent = () => {
               </div>
             </div>
 
-            <div className="p-3 rounded-md bg-indigo-800/50">
+            <div className="p-3 rounded-md bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6b46c1]">
               <div className="mb-2 text-sm font-semibold">Enemy Activity</div>
               <div className="space-y-2">
                 <div className="flex justify-between text-xs">
@@ -1364,12 +1364,12 @@ const WarRoomComponent = () => {
           </div>
         </div>
 
-        <div className="overflow-hidden border border-indigo-800 rounded-md shadow-lg bg-indigo-900/50 backdrop-blur-sm">
-          <div className="p-3 border-b border-indigo-800">
+        <div className="overflow-hidden bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6b46c1] rounded-md shadow-lg  backdrop-blur-sm">
+          <div className="p-3 bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6b46c1]">
             <h3 className="font-bold text-purple-400">Active Missions</h3>
           </div>
           <div className="p-4">
-            <div className="p-3 border border-blue-700 rounded-md bg-indigo-800/50">
+            <div className="p-3 rounded-md bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6b46c1]">
               <div className="flex items-start">
                 <div className="flex-shrink-0 p-1 mt-1 mr-3 bg-blue-900 rounded-full">
                   <Eye size={16} className="text-blue-400" />
@@ -1410,12 +1410,12 @@ const WarRoomComponent = () => {
           </div>
         </div>
 
-        <div className="overflow-hidden border border-indigo-800 rounded-md shadow-lg bg-indigo-900/50 backdrop-blur-sm">
+        <div className="overflow-hidden bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6b46c1] rounded-md shadow-lg  backdrop-blur-sm">
           <div className="p-3 border-b border-indigo-800">
             <h3 className="font-bold text-purple-400">Resource Intelligence</h3>
           </div>
           <div className="p-4">
-            <div className="p-3 rounded-md bg-indigo-800/50">
+            <div className="p-3 rounded-md bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6b46c1]">
               <div className="mb-2 text-sm font-semibold">Market Analysis</div>
               <div className="space-y-2 text-xs">
                 <div className="flex justify-between">
@@ -1453,8 +1453,8 @@ const WarRoomComponent = () => {
   const renderTactics = () => (
     <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
       <div className="lg:col-span-2">
-        <div className="overflow-hidden border border-indigo-800 rounded-md shadow-lg bg-indigo-900/50 backdrop-blur-sm">
-          <div className="p-4 border-b border-indigo-800">
+        <div className="overflow-hidden bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6b46c1] rounded-md shadow-lg  backdrop-blur-sm">
+          <div className="p-4 bg-gradient-to-b from-[#1B0036] to-[#1A1135] border-b border-[#6b46c1]">
             <h3 className="flex items-center font-bold text-purple-400">
               <BookOpen size={18} className="mr-2" />
               Battle Tactics
@@ -1470,7 +1470,7 @@ const WarRoomComponent = () => {
               {strategies.map((strategy) => (
                 <div
                   key={strategy.id}
-                  className={`bg-indigo-800/50 p-3 rounded-md border cursor-pointer transition-colors ${
+                  className={`bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6b46c1] p-2 rounded-md  cursor-pointer transition-colors ${
                     selectedStrategy === strategy.id
                       ? "border-purple-600 bg-purple-900/20"
                       : "border-indigo-700 hover:bg-indigo-800/70"
@@ -1515,12 +1515,12 @@ const WarRoomComponent = () => {
               ))}
             </div>
 
-            <div className="p-4 mb-6 border border-indigo-700 rounded-md bg-indigo-800/50">
+            <div className="p-2 mb-6 bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6b46c1] rounded-md ">
               <h4 className="mb-3 font-semibold text-blue-400">
                 Unit Tactical Deployment
               </h4>
               <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-                <div className="p-3 border border-indigo-700 rounded-md bg-indigo-900/50">
+                <div className="p-2 bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6b46c1] rounded-md ">
                   <h5 className="flex items-center font-semibold">
                     <Shield size={16} className="mr-2 text-blue-400" />
                     Vanguard Formation
@@ -1535,7 +1535,7 @@ const WarRoomComponent = () => {
                   </div>
                 </div>
 
-                <div className="p-3 border border-indigo-700 rounded-md bg-indigo-900/50">
+                <div className="p-2 bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6b46c1] rounded-md ">
                   <h5 className="flex items-center font-semibold">
                     <Zap size={16} className="mr-2 text-yellow-400" />
                     Flanking Maneuver
@@ -1552,13 +1552,13 @@ const WarRoomComponent = () => {
               </div>
             </div>
 
-            <div className="p-4 border border-indigo-700 rounded-md bg-indigo-800/50">
+            <div className="p-2 bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6b46c1] rounded-md">
               <h4 className="mb-3 font-semibold text-blue-400">
                 Battle Simulator
               </h4>
 
               <div className="grid grid-cols-2 gap-4 mb-4">
-                <div className="p-3 rounded-md bg-indigo-900/80">
+                <div className="p-3 rounded-md bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6b46c1]">
                   <div className="mb-1 text-xs text-gray-400">Your Forces</div>
                   <div className="font-semibold text-blue-400">
                     {userData.attackStrength} combat power
@@ -1568,7 +1568,7 @@ const WarRoomComponent = () => {
                   </div>
                 </div>
 
-                <div className="p-3 rounded-md bg-indigo-900/80">
+                <div className="p-3 rounded-md bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6b46c1]">
                   <div className="mb-1 text-xs text-gray-400">Enemy Forces</div>
                   <div className="font-semibold text-red-400">
                     ~8,500 combat power
@@ -1594,7 +1594,7 @@ const WarRoomComponent = () => {
           </div>
         </div>
 
-        <div className="mt-6 overflow-hidden border border-indigo-800 rounded-md shadow-lg bg-indigo-900/50 backdrop-blur-sm">
+        <div className="mt-6 overflow-hidden bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6b46c1] rounded-md shadow-lg  backdrop-blur-sm">
           <div className="p-4 border-b border-indigo-800">
             <h3 className="flex items-center font-bold text-purple-400">
               <BarChart3 size={18} className="mr-2" />
@@ -1602,9 +1602,9 @@ const WarRoomComponent = () => {
             </h3>
           </div>
 
-          <div className="p-4">
+          <div className="p-2">
             <div className="grid grid-cols-1 gap-4 mb-6 md:grid-cols-3">
-              <div className="p-3 rounded-md bg-indigo-800/50">
+              <div className="p-2 rounded-md bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6b46c1]">
                 <div className="mb-1 text-xs text-gray-400">Battles Fought</div>
                 <div className="text-xl font-bold">15</div>
                 <div className="flex justify-between mt-1 text-xs">
@@ -1613,7 +1613,7 @@ const WarRoomComponent = () => {
                 </div>
               </div>
 
-              <div className="p-3 rounded-md bg-indigo-800/50">
+              <div className="p-2 rounded-md bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6b46c1]">
                 <div className="mb-1 text-xs text-gray-400">Win Rate</div>
                 <div className="text-xl font-bold text-green-400">67%</div>
                 <div className="mt-1 text-xs">
@@ -1621,7 +1621,7 @@ const WarRoomComponent = () => {
                 </div>
               </div>
 
-              <div className="p-3 rounded-md bg-indigo-800/50">
+              <div className="p-2 rounded-md bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6b46c1]">
                 <div className="mb-1 text-xs text-gray-400">
                   Territory Control
                 </div>
@@ -1630,7 +1630,7 @@ const WarRoomComponent = () => {
               </div>
             </div>
 
-            <div className="p-4 border border-indigo-700 rounded-md bg-indigo-800/50">
+            <div className="p-2  rounded-md bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6b46c1]">
               <h4 className="mb-3 font-semibold text-blue-400">
                 Recent Battles
               </h4>
@@ -1673,12 +1673,12 @@ const WarRoomComponent = () => {
       </div>
 
       <div className="space-y-6">
-        <div className="overflow-hidden border border-indigo-800 rounded-md shadow-lg bg-indigo-900/50 backdrop-blur-sm">
-          <div className="p-3 border-b border-indigo-800">
+        <div className="overflow-hidden bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6b46c1] rounded-md shadow-lg  backdrop-blur-sm">
+          <div className="p-2 border-b border-indigo-800">
             <h3 className="font-bold text-purple-400">Battle Conditions</h3>
           </div>
-          <div className="p-4">
-            <div className="p-3 mb-4 rounded-md bg-indigo-800/50">
+          <div className="p-2">
+            <div className="p-2 mb-4 rounded-md bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6b46c1]">
               <div className="mb-2 font-semibold">Eastern Front</div>
               <div className="space-y-2 text-sm">
                 <div className="flex justify-between">
@@ -1703,7 +1703,7 @@ const WarRoomComponent = () => {
               </div>
             </div>
 
-            <div className="p-3 rounded-md bg-indigo-800/50">
+            <div className="p-2 rounded-md bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6b46c1]">
               <div className="mb-2 font-semibold">Tactical Recommendations</div>
               <div className="space-y-2 text-xs">
                 <div className="flex items-center">
@@ -1736,12 +1736,12 @@ const WarRoomComponent = () => {
           </div>
         </div>
 
-        <div className="overflow-hidden border border-indigo-800 rounded-md shadow-lg bg-indigo-900/50 backdrop-blur-sm">
-          <div className="p-3 border-b border-indigo-800">
+        <div className="overflow-hidden bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6b46c1] rounded-md shadow-lg  backdrop-blur-sm">
+          <div className="p-2 border-b border-indigo-800">
             <h3 className="font-bold text-purple-400">Special Abilities</h3>
           </div>
-          <div className="p-4 space-y-2">
-            <div className="p-3 border border-indigo-700 rounded-md bg-indigo-800/50">
+          <div className="p-2 space-y-2">
+            <div className="p-2 bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6b46c1] rounded-md ">
               <div className="flex items-center justify-between">
                 <div className="flex items-center">
                   <div className="flex items-center justify-center w-8 h-8 mr-3 text-lg bg-purple-900 rounded-full">
@@ -1760,7 +1760,7 @@ const WarRoomComponent = () => {
               </div>
             </div>
 
-            <div className="p-3 border border-indigo-700 rounded-md bg-indigo-800/50">
+            <div className="p-2 bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6b46c1] rounded-md ">
               <div className="flex items-center justify-between">
                 <div className="flex items-center">
                   <div className="flex items-center justify-center w-8 h-8 mr-3 text-lg bg-blue-900 rounded-full">
@@ -1781,13 +1781,13 @@ const WarRoomComponent = () => {
           </div>
         </div>
 
-        <div className="overflow-hidden border border-indigo-800 rounded-md shadow-lg bg-indigo-900/50 backdrop-blur-sm">
+        <div className="overflow-hidden bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6b46c1] rounded-md shadow-lg  backdrop-blur-sm">
           <div className="p-3 border-b border-indigo-800">
             <h3 className="font-bold text-purple-400">Unit Effectiveness</h3>
           </div>
           <div className="p-4">
             <div className="space-y-3">
-              <div className="p-3 rounded-md bg-indigo-800/50">
+              <div className="p-3 rounded-md bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6b46c1]">
                 <div className="mb-2 font-semibold">
                   Trade Guards (Infantry)
                 </div>
@@ -1809,7 +1809,7 @@ const WarRoomComponent = () => {
                 </div>
               </div>
 
-              <div className="p-3 rounded-md bg-indigo-800/50">
+              <div className="p-3 rounded-md bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6b46c1]">
                 <div className="mb-2 font-semibold">
                   Shadow Agents (Special)
                 </div>
@@ -1838,11 +1838,11 @@ const WarRoomComponent = () => {
   );
 
   return (
-    <div className="flex flex-col min-h-screen text-white bg-gradient-to-b from-indigo-900 to-indigo-950">
+    <div className="flex flex-col min-h-screen text-white bg-gradient-to-b from-[#1B0036] to-[#1A1135] ">
       {/* War Room Header */}
       <div className="relative overflow-hidden">
         <div className="absolute inset-0 z-10 bg-black opacity-40"></div>
-        <div className="relative h-24 bg-indigo-900 bg-center bg-cover">
+        <div className="relative h-24 bg-gradient-to-b from-[#1B0036] to-[#1A1135] bg-center bg-cover">
           <div className="absolute inset-0 bg-gradient-to-r from-indigo-800/70 to-purple-900/70"></div>
           <div className="absolute top-0 left-0 w-full h-full bg-[url('data:image/svg+xml,%3Csvg width=\'40\' height=\'40\' viewBox=\'0 0 40 40\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'%23ffffff\' fill-opacity=\'0.05\' fill-rule=\'evenodd\'%3E%3Cpath d=\'M0 38.59l2.83-2.83 1.41 1.41L1.41 40H0v-1.41zM0 1.4l2.83 2.83 1.41-1.41L1.41 0H0v1.41zM38.59 40l-2.83-2.83 1.41-1.41L40 38.59V40h-1.41zM40 1.41l-2.83 2.83-1.41-1.41L38.59 0H40v1.41zM20 18.6l2.83-2.83 1.41 1.41L21.41 20l2.83 2.83-1.41 1.41L20 21.41l-2.83 2.83-1.41-1.41L18.59 20l-2.83-2.83 1.41-1.41L20 18.59z\'/%3E%3C/g%3E%3C/svg%3E')]"></div>
           <div className="relative z-20 flex flex-col items-start justify-between h-full px-4 py-3 sm:flex-row sm:items-center sm:px-6 sm:py-0">
@@ -1878,12 +1878,12 @@ const WarRoomComponent = () => {
       </div>
 
       {/* Tab Navigation */}
-      <div className="flex flex-wrap p-2 space-x-0 border-b border-indigo-800 sm:space-x-1 bg-indigo-950">
+      <div className="flex flex-wrap p-2 space-x-0 bg-gradient-to-b from-[#1B0036] to-[#1A1135] border-b-2 border-[#6b46c1] sm:space-x-1 ">
         <button
           className={`px-3 sm:px-4 py-2 rounded-t-lg font-semibold flex items-center text-xs sm:text-sm w-full sm:w-auto mb-1 sm:mb-0 ${
             activeTab === "command"
               ? "bg-purple-900 text-white"
-              : "bg-indigo-900 text-gray-300 hover:bg-indigo-800"
+              : "bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6b46c1] text-gray-300 hover:bg-indigo-800"
           }`}
           onClick={() => setActiveTab("command")}
         >
@@ -1894,7 +1894,7 @@ const WarRoomComponent = () => {
           className={`px-3 sm:px-4 py-2 rounded-t-lg font-semibold flex items-center text-xs sm:text-sm w-full sm:w-auto mb-1 sm:mb-0 ${
             activeTab === "intelligence"
               ? "bg-purple-900 text-white"
-              : "bg-indigo-900 text-gray-300 hover:bg-indigo-800"
+              : "bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6b46c1] text-gray-300 hover:bg-indigo-800"
           }`}
           onClick={() => setActiveTab("intelligence")}
         >
@@ -1905,7 +1905,7 @@ const WarRoomComponent = () => {
           className={`px-3 sm:px-4 py-2 rounded-t-lg font-semibold flex items-center text-xs sm:text-sm w-full sm:w-auto ${
             activeTab === "tactics"
               ? "bg-purple-900 text-white"
-              : "bg-indigo-900 text-gray-300 hover:bg-indigo-800"
+              : "bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6b46c1] text-gray-300 hover:bg-indigo-800"
           }`}
           onClick={() => setActiveTab("tactics")}
         >
