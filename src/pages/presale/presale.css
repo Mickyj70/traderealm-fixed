@@ -54,8 +54,8 @@
 }
 
 .pixel-container {
-  background-color: rgba(67, 56, 202, 0.3);
-  border: 2px solid rgba(99, 102, 241, 0.5);
+  background-color: #1a1135;
+  border: 2px solid #6b46c1;
   border-radius: 8px;
   padding: 16px;
   box-shadow: 0 0 20px rgba(99, 102, 241, 0.3);

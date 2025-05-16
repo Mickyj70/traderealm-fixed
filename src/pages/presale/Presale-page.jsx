@@ -208,7 +208,7 @@ const PresalePage = () => {
         )}
 
         {/* Presale Countdown Box */}
-        <div className="w-full max-w-xl p-6 mb-8 bg-indigo-900 border-4 border-indigo-700 rounded-lg animate-pulse-slow">
+        <div className="w-full max-w-xl p-6 mb-8 bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6b46c1] rounded-lg animate-pulse-slow">
           <h2 className="mb-4 text-xl font-bold text-center text-yellow-400">
             {presaleStage === "registration"
               ? "Presale Opens In:"
@@ -250,7 +250,7 @@ const PresalePage = () => {
                 <span className="text-sm">Presale Progress:</span>
                 <span className="text-sm text-green-400">67% Complete</span>
               </div>
-              <div className="h-4 overflow-hidden border-2 border-indigo-800 rounded-full bg-indigo-950">
+              <div className="h-4 overflow-hidden bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6b46c1] rounded-full ">
                 <div
                   className="h-full bg-green-500 rounded-full"
                   style={{ width: "67%" }}
@@ -263,7 +263,7 @@ const PresalePage = () => {
             </div>
           )}
 
-          <div className="p-4 mb-6 bg-indigo-800 rounded-md">
+          <div className="p-4 mb-6 bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6b46c1] rounded-md">
             <h3 className="mb-2 font-semibold text-green-400">
               Presale Details
             </h3>
@@ -538,12 +538,12 @@ const PresalePage = () => {
                     const value = e.target.value.replace(/[^0-9.]/g, "");
                     setPresaleAmount(value);
                   }}
-                  className="w-full p-3 border-2 border-indigo-700 rounded-md bg-indigo-950"
+                  className="w-full p-3 border-2 bg-gradient-to-b from-[#1B0036] to-[#1A1135]  border-[#6b46c1]"
                   placeholder="0.0"
                 />
               </div>
 
-              <div className="p-3 text-sm border-2 border-indigo-700 rounded-md bg-indigo-950">
+              <div className="p-3 text-sm border-2 bg-gradient-to-b from-[#1B0036] to-[#1A1135]  border-[#6b46c1]">
                 <div className="flex items-center mb-2">
                   <Star size={16} className="mr-2 text-yellow-400" />
                   <span className="font-semibold">Purchase Summary</span>
@@ -586,7 +586,7 @@ const PresalePage = () => {
                 </div>
               </div>
 
-              <div className="p-3 text-sm bg-indigo-800 rounded-md">
+              <div className="p-3 text-sm bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6b46c1] rounded-md">
                 <div className="flex items-center mb-2">
                   <Clock size={16} className="mr-2 text-yellow-400" />
                   <span className="font-semibold">Vesting Schedule</span>
@@ -768,8 +768,8 @@ const PresalePage = () => {
             <h2 className="mb-4 text-xl font-bold text-center text-yellow-400">
               Recent Contributors
             </h2>
-            <div className="overflow-hidden border-2 border-indigo-700 rounded-md">
-              <div className="p-3 font-semibold bg-indigo-800">
+            <div className="overflow-hidden bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6b46c1] rounded-md">
+              <div className="p-3 font-semibold bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6b46c1]">
                 <div className="grid grid-cols-4">
                   <div>Address</div>
                   <div>Amount</div>
@@ -814,7 +814,7 @@ const PresalePage = () => {
             Important Information
           </h2>
           <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
-            <div className="p-4 text-center bg-indigo-900 rounded-md">
+            <div className="p-4 text-center bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6b46c1] rounded-md">
               <AlertCircle size={24} className="mx-auto mb-2 text-red-400" />
               <h3 className="mb-1 font-semibold">Security Notice</h3>
               <p className="text-xs">
@@ -822,14 +822,14 @@ const PresalePage = () => {
                 addresses.
               </p>
             </div>
-            <div className="p-4 text-center bg-indigo-900 rounded-md">
+            <div className="p-4 text-center bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6b46c1] rounded-md">
               <HelpCircle size={24} className="mx-auto mb-2 text-blue-400" />
               <h3 className="mb-1 font-semibold">Support</h3>
               <p className="text-xs">
                 Join our Telegram or Discord for assistance with your purchase.
               </p>
             </div>
-            <div className="p-4 text-center bg-indigo-900 rounded-md">
+            <div className="p-4 text-center bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6b46c1] rounded-md">
               <ExternalLink size={24} className="mx-auto mb-2 text-green-400" />
               <h3 className="mb-1 font-semibold">Resources</h3>
               <p className="text-xs">
