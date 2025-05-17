@@ -1,1481 +1,899 @@
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from "react";
 import {
-  Users,
-  Crown,
-  Shield,
-  Sword,
-  Star,
-  CheckCircle,
   X,
-  Award,
-  Zap,
-  TrendingUp,
-  Map,
-  Compass,
-  Sparkles,
-  Lock,
-  Globe,
-  FileText,
-  AlertTriangle,
-  ArrowRight,
-  Gift,
-  MessageCircle,
-  Settings,
-  ChevronRight,
+  ChevronUp,
   ChevronDown,
-  Flag,
-  Target,
-  PieChart,
-  ArrowUp,
+  CreditCard,
+  Coins,
+  ArrowRight,
+  DollarSign,
+  RefreshCw,
   Clock,
-  Trophy,
+  Sparkles,
+  Anchor,
+  Ship,
+  Package,
+  Compass,
+  Map,
+  Globe,
+  Wind,
 } from "lucide-react";
 
-const AlliancesPage = () => {
-  const [activeTab, setActiveTab] = useState("discover");
-  const [selectedAlliance, setSelectedAlliance] = useState(null);
-  const [showJoinModal, setShowJoinModal] = useState(false);
-  const [joinLoading, setJoinLoading] = useState(false);
-  const [joinSuccess, setJoinSuccess] = useState(false);
-  const [allianceStats, setAllianceStats] = useState({
-    activeMissions: 3,
-    unclaimedRewards: 487,
-    lastRankingChange: "+2",
+// Import Licenses (Bonding) Page Component
+const TradeRealmImportLicensesPage = () => {
+  const [selectedBond, setSelectedBond] = useState(null);
+  const [bondAmount, setBondAmount] = useState("");
+  const [showPurchaseModal, setShowPurchaseModal] = useState(false);
+  const [vestingCountdown, setVestingCountdown] = useState({
+    days: 3,
+    hours: 7,
+    minutes: 42,
   });
-  const [allianceRankings, setAllianceRankings] = useState([
-    { name: "Dragon Dynasty", rank: 1, size: 381, territory: 5, change: 0 },
-    { name: "Stellar Syndicate", rank: 2, size: 294, territory: 4, change: 1 },
-    { name: "Eastern Federation", rank: 3, size: 142, territory: 3, change: 2 },
-    {
-      name: "Northern Coalition",
-      rank: 4,
-      size: 187,
-      territory: 2,
-      change: -2,
-    },
-    { name: "Western Union", rank: 5, size: 124, territory: 2, change: -1 },
-  ]);
-  const [showMissionModal, setShowMissionModal] = useState(false);
-  const [activeMission, setActiveMission] = useState(null);
-  const [allianceChatMessages, setAllianceChatMessages] = useState([
-    {
-      sender: "TradeKing",
-      message:
-        "Just secured a 45% stake in Silk Road! Eastern Federation pushing to take the lead.",
-      time: "14:32",
-    },
-    {
-      sender: "CryptoEmpress",
-      message:
-        "Great work! I'm focusing on defending our position in Golden Strait.",
-      time: "14:45",
-    },
-    {
-      sender: "BaronBitcoin",
-      message: "Trade War in 3 days. What's our strategy?",
-      time: "15:20",
-    },
-    {
-      sender: "System",
-      message:
-        "Alliance mission 'Secure Maritime Routes' completed! +500 $BARON to alliance treasury.",
-      time: "16:05",
-      system: true,
-    },
-  ]);
-  const [newMessage, setNewMessage] = useState("");
-  const [showStrategyModal, setShowStrategyModal] = useState(false);
-  const [allianceVote, setAllianceVote] = useState({
-    totalVotes: 124,
-    defensive: 72,
-    offensive: 38,
-    diplomatic: 14,
-    yourVote: "defensive",
-  });
-  const [timeUntilWarCouncil, setTimeUntilWarCouncil] = useState(
-    42 * 60 * 60 + 18 * 60
-  ); // 42 hours and 18 minutes in seconds
-  const [showWarCouncilBadge, setShowWarCouncilBadge] = useState(true);
+  const [shipPosition, setShipPosition] = useState(25);
+  const [waves, setWaves] = useState([]);
+  const [showCelebration, setShowCelebration] = useState(false);
 
-  // Format time countdown
-  const formatCountdown = (seconds) => {
-    const days = Math.floor(seconds / (24 * 60 * 60));
-    const hours = Math.floor((seconds % (24 * 60 * 60)) / (60 * 60));
-    const minutes = Math.floor((seconds % (60 * 60)) / 60);
-    return `${days > 0 ? days + "d " : ""}${hours}h ${minutes}m`;
-  };
-
-  // Update war council countdown
+  // Generate random waves
   useEffect(() => {
-    const timer = setInterval(() => {
-      setTimeUntilWarCouncil((prev) => {
-        if (prev <= 0) return 7 * 24 * 60 * 60; // Reset to 7 days
-        return prev - 1;
+    const newWaves = [];
+    for (let i = 0; i < 10; i++) {
+      newWaves.push({
+        id: i,
+        left: Math.floor(Math.random() * 90) + 5,
+        top: Math.floor(Math.random() * 80) + 10,
+        size: Math.floor(Math.random() * 10) + 3,
+        animationDelay: Math.random() * 2,
       });
-    }, 1000);
+    }
+    setWaves(newWaves);
 
-    return () => clearInterval(timer);
+    // Animate ship
+    const shipInterval = setInterval(() => {
+      setShipPosition((prev) => {
+        if (prev >= 75) return 25;
+        return prev + 1;
+      });
+    }, 200);
+
+    return () => clearInterval(shipInterval);
   }, []);
 
-  // Handle message sending
-  const handleSendMessage = () => {
-    if (!newMessage.trim()) return;
-
-    const newMsg = {
-      sender: "You",
-      message: newMessage,
-      time: new Date().toLocaleTimeString([], {
-        hour: "2-digit",
-        minute: "2-digit",
-      }),
-    };
-
-    setAllianceChatMessages([...allianceChatMessages, newMsg]);
-    setNewMessage("");
-  };
-
-  // Handle join alliance
-  const handleJoinAlliance = () => {
-    if (!selectedAlliance) return;
-
-    setJoinLoading(true);
-
-    // Simulate API call
-    setTimeout(() => {
-      setJoinLoading(false);
-      setJoinSuccess(true);
-
-      // Reset after showing success
-      setTimeout(() => {
-        setJoinSuccess(false);
-        setShowJoinModal(false);
-        // If joining Eastern Federation, switch to "Your Alliance" tab
-        if (selectedAlliance.id === "eastern-federation") {
-          setActiveTab("your-alliance");
-        }
-      }, 2000);
-    }, 1500);
-  };
-
-  // Mission data
-  const allianceMissions = [
+  // Available bonds data with fun icons
+  const availableBonds = [
     {
-      id: "secure-routes",
-      title: "Secure Maritime Routes",
-      description:
-        "Deploy forces to secure key maritime trade routes in the Eastern sector.",
-      reward: "500 $BARON",
-      difficulty: "Medium",
-      timeRemaining: "1d 4h",
-      progress: 75,
-      participants: 28,
-      status: "active",
-      type: "trade",
-      icon: <Globe className="text-blue-400" />,
+      id: "eth",
+      name: "ETH License",
+      icon: "⟠",
+      discount: 9.2,
+      marketPrice: 14.32,
+      bondPrice: 13.0,
+      vestingTerm: "5 days",
+      totalPurchased: "125,420 $BARON",
+      capacity: "250,000 $BARON",
+      capacityUsed: 50.17,
+      color: "#71C5FF",
+      bgColor: "from-blue-900 to-indigo-900",
+      routeFrom: "Silicon Valley",
+      routeTo: "Blockchain Isle",
     },
     {
-      id: "alliance-recruitment",
-      title: "Alliance Recruitment Drive",
-      description:
-        "Recruit new members to strengthen our alliance before the next Trade War.",
-      reward: "350 $BARON + Rank XP",
-      difficulty: "Easy",
-      timeRemaining: "2d 12h",
-      progress: 60,
-      participants: 47,
-      status: "active",
-      type: "diplomatic",
-      icon: <Users className="text-green-400" />,
+      id: "dai",
+      name: "DAI License",
+      icon: "◈",
+      discount: 7.5,
+      marketPrice: 14.32,
+      bondPrice: 13.25,
+      vestingTerm: "5 days",
+      totalPurchased: "98,750 $BARON",
+      capacity: "200,000 $BARON",
+      capacityUsed: 49.38,
+      color: "#FBD87F",
+      bgColor: "from-yellow-900 to-indigo-900",
+      routeFrom: "Stable Harbor",
+      routeTo: "Baron City",
     },
     {
-      id: "resource-raid",
-      title: "Resource Raid Operation",
-      description:
-        "Launch a coordinated raid on Northern Coalition resources during their vulnerable period.",
-      reward: "850 $BARON + Territory Control",
-      difficulty: "Hard",
-      timeRemaining: "6h 30m",
-      progress: 40,
-      participants: 18,
-      status: "active",
-      type: "war",
-      icon: <Sword className="text-red-400" />,
+      id: "baron-eth-lp",
+      name: "BARON-ETH LP",
+      icon: "⥮",
+      discount: 12.4,
+      marketPrice: 14.32,
+      bondPrice: 12.54,
+      vestingTerm: "5 days",
+      totalPurchased: "78,240 $BARON",
+      capacity: "150,000 $BARON",
+      capacityUsed: 52.16,
+      isLp: true,
+      color: "#A89CF4",
+      bgColor: "from-purple-900 to-indigo-900",
+      routeFrom: "Liquidity Lagoon",
+      routeTo: "Ethereum Empire",
     },
     {
-      id: "intelligence-gathering",
-      title: "Intelligence Gathering",
-      description:
-        "Collect information on enemy trade strategies and defensive positioning.",
-      reward: "300 $BARON + Strategic Intelligence",
-      difficulty: "Medium",
-      timeRemaining: "1d 18h",
-      progress: 25,
-      participants: 12,
-      status: "active",
-      type: "intelligence",
-      icon: <FileText className="text-purple-400" />,
+      id: "baron-dai-lp",
+      name: "BARON-DAI LP",
+      icon: "⥮",
+      discount: 11.2,
+      marketPrice: 14.32,
+      bondPrice: 12.72,
+      vestingTerm: "5 days",
+      totalPurchased: "62,125 $BARON",
+      capacity: "150,000 $BARON",
+      capacityUsed: 41.42,
+      isLp: true,
+      color: "#FF9B9B",
+      bgColor: "from-red-900 to-indigo-900",
+      routeFrom: "Dual Docks",
+      routeTo: "Profit Peninsula",
     },
   ];
 
-  // Alliance data
-  const alliances = [
+  // Active bonds data
+  const activeBonds = [
     {
-      id: "shadow-network",
-      name: "Shadow Network",
-      type: "Luxury Goods Alliance",
-      description:
-        "A secretive network of luxury goods traders with exclusive access to high-margin routes",
-      logo: "🕸️",
-      members: 78,
-      ranking: 8,
-      territories: 1,
-      totalStaked: "352,487",
-      accessRequirement: "Hold 1,000+ $SHADOW tokens",
-      specialty: "Hidden transactions with 3x returns",
-      color: "#2D2D2D",
-      routeAccess: "Shadow Routes",
-      specialPower: "Market Invisibility",
-      bonuses: [
-        "20% higher transaction volume",
-        "Hidden transaction bonuses",
-        "Special war mechanics",
-        "Luxury goods trade rights",
-      ],
-    },
-    {
-      id: "x33-fleet",
-      name: "X33 Trade Fleet",
-      type: "Naval Network",
-      description:
-        "The dominant force in maritime trade routes with superior naval technology",
-      logo: "⚓",
-      members: 104,
-      ranking: 6,
-      territories: 2,
-      totalStaked: "495,628",
-      accessRequirement: "Hold any X33 tokens",
-      specialty: "Naval trade dominance",
-      color: "#0277BD",
-      routeAccess: "Oceanic Routes",
-      specialPower: "Sea Dominance",
-      bonuses: [
-        "10% faster rebasing",
-        "Multi-node connections",
-        "Defensive war bonuses",
-        "Exclusive naval technology",
-      ],
-    },
-    {
-      id: "derp-guild",
-      name: "DERP Guild",
-      type: "Exploration Alliance",
-      description:
-        "An adventurous guild focused on discovering new trade routes and exotic resources",
-      logo: "🧭",
-      members: 63,
-      ranking: 12,
-      territories: 1,
-      totalStaked: "289,752",
-      accessRequirement: "Hold at least one DERP NFT",
-      specialty: "Route discovery and exotic goods",
-      color: "#8E24AA",
-      routeAccess: "Unexplored Territories",
-      specialPower: "Discovery Chance",
-      bonuses: [
-        "Random 3x yield multipliers",
-        "Special diplomacy options",
-        "Surprise rewards",
-        "First access to new routes",
-      ],
-    },
-    {
-      id: "eastern-federation",
-      name: "Eastern Federation",
-      type: "Trading Consortium",
-      description:
-        "A powerful trading alliance that controls key routes in the Eastern territories",
-      logo: "🏯",
-      members: 142,
-      ranking: 3,
-      territories: 3,
-      totalStaked: "648,500",
-      accessRequirement: "Open Membership",
-      specialty: "Balanced trade and warfare",
-      color: "#D32F2F",
-      routeAccess: "Eastern Trade Routes",
-      specialPower: "Diplomatic Influence",
-      bonuses: [
-        "+5% Staking Rewards",
-        "-10% Import License Costs",
-        "+15% Trade War Rewards",
-        "Access to Eastern Trade Routes",
-      ],
+      id: "eth-bond-1",
+      type: "ETH",
+      icon: "⟠",
+      totalValue: 750,
+      claimed: 300,
+      percentVested: 40,
+      remainingTime: "3d 7h",
+      endsAt: new Date(
+        Date.now() + 3 * 24 * 60 * 60 * 1000 + 7 * 60 * 60 * 1000
+      ),
+      color: "#71C5FF",
     },
   ];
 
-  // Get user's alliance
-  const userAlliance = alliances.find((a) => a.id === "eastern-federation");
+  // Handle bond amount input
+  const handleBondAmountChange = (e) => {
+    // Only allow numbers and decimals
+    const value = e.target.value.replace(/[^0-9.]/g, "");
+    setBondAmount(value);
+  };
 
-  // Render alliance card
-  const renderAllianceCard = (alliance, isCurrentMember = false) => (
-    <div
-      key={alliance.id}
-      className={`bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6b46c1] rounded-md p-4 hover:border-indigo-500 transition-all ${
-        isCurrentMember ? "border-yellow-600" : "border-indigo-700"
-      }`}
-    >
-      <div className="flex items-start justify-between mb-3">
-        <div>
-          <div className="flex items-center gap-2">
-            <h3 className="text-lg font-bold">{alliance.name}</h3>
-            {isCurrentMember && (
-              <span className="bg-yellow-600 text-black text-xs px-2 py-0.5 rounded-full font-semibold">
-                MEMBER
-              </span>
-            )}
-          </div>
-          <div className="mt-1 text-xs opacity-70">{alliance.type}</div>
-        </div>
-        <div
-          className="p-2 text-3xl rounded-md"
-          style={{
-            backgroundColor: `${alliance.color}30`,
-            border: `2px solid ${alliance.color}80`,
-          }}
-        >
-          {alliance.logo}
-        </div>
-      </div>
-
-      <div className="mb-4 text-sm opacity-80">{alliance.description}</div>
-
-      <div className="grid grid-cols-3 gap-2 mb-4 text-sm">
-        <div className="p-2 text-center bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6b46c1] rounded-md">
-          <div className="text-xs opacity-70">Members</div>
-          <div className="font-bold">{alliance.members}</div>
-        </div>
-        <div className="p-2 text-center bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6b46c1] rounded-md">
-          <div className="text-xs opacity-70">Ranking</div>
-          <div className="font-bold">#{alliance.ranking}</div>
-        </div>
-        <div className="p-2 text-center bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6b46c1] rounded-md">
-          <div className="text-xs opacity-70">Territory</div>
-          <div className="font-bold">{alliance.territories}</div>
-        </div>
-      </div>
-
-      <div className="mb-4 space-y-2 text-sm">
-        <div>
-          <span className="opacity-70">Requirement:</span>
-          <div className="flex items-center p-2 mt-1 text-xs bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6b46c1] rounded-md">
-            {alliance.accessRequirement === "Open Membership" ? (
-              <>
-                <CheckCircle size={14} className="mr-1 text-green-400" />
-                <span>Open Membership</span>
-              </>
-            ) : (
-              <>
-                <Lock size={14} className="mr-1 text-yellow-400" />
-                <span>{alliance.accessRequirement}</span>
-              </>
-            )}
-          </div>
-        </div>
-
-        <div>
-          <span className="opacity-70">Specialty:</span>
-          <div className="p-2 mt-1 text-xs bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6b46c1] rounded-md">
-            {alliance.specialty}
-          </div>
-        </div>
-      </div>
-
-      {isCurrentMember ? (
-        <button
-          className="flex items-center justify-center w-full gap-2 py-2 font-semibold transition-all bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6b46c1]"
-          onClick={() => setActiveTab("your-alliance")}
-        >
-          <Crown size={16} className="text-yellow-400" />
-          <span>View Alliance</span>
-        </button>
-      ) : (
-        <button
-          className="flex items-center justify-center w-full gap-2 py-2 font-semibold transition-all bg-green-700 rounded-md hover:bg-green-600"
-          onClick={() => {
-            setSelectedAlliance(alliance);
-            setShowJoinModal(true);
-          }}
-        >
-          <Users size={16} />
-          <span>Join Alliance</span>
-        </button>
-      )}
-    </div>
-  );
-
-  // Handle chat message enter key
-  const handleMessageKeyPress = (e) => {
-    if (e.key === "Enter" && !e.shiftKey) {
-      e.preventDefault();
-      handleSendMessage();
+  // Set max amount for bonding (placeholder)
+  const setMaxBondAmount = () => {
+    if (selectedBond?.id === "eth") {
+      setBondAmount("2.5");
+    } else if (selectedBond?.id === "dai") {
+      setBondAmount("500");
+    } else {
+      setBondAmount("1.2");
     }
   };
 
-  return (
-    <div className="min-h-screen text-white bg-gradient-to-b from-[#1B0036] to-[#1A1135] ">
-      {/* Animated background */}
-      <div className="fixed inset-0 z-0 w-full h-full overflow-hidden">
-        <div className="stars"></div>
-        <div className="pixel-grid"></div>
-        <div className="alliance-network"></div>
-      </div>
+  // Purchase bond with celebration effect
+  const purchaseBond = () => {
+    setShowCelebration(true);
 
-      {/* Header */}
-      <header className="relative z-10 flex items-center justify-between p-2 bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6b46c1]">
-        <h1 className="flex items-center text-xl font-bold tracking-wider text-yellow-400 md:text-2xl">
-          <Users className="mr-2" size={24} />
-          Trade Alliances
-        </h1>
+    setTimeout(() => {
+      setShowCelebration(false);
+      // Close modal and reset amount
+      setShowPurchaseModal(false);
+      setBondAmount("");
+      setSelectedBond(null);
+    }, 3000);
+  };
 
-        {activeTab === "your-alliance" && (
-          <div className="flex items-center gap-4">
-            {/* <div className="flex items-center px-3 py-1 bg-indigo-800 rounded-md">
-              <Clock size={16} className="mr-1 text-yellow-400" />
-              <span className="text-sm">
-                War Council:{" "}
-                <span className="text-yellow-400">
-                  {formatCountdown(timeUntilWarCouncil)}
-                </span>
-              </span>
-            </div>
-            <div className="flex items-center px-3 py-1 text-sm bg-indigo-800 rounded-md">
-              <Sparkles className="mr-1 text-green-400" size={16} />
-              <span className="mr-1">Alliance Rank:</span>
-              <span className="font-bold text-green-400">#3</span>
-              <span className="flex items-center ml-1 font-bold text-green-400">
-                <ArrowUp size={14} /> 2
-              </span>
-            </div> */}
-          </div>
-        )}
-      </header>
+  // Calculate received tokens
+  const calculateReceivedTokens = () => {
+    if (!selectedBond || !bondAmount || isNaN(parseFloat(bondAmount))) return 0;
 
-      {/* Tabs */}
-      <div className="relative z-10 px-4 bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6b46c1]">
-        <div className="flex mx-auto space-x-1 max-w-7xl">
-          <button
-            className={`py-3 px-4 font-semibold border-b-2 transition-all ${
-              activeTab === "discover"
-                ? "border-yellow-400 text-yellow-400"
-                : "border-transparent hover:border-indigo-500"
-            }`}
-            onClick={() => setActiveTab("discover")}
-          >
-            Discover Alliances
-          </button>
-          {userAlliance && (
-            <button
-              className={`py-3 px-4 font-semibold border-b-2 transition-all flex items-center relative ${
-                activeTab === "your-alliance"
-                  ? "border-yellow-400 text-yellow-400"
-                  : "border-transparent hover:border-indigo-500"
-              }`}
-              onClick={() => {
-                setActiveTab("your-alliance");
-                setShowWarCouncilBadge(false);
-              }}
-            >
-              Your Alliance
-              {showWarCouncilBadge && (
-                <div className="absolute w-3 h-3 bg-red-500 rounded-full -top-1 -right-1 animate-ping"></div>
-              )}
-            </button>
-          )}
-          <button
-            className={`py-3 px-4 font-semibold border-b-2 transition-all ${
-              activeTab === "rankings"
-                ? "border-yellow-400 text-yellow-400"
-                : "border-transparent hover:border-indigo-500"
-            }`}
-            onClick={() => setActiveTab("rankings")}
-          >
-            Alliance Rankings
-          </button>
+    const amountInUsd =
+      parseFloat(bondAmount) * (selectedBond.id === "eth" ? 3000 : 1);
+    return Math.round(amountInUsd / selectedBond.bondPrice);
+  };
+
+  // Format vesting time
+  const formatVestingTime = (date) => {
+    const now = new Date();
+    const diff = date - now;
+
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+
+    return `${days}d ${hours}h ${minutes}m`;
+  };
+
+  // Get trader title based on bond amount
+  const getTraderTitle = () => {
+    if (!bondAmount || parseFloat(bondAmount) <= 0) return "Novice Trader";
+
+    const amount = parseFloat(bondAmount);
+    if (amount >= 10) return "Master Merchant";
+    if (amount >= 5) return "Seasoned Smuggler";
+    if (amount >= 2) return "Adept Importer";
+    if (amount >= 1) return "Trade Apprentice";
+    return "Novice Trader";
+  };
+
+  // Add styles for the page
+  useEffect(() => {
+    const style = document.createElement("style");
+    style.textContent = `
+@keyframes pulse {
+0% { transform: scale(0.95); opacity: 0.7; }
+70% { transform: scale(1.1); opacity: 1; }
+100% { transform: scale(0.95); opacity: 0.7; }
+}
+
+@keyframes float {
+0% { transform: translateY(0px); }
+50% { transform: translateY(-10px); }
+100% { transform: translateY(0px); }
+}
+
+@keyframes shipFloat {
+0% { transform: translateY(0px) rotate(2deg); }
+50% { transform: translateY(-15px) rotate(-2deg); }
+100% { transform: translateY(0px) rotate(2deg); }
+}
+
+@keyframes bob {
+0% { transform: rotate(-3deg); }
+50% { transform: rotate(3deg); }
+100% { transform: rotate(-3deg); }
+}
+
+@keyframes wave {
+0% { transform: translateX(-30px) scale(1); }
+50% { transform: translateX(10px) scale(0.8); }
+100% { transform: translateX(-30px) scale(1); }
+}
+
+@keyframes glow {
+0% { box-shadow: 0 0 5px rgba(79, 70, 229, 0.5); }
+50% { box-shadow: 0 0 20px rgba(79, 70, 229, 0.8); }
+100% { box-shadow: 0 0 5px rgba(79, 70, 229, 0.5); }
+}
+
+@keyframes spin {
+0% { transform: rotate(0deg); }
+100% { transform: rotate(360deg); }
+}
+
+@keyframes sparkle {
+0%, 100% { opacity: 0; transform: scale(0.5); }
+50% { opacity: 1; transform: scale(1.2); }
+}
+
+@keyframes coinFall {
+0% { transform: translateY(-500px) rotate(0deg); opacity: 0; }
+10% { opacity: 1; }
+100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+}
+
+@keyframes confetti {
+0% { transform: translateY(-10px) rotate(0deg); opacity: 0; }
+10% { opacity: 1; }
+100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+}
+
+.font-pixel {
+font-family: 'Press Start 2P', system-ui, sans-serif;
+}
+
+.pixelated-bg {
+background-size: 20px 20px;
+background-image:
+linear-gradient(to right, rgba(30, 64, 175, 0.1) 1px, transparent 1px),
+linear-gradient(to bottom, rgba(30, 64, 175, 0.1) 1px, transparent 1px);
+}
+
+.glow-effect {
+animation: glow 3s infinite;
+}
+
+.float-animation {
+animation: float 4s ease-in-out infinite;
+}
+
+.pulse-animation {
+animation: pulse 2s infinite;
+}
+
+.ship-float {
+animation: shipFloat 6s ease-in-out infinite;
+}
+
+.bob-animation {
+animation: bob 3s ease-in-out infinite;
+}
+
+.wave-animation {
+position: absolute;
+background-color: rgba(56, 189, 248, 0.3);
+border-radius: 50%;
+z-index: 1;
+animation: wave 7s ease-in-out infinite;
+}
+
+.spin-animation {
+animation: spin 8s linear infinite;
+}
+
+.sparkle {
+position: absolute;
+width: 6px;
+height: 6px;
+background-color: #f9fafb;
+border-radius: 50%;
+}
+
+.sparkle-1 {
+top: 20%;
+left: 10%;
+animation: sparkle 2s infinite 0.3s;
+}
+
+.sparkle-2 {
+top: 60%;
+left: 15%;
+animation: sparkle 2s infinite 0.7s;
+}
+
+.sparkle-3 {
+top: 30%;
+left: 85%;
+animation: sparkle 2s infinite 1.1s;
+}
+
+.sparkle-4 {
+top: 70%;
+left: 80%;
+animation: sparkle 2s infinite 1.5s;
+}
+
+.falling-coin {
+position: absolute;
+top: 0;
+animation: coinFall 3s ease-in forwards;
+}
+
+.confetti {
+position: absolute;
+width: 10px;
+height: 10px;
+top: 0;
+animation: confetti 4s ease-in forwards;
+}
+
+.map-bg {
+background-image:
+linear-gradient(rgba(30, 58, 138, 0.9), rgba(30, 58, 138, 0.95)),
+url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%231E40AF' fill-opacity='0.3' fill-rule='evenodd'/%3E%3C/svg%3E"),
+url("data:image/svg+xml,%3Csvg width='52' height='26' viewBox='0 0 52 26' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%231E40AF' fill-opacity='0.15'%3E%3Cpath d='M10 10c0-2.21-1.79-4-4-4-3.314 0-6-2.686-6-6h2c0 2.21 1.79 4 4 4 3.314 0 6 2.686 6 6 0 2.21 1.79 4 4 4 3.314 0 6 2.686 6 6 0 2.21 1.79 4 4 4v2c-3.314 0-6-2.686-6-6 0-2.21-1.79-4-4-4-3.314 0-6-2.686-6-6zm25.464-1.95l8.486 8.486-1.414 1.414-8.486-8.486 1.414-1.414z' /%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+
+.trade-road {
+height: 4px;
+background: repeating-linear-gradient(
+90deg,
+transparent,
+transparent 8px,
+#f59e0b 8px,
+#f59e0b 16px
+);
+position: absolute;
+z-index: 1;
+}
+`;
+    document.head.appendChild(style);
+
+    return () => {
+      document.head.removeChild(style);
+    };
+  }, []);
+
+  // Create celebration confetti elements
+  const renderCelebration = () => {
+    if (!showCelebration) return null;
+
+    const coins = [];
+    const confettis = [];
+    const confettiColors = [
+      "#f59e0b",
+      "#10b981",
+      "#3b82f6",
+      "#8b5cf6",
+      "#ec4899",
+    ];
+
+    for (let i = 0; i < 30; i++) {
+      const left = Math.random() * 100;
+      const delay = Math.random() * 0.5;
+      const size = Math.random() * 20 + 10;
+
+      coins.push(
+        <div
+          key={`coin-${i}`}
+          className="falling-coin"
+          style={{
+            left: `${left}%`,
+            animationDelay: `${delay}s`,
+            fontSize: `${size}px`,
+          }}
+        >
+          💰
         </div>
+      );
+
+      const confettiColor =
+        confettiColors[Math.floor(Math.random() * confettiColors.length)];
+      confettis.push(
+        <div
+          key={`confetti-${i}`}
+          className="confetti"
+          style={{
+            left: `${left}%`,
+            backgroundColor: confettiColor,
+            animationDelay: `${delay + 0.5}s`,
+            width: `${Math.random() * 10 + 5}px`,
+            height: `${Math.random() * 10 + 5}px`,
+            borderRadius: Math.random() > 0.5 ? "50%" : "0",
+          }}
+        ></div>
+      );
+    }
+
+    return (
+      <>
+        {coins}
+        {confettis}
+      </>
+    );
+  };
+
+  return (
+    <div className="min-h-screen overflow-hidden text-white bg-gradient-to-b from-[#1B0036] to-[#1A1135]">
+      {/* Celebration Effect */}
+      {renderCelebration()}
+
+      {/* Animated Ocean Waves */}
+      {waves.map((wave) => (
+        <div
+          key={`wave-${wave.id}`}
+          className="wave-animation"
+          style={{
+            width: `${wave.size}vw`,
+            height: `${wave.size}vw`,
+            left: `${wave.left}%`,
+            top: `${wave.top}%`,
+            animationDelay: `${wave.animationDelay}s`,
+          }}
+        ></div>
+      ))}
+
+      {/* Animated Ship */}
+      <div
+        className="fixed z-20 ship-float"
+        style={{
+          top: "20vh",
+          left: `${shipPosition}%`,
+          transition: "left 0.2s linear",
+        }}
+      >
+        <div className="text-4xl">🚢</div>
       </div>
 
-      <main className="relative z-10 p-2 mx-auto md:p-6 max-w-7xl">
-        {/* Discover Alliances Tab */}
-        {activeTab === "discover" && (
-          <div className="space-y-6">
-            <div className="mb-6 text-center">
-              <h2 className="mb-2 text-2xl font-bold">
-                Join a Powerful Trade Alliance
+      {/* Header with Import Licenses Title */}
+      <div className="relative p-6 mb-6 overflow-hidden bg-gradient-to-b from-[#1B0036] to-[#1A1135] border-2 border-[#6B46C1]">
+        <div className="sparkle sparkle-1"></div>
+        <div className="sparkle sparkle-2"></div>
+        <div className="sparkle sparkle-3"></div>
+        <div className="sparkle sparkle-4"></div>
+
+        <h1 className="text-2xl font-bold tracking-wider text-center text-yellow-400 md:text-3xl pulse-animation">
+          <Ship className="inline-block mb-1 mr-2" size={28} />
+          Import Licenses
+          <Ship
+            className="inline-block ml-2 mb-1 transform scale-x-[-1]"
+            size={28}
+          />
+        </h1>
+        <p className="mt-2 text-sm text-center text-blue-300">
+          Acquire discounted $BARON tokens by establishing trade routes
+        </p>
+      </div>
+
+      {/* Main Content */}
+      <div className="max-w-5xl px-4 pb-12 mx-auto">
+        <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
+          {/* Left Column - Available Bonds */}
+          <div className="lg:col-span-2">
+            <div className="relative p-5 mb-6 bg-gradient-to-b from-[#1B0036] to-[#1A1135] border-2 border-[#6B46C1] rounded-md ">
+              <h2 className="flex items-center mb-4 text-xl font-bold text-blue-400">
+                <Map className="mr-2 text-yellow-400" size={24} />
+                Trade Routes
               </h2>
-              <p className="max-w-2xl mx-auto text-sm opacity-70">
-                Form strategic partnerships with other traders to access
-                exclusive routes, boost your yields, and dominate in Trade Wars
-              </p>
+
+              <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+                {availableBonds.map((bond) => (
+                  <div
+                    key={bond.id}
+                    className={`bg-gradient-to-br ${
+                      bond.bgColor
+                    } rounded-md p-4 cursor-pointer transition-all hover:scale-105 hover:shadow-lg hover:shadow-indigo-600/20 ${
+                      selectedBond?.id === bond.id
+                        ? "border-2 border-yellow-400 transform scale-105"
+                        : "border border-indigo-700"
+                    }`}
+                    onClick={() => {
+                      setSelectedBond(bond);
+                      setShowPurchaseModal(true);
+                    }}
+                  >
+                    <div className="flex items-start justify-between mb-3">
+                      <div className="flex items-center">
+                        <div
+                          className={`text-2xl mr-2 p-1 rounded-full bg-opacity-30`}
+                          style={{ backgroundColor: bond.color }}
+                        >
+                          {bond.icon}
+                        </div>
+                        <h3 className="font-semibold">{bond.name}</h3>
+                      </div>
+                      <div className="px-2 py-1 text-xs text-green-300 bg-green-800 rounded-md pulse-animation">
+                        -{bond.discount}% Discount
+                      </div>
+                    </div>
+
+                    <div className="relative mb-4">
+                      <div className="flex justify-between mb-1 text-xs">
+                        <div className="px-2 py-1 bg-indigo-800 rounded-l-md">
+                          {bond.routeFrom}
+                        </div>
+                        <div className="px-2 py-1 bg-indigo-800 rounded-r-md">
+                          {bond.routeTo}
+                        </div>
+                      </div>
+                      <div className="w-full trade-road"></div>
+                      <div
+                        className="absolute text-2xl"
+                        style={{
+                          top: "-10px",
+                          left: "10%",
+                          transform: "rotate(15deg)",
+                        }}
+                      >
+                        {bond.isLp ? "⚓" : "📦"}
+                      </div>
+                      <div
+                        className="absolute text-2xl"
+                        style={{ top: "-5px", left: "80%" }}
+                      >
+                        🏙️
+                      </div>
+                    </div>
+
+                    <div className="space-y-2 text-sm">
+                      <div className="flex justify-between">
+                        <span>Market Price:</span>
+                        <span>${bond.marketPrice.toFixed(2)}</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span>Bond Price:</span>
+                        <span className="text-green-400">
+                          ${bond.bondPrice.toFixed(2)}
+                        </span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span>Vesting Term:</span>
+                        <span>{bond.vestingTerm}</span>
+                      </div>
+
+                      <div className="mt-2">
+                        <div className="flex justify-between mb-1 text-xs">
+                          <span>Capacity:</span>
+                          <span>{bond.capacityUsed.toFixed(1)}% Used</span>
+                        </div>
+                        <div className="h-3 overflow-hidden border border-indigo-700 rounded-full bg-indigo-950">
+                          <div
+                            className="relative h-full overflow-hidden rounded-full"
+                            style={{
+                              width: `${bond.capacityUsed}%`,
+                              backgroundColor: bond.color,
+                            }}
+                          >
+                            <div
+                              className="absolute inset-0 bg-gradient-to-r from-transparent via-white to-transparent opacity-30"
+                              style={{
+                                animation: "wave 2s ease-in-out infinite",
+                              }}
+                            ></div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
 
-            <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-              {alliances.map((alliance) =>
-                renderAllianceCard(
-                  alliance,
-                  alliance.id === "eastern-federation"
-                )
+            {/* Active Bonds */}
+            <div className="relative p-5 overflow-hidden bg-gradient-to-b from-[#1B0036] to-[#1A1135] border-2 border-[#6B46C1] rounded-md">
+              <div className="absolute top-0 right-0 p-4 text-4xl bob-animation">
+                🏛️
+              </div>
+
+              <h2 className="flex items-center mb-4 text-xl font-bold text-blue-400">
+                <Package className="mr-2 text-yellow-400" size={24} />
+                Your Active Shipments
+              </h2>
+
+              {activeBonds.length > 0 ? (
+                <div className="space-y-4">
+                  {activeBonds.map((bond) => (
+                    <div
+                      key={bond.id}
+                      className="relative p-4 overflow-hidden bg-gradient-to-b from-[#1B0036] to-[#1A1135]  rounded-md"
+                    >
+                      <div className="flex justify-between mb-3">
+                        <div className="flex items-center">
+                          <div
+                            className="p-1 mr-2 text-2xl rounded-full bg-opacity-30"
+                            style={{ backgroundColor: bond.color }}
+                          >
+                            {bond.icon}
+                          </div>
+                          <h3 className="font-semibold">{bond.type} License</h3>
+                        </div>
+                        <div className="flex items-center px-2 py-1 text-sm bg-indigo-700 rounded-md">
+                          <Clock className="mr-1 text-yellow-400" size={14} />
+                          <span>{bond.remainingTime} left</span>
+                        </div>
+                      </div>
+
+                      <div className="space-y-2">
+                        <div className="flex justify-between text-sm">
+                          <span>Total Shipment Value:</span>
+                          <span>{bond.totalValue} $BARON</span>
+                        </div>
+                        <div className="flex justify-between text-sm">
+                          <span>Claimed:</span>
+                          <span>
+                            {bond.claimed} / {bond.totalValue} $BARON
+                          </span>
+                        </div>
+
+                        <div className="relative h-5 mt-2 overflow-hidden border border-indigo-700 rounded-full bg-indigo-950">
+                          <div
+                            className="h-full rounded-full"
+                            style={{
+                              width: `${bond.percentVested}%`,
+                              backgroundColor: bond.color,
+                            }}
+                          >
+                            <div
+                              className="absolute inset-0 bg-gradient-to-r from-transparent via-white to-transparent opacity-30"
+                              style={{
+                                animation: "wave 3s ease-in-out infinite",
+                              }}
+                            ></div>
+                          </div>
+
+                          {/* Ship moving along the progress bar */}
+                          <div
+                            className="absolute text-lg transform -translate-y-1/2 top-1/2"
+                            style={{ left: `${bond.percentVested - 5}%` }}
+                          >
+                            🚢
+                          </div>
+                        </div>
+
+                        <div className="flex justify-between text-xs">
+                          <span>{bond.percentVested}% Delivered</span>
+                          <span>
+                            {bond.claimed} / {bond.totalValue} $BARON Claimed
+                          </span>
+                        </div>
+
+                        <button className="flex items-center justify-center w-full py-2 mt-3 font-semibold transition-all bg-gradient-to-b from-[#1B0036] to-[#1A1135] border-2 border-[#6B46C1]">
+                          <Coins className="mr-2" size={16} />
+                          Claim Delivered $BARON
+                        </button>
+                      </div>
+
+                      {/* Decorated corners */}
+                      <div className="absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2 border-yellow-400"></div>
+                      <div className="absolute top-0 right-0 w-4 h-4 border-t-2 border-r-2 border-yellow-400"></div>
+                      <div className="absolute bottom-0 left-0 w-4 h-4 border-b-2 border-l-2 border-yellow-400"></div>
+                      <div className="absolute bottom-0 right-0 w-4 h-4 border-b-2 border-r-2 border-yellow-400"></div>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <div className="relative p-4 overflow-hidden text-center bg-indigo-800 rounded-md">
+                  <div className="absolute inset-0 pixelated-bg opacity-30"></div>
+                  <p className="text-sm opacity-70">
+                    You have no active Import Licenses.
+                  </p>
+                  <p className="mt-2 text-sm">
+                    Purchase a license to acquire discounted $BARON tokens!
+                  </p>
+                  <div className="mt-4 text-3xl">📜➡️💰</div>
+                </div>
               )}
             </div>
-
-            <div className="p-4 mt-8 bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6b46c1] rounded-md">
-              <div className="flex items-center gap-3 mb-4">
-                <div className="p-3 bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6b46c1] rounded-full">
-                  <Crown size={24} className="text-yellow-400" />
-                </div>
-                <h3 className="text-xl font-bold">Form Your Own Alliance</h3>
-              </div>
-
-              <p className="mb-4 text-sm">
-                Ready to lead? Create your own alliance and recruit barons to
-                join your trade empire.
-              </p>
-
-              <div className="p-4 mb-4 bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6b46c1] rounded-md">
-                <h4 className="mb-2 font-semibold">Requirements</h4>
-                <ul className="space-y-2 text-sm">
-                  <li className="flex items-start gap-2">
-                    <div className="w-5 h-5 rounded-full bg-yellow-600 flex items-center justify-center flex-shrink-0 mt-0.5">
-                      1
-                    </div>
-                    <div>
-                      <div className="font-semibold">
-                        Founder's Pass Required
-                      </div>
-                      <div className="text-xs opacity-70">
-                        Must hold the exclusive Founder's Pass NFT
-                      </div>
-                    </div>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <div className="w-5 h-5 rounded-full bg-yellow-600 flex items-center justify-center flex-shrink-0 mt-0.5">
-                      2
-                    </div>
-                    <div>
-                      <div className="font-semibold">25,000 $BARON Tokens</div>
-                      <div className="text-xs opacity-70">
-                        Required initial alliance treasury deposit
-                      </div>
-                    </div>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <div className="w-5 h-5 rounded-full bg-yellow-600 flex items-center justify-center flex-shrink-0 mt-0.5">
-                      3
-                    </div>
-                    <div>
-                      <div className="font-semibold">
-                        Control at Least 2 Trade Routes
-                      </div>
-                      <div className="text-xs opacity-70">
-                        Must demonstrate trade dominance
-                      </div>
-                    </div>
-                  </li>
-                </ul>
-              </div>
-
-              <button className="flex items-center justify-center w-full gap-2 py-3 font-semibold transition-all bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6b46c1]">
-                <Flag size={18} />
-                <span>Found New Alliance</span>
-              </button>
-            </div>
           </div>
-        )}
 
-        {/* Your Alliance Tab */}
-        {activeTab === "your-alliance" && userAlliance && (
-          <div className="space-y-6">
-            {/* Alliance Header */}
-            <div className="relative p-4 overflow-hidden bg-gradient-to-b from-[#1B0036] to-[#1A1135] border-2 border-yellow-600 rounded-md sm:p-6">
-              {/* Background decoration */}
-              <div
-                className="absolute w-40 h-40 rounded-full -top-10 -right-10 opacity-10"
-                style={{ backgroundColor: userAlliance.color }}
-              ></div>
-
-              <div className="relative z-10 flex flex-col gap-4 sm:gap-6 md:flex-row md:items-center md:justify-between">
-                <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
-                  <div
-                    className="self-start p-3 text-4xl rounded-lg sm:text-5xl"
-                    style={{
-                      backgroundColor: `${userAlliance.color}30`,
-                      border: `3px solid ${userAlliance.color}`,
-                    }}
-                  >
-                    {userAlliance.logo}
-                  </div>
-                  <div>
-                    <h3 className="text-xl font-bold text-yellow-400 sm:text-2xl">
-                      {userAlliance.name}
-                    </h3>
-                    <div className="mt-1 text-sm opacity-70">
-                      {userAlliance.type}
-                    </div>
-                    <div className="flex flex-wrap items-center gap-2 mt-2">
-                      <div className="flex items-center px-2 py-1 text-xs bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6b46c1] rounded">
-                        <Users size={12} className="mr-1" />
-                        {userAlliance.members} Members
-                      </div>
-                      <div className="flex items-center px-2 py-1 text-xs bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6b46c1] rounded">
-                        <Trophy size={12} className="mr-1 text-yellow-400" />
-                        Rank #{userAlliance.ranking}
-                      </div>
-                      <div className="flex items-center px-2 py-1 text-xs bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6b46c1] rounded">
-                        <Map size={12} className="mr-1 text-green-400" />
-                        {userAlliance.territories} Territories
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="flex flex-wrap w-full gap-2 sm:gap-3 md:w-auto">
-                  <button
-                    className="flex items-center justify-center flex-1 gap-2 px-3 py-2 text-sm font-semibold transition-all bg-red-700 rounded-md md:flex-none sm:px-4 sm:text-base hover:bg-red-600"
-                    onClick={() => setShowStrategyModal(true)}
-                  >
-                    <Sword size={16} />
-                    <span>War Council</span>
-                    {showWarCouncilBadge && (
-                      <div className="w-2 h-2 bg-white rounded-full"></div>
-                    )}
-                  </button>
-                  <button
-                    className="flex items-center justify-center flex-1 gap-2 px-3 py-2 text-sm font-semibold transition-all bg-green-700 rounded-md md:flex-none sm:px-4 sm:text-base hover:bg-green-600"
-                    onClick={() => {
-                      setActiveMission(allianceMissions[2]);
-                      setShowMissionModal(true);
-                    }}
-                  >
-                    <Target size={16} />
-                    <span>Join Mission</span>
-                  </button>
-                  <button className="flex items-center justify-center flex-1 gap-2 px-3 py-2 text-sm font-semibold transition-all bg-indigo-700 rounded-md md:flex-none sm:px-4 sm:text-base hover:bg-indigo-600">
-                    <Settings size={16} />
-                    <span>Settings</span>
-                  </button>
-                </div>
+          {/* Right Column - Bond Info */}
+          <div className="col-span-1">
+            <div className="relative p-5 mb-6 overflow-hidden bg-gradient-to-b from-[#1B0036] to-[#1A1135] border-2 border-[#6B46C1] rounded-md glow-effect">
+              <div className="absolute top-0 right-0 p-3">
+                <div className="text-3xl spin-animation">💎</div>
               </div>
-            </div>
 
-            {/* Alliance Dashboard */}
-            <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-              {/* Alliance Bonuses */}
-              <div className="p-4 bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6b46c1] rounded-md">
-                <h4 className="flex items-center gap-2 mb-3 font-semibold">
-                  <Award size={18} className="text-yellow-400" />
-                  Alliance Bonuses
-                </h4>
-                <ul className="space-y-2 text-sm">
-                  {userAlliance.bonuses.map((bonus, index) => (
-                    <li key={index} className="flex items-center gap-2">
-                      <CheckCircle
-                        size={16}
-                        className="flex-shrink-0 text-green-400"
+              <h2 className="mb-4 text-xl font-bold text-blue-400">
+                Trading Guide
+              </h2>
+
+              <div className="p-4 space-y-3 text-sm rounded-md pixelated-bg">
+                <p>
+                  Import Licenses allow you to acquire $BARON tokens at a
+                  discount by establishing trade routes with valuable assets.
+                </p>
+
+                <div className="py-2">
+                  <h3 className="flex items-center mb-2 font-semibold text-yellow-400">
+                    <Sparkles className="mr-1" size={16} />
+                    Benefits:
+                  </h3>
+                  <div className="space-y-2">
+                    <div className="flex items-start">
+                      <ArrowRight
+                        className="flex-shrink-0 mt-1 mr-1 text-green-400"
+                        size={14}
                       />
-                      <span>{bonus}</span>
-                    </li>
-                  ))}
-                </ul>
-                <div className="pt-4 mt-4 border-t border-indigo-700">
-                  <div className="mb-1 text-xs opacity-70">Special Power</div>
-                  <div className="flex items-center gap-2">
-                    <div className="px-2 py-1 font-semibold text-yellow-400 bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6b46c1] rounded">
-                      {userAlliance.specialPower}
+                      <span>Acquire $BARON below market price</span>
                     </div>
-                    <button className="flex items-center text-xs text-indigo-400 hover:text-indigo-300">
-                      Details <ChevronRight size={14} />
-                    </button>
-                  </div>
-                </div>
-              </div>
-
-              {/* Active Missions */}
-              <div className="p-4 bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6b46c1] rounded-md">
-                <div className="flex items-center justify-between mb-3">
-                  <h4 className="flex items-center gap-2 font-semibold">
-                    <Target size={18} className="text-red-400" />
-                    Active Missions
-                  </h4>
-                  <div className="text-xs bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6b46c1] px-2 py-0.5 rounded-full">
-                    {allianceStats.activeMissions} Missions
-                  </div>
-                </div>
-                <ul className="space-y-2">
-                  {allianceMissions.slice(0, 3).map((mission, index) => (
-                    <li
-                      key={index}
-                      className="p-2 text-sm transition-all bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6b46c1] rounded-md cursor-pointer hover:bg-indigo-700"
-                      onClick={() => {
-                        setActiveMission(mission);
-                        setShowMissionModal(true);
-                      }}
-                    >
-                      <div className="flex items-start justify-between mb-1">
-                        <div className="flex items-center gap-1 font-semibold">
-                          {mission.icon}
-                          <span>{mission.title}</span>
-                        </div>
-                        <div className="text-xs bg-indigo-900 px-1.5 py-0.5 rounded-full flex items-center">
-                          <Clock size={10} className="mr-0.5" />
-                          {mission.timeRemaining}
-                        </div>
-                      </div>
-                      <div className="flex justify-between text-xs">
-                        <span className="opacity-70">
-                          {mission.participants} Participants
-                        </span>
-                        <span className="text-yellow-400">
-                          +{mission.reward.split(" ")[0]} $BARON
-                        </span>
-                      </div>
-                      <div className="mt-1.5 h-1.5 bg-indigo-900 rounded-full overflow-hidden">
-                        <div
-                          className={`h-full rounded-full ${
-                            mission.progress > 66
-                              ? "bg-green-500"
-                              : mission.progress > 33
-                              ? "bg-yellow-500"
-                              : "bg-red-500"
-                          }`}
-                          style={{ width: `${mission.progress}%` }}
-                        ></div>
-                      </div>
-                    </li>
-                  ))}
-                </ul>
-                <button
-                  className="w-full mt-3 bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6b46c1] py-1.5 rounded-md text-sm font-semibold transition-all"
-                  onClick={() => {
-                    // Show all missions
-                  }}
-                >
-                  View All Missions
-                </button>
-              </div>
-
-              {/* Alliance Resources */}
-              <div className="p-4 bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6b46c1] rounded-md">
-                <h4 className="flex items-center gap-2 mb-3 font-semibold">
-                  <PieChart size={18} className="text-blue-400" />
-                  Alliance Resources
-                </h4>
-                <div className="space-y-3">
-                  <div>
-                    <div className="flex justify-between mb-1 text-sm">
-                      <span>Alliance Treasury:</span>
-                      <span className="font-mono">52,487 $BARON</span>
-                    </div>
-                    <div className="h-2 overflow-hidden bg-indigo-800 rounded-full">
-                      <div
-                        className="h-full bg-blue-500 rounded-full"
-                        style={{ width: "65%" }}
-                      ></div>
-                    </div>
-                    <div className="flex justify-between text-xs mt-0.5">
-                      <span className="opacity-70">Weekly Growth</span>
-                      <span className="text-green-400">+12.4%</span>
-                    </div>
-                  </div>
-
-                  <div>
-                    <div className="flex justify-between mb-1 text-sm">
-                      <span>Member Stake:</span>
-                      <span className="font-mono">
-                        {userAlliance.totalStaked} $BARON
-                      </span>
-                    </div>
-                    <div className="h-2 overflow-hidden bg-indigo-800 rounded-full">
-                      <div
-                        className="h-full bg-purple-500 rounded-full"
-                        style={{ width: "80%" }}
-                      ></div>
-                    </div>
-                    <div className="flex justify-between text-xs mt-0.5">
-                      <span className="opacity-70">Weekly Growth</span>
-                      <span className="text-green-400">+8.7%</span>
-                    </div>
-                  </div>
-
-                  <div>
-                    <div className="flex justify-between mb-1 text-sm">
-                      <span>Battle Strength:</span>
-                      <span className="font-mono">78,295 Power</span>
-                    </div>
-                    <div className="h-2 overflow-hidden bg-indigo-800 rounded-full">
-                      <div
-                        className="h-full bg-red-500 rounded-full"
-                        style={{ width: "45%" }}
-                      ></div>
-                    </div>
-                    <div className="flex justify-between text-xs mt-0.5">
-                      <span className="opacity-70">Vs. Nearest Rival</span>
-                      <span className="text-red-400">-12.3%</span>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-2 gap-2 mt-4">
-                  <button
-                    className="flex items-center justify-center gap-1 py-2 text-sm font-semibold transition-all bg-green-700 rounded-md hover:bg-green-600"
-                    onClick={() => {
-                      // Contribute resources
-                    }}
-                  >
-                    <Gift size={14} />
-                    <span>Contribute</span>
-                  </button>
-                  <button className="flex items-center justify-center gap-1 py-2 text-sm font-semibold transition-all bg-indigo-700 rounded-md hover:bg-indigo-600">
-                    <Zap size={14} />
-                    <span>Claim Rewards</span>
-                  </button>
-                </div>
-              </div>
-            </div>
-
-            {/* Alliance Communication and Territory */}
-            <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-              {/* Alliance Chat */}
-              <div className="flex flex-col p-4 bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6b46c1] rounded-md h-96">
-                <h4 className="flex items-center gap-2 mb-3 font-semibold">
-                  <MessageCircle size={18} className="text-blue-400" />
-                  Alliance Communication
-                </h4>
-
-                <div className="flex-1 pr-2 mb-3 space-y-2 overflow-y-auto alliance-chat">
-                  {allianceChatMessages.map((msg, index) => (
-                    <div
-                      key={index}
-                      className={`${
-                        msg.system
-                          ? "bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6b46c1] text-xs p-2 rounded-md opacity-75 text-center"
-                          : "flex gap-2"
-                      }`}
-                    >
-                      {!msg.system && (
-                        <>
-                          <div className="text-sm font-bold whitespace-nowrap">
-                            {msg.sender}:
-                          </div>
-                          <div className="text-sm break-words">
-                            {msg.message}
-                          </div>
-                          <div className="text-xs opacity-50 whitespace-nowrap">
-                            {msg.time}
-                          </div>
-                        </>
-                      )}
-                      {msg.system && (
-                        <div className="flex items-center justify-center gap-2">
-                          <Sparkles size={12} className="text-yellow-400" />
-                          {msg.message}
-                        </div>
-                      )}
-                    </div>
-                  ))}
-                </div>
-
-                <div className="flex gap-2">
-                  <input
-                    type="text"
-                    value={newMessage}
-                    onChange={(e) => setNewMessage(e.target.value)}
-                    onKeyPress={handleMessageKeyPress}
-                    placeholder="Type a message..."
-                    className="flex-1 p-2 text-sm bg-transparent border border-[#6b45c1] rounded-l-md"
-                  />
-                  <button
-                    className="px-3 py-2 transition-allbg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6b46c1] rounded-r-md"
-                    onClick={handleSendMessage}
-                  >
-                    <ArrowRight size={18} />
-                  </button>
-                </div>
-              </div>
-
-              {/* Controlled Territory */}
-              <div className="p-4 bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6b46c1] rounded-md h-96">
-                <h4 className="flex items-center gap-2 mb-3 font-semibold">
-                  <Map size={18} className="text-green-400" />
-                  Controlled Territory
-                </h4>
-
-                <div className="relative h-full">
-                  {/* Map data visualization would go here - placeholder for now */}
-                  <div className="absolute overflow-hidden bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6b46c1] rounded-lg inset-4">
-                    <div className="w-full h-full territory-map">
-                      {/* Zone markers */}
-                      <div className="absolute left-[35%] top-[40%] p-3 bg-blue-500 bg-opacity-20 border-2 border-blue-500 rounded-full flex items-center justify-center">
-                        <div className="absolute w-16 h-16 border-4 border-blue-500 rounded-full opacity-20 animate-ping"></div>
-                        <Map size={20} className="text-blue-400" />
-                      </div>
-                      <div className="absolute left-[65%] top-[30%] p-3 bg-green-500 bg-opacity-20 border-2 border-green-500 rounded-full flex items-center justify-center">
-                        <div className="absolute w-16 h-16 border-4 border-green-500 rounded-full opacity-20 animate-ping"></div>
-                        <Map size={20} className="text-green-400" />
-                      </div>
-                      <div className="absolute left-[25%] top-[65%] p-3 bg-yellow-500 bg-opacity-20 border-2 border-yellow-500 rounded-full flex items-center justify-center">
-                        <div className="absolute w-16 h-16 border-4 border-yellow-500 rounded-full opacity-20 animate-ping"></div>
-                        <Map size={20} className="text-yellow-400" />
-                      </div>
-
-                      {/* Lines connecting zones */}
-                      <svg className="absolute inset-0 z-10 w-full h-full pointer-events-none">
-                        <line
-                          x1="35%"
-                          y1="40%"
-                          x2="65%"
-                          y2="30%"
-                          stroke="#4299E1"
-                          strokeWidth="2"
-                          strokeDasharray="5,5"
-                          className="territory-line"
-                        />
-                        <line
-                          x1="35%"
-                          y1="40%"
-                          x2="25%"
-                          y2="65%"
-                          stroke="#4299E1"
-                          strokeWidth="2"
-                          strokeDasharray="5,5"
-                          className="territory-line"
-                        />
-                        <line
-                          x1="65%"
-                          y1="30%"
-                          x2="25%"
-                          y2="65%"
-                          stroke="#4299E1"
-                          strokeWidth="2"
-                          strokeDasharray="5,5"
-                          className="territory-line"
-                        />
-                      </svg>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* Alliance Rankings Tab */}
-        {activeTab === "rankings" && (
-          <div className="space-y-6">
-            <div className="p-6 bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6b46c1] rounded-md">
-              <h3 className="flex items-center gap-2 mb-4 text-xl font-bold">
-                <Trophy size={24} className="text-yellow-400" />
-                Global Alliance Rankings
-              </h3>
-
-              <div className="px-1 -mx-4 overflow-x-auto sm:mx-0 sm:px-0">
-                <div className="inline-block min-w-full align-middle">
-                  <table className="min-w-full">
-                    <thead className="border-b border-indigo-700">
-                      <tr className="text-left">
-                        <th className="pb-3">Rank</th>
-                        <th className="pb-3">Alliance</th>
-                        <th className="pb-3 text-right">Members</th>
-                        <th className="pb-3 text-right">Territories</th>
-                        <th className="pb-3 text-right">Weekly Change</th>
-                        <th className="pb-3 text-right">Actions</th>
-                      </tr>
-                    </thead>
-                    <tbody className="divide-y divide-indigo-800">
-                      {allianceRankings.map((alliance, index) => (
-                        <tr
-                          key={index}
-                          className={`${
-                            alliance.name === "Eastern Federation"
-                              ? "bg-indigo-800 bg-opacity-50"
-                              : ""
-                          }`}
-                        >
-                          <td className="py-4 font-bold">{alliance.rank}</td>
-                          <td className="py-4">
-                            <div
-                              className={`font-semibold ${
-                                alliance.name === "Eastern Federation"
-                                  ? "text-yellow-400"
-                                  : ""
-                              }`}
-                            >
-                              {alliance.name}
-                            </div>
-                          </td>
-                          <td className="py-4 text-right">{alliance.size}</td>
-                          <td className="py-4 text-right">
-                            {alliance.territory}
-                          </td>
-                          <td className="py-4 text-right">
-                            {alliance.change > 0 && (
-                              <span className="text-green-400">
-                                +{alliance.change}
-                              </span>
-                            )}
-                            {alliance.change < 0 && (
-                              <span className="text-red-400">
-                                {alliance.change}
-                              </span>
-                            )}
-                            {alliance.change === 0 && (
-                              <span className="opacity-50">—</span>
-                            )}
-                          </td>
-                          <td className="py-4 text-right">
-                            {alliance.name === "Eastern Federation" ? (
-                              <button
-                                className="px-3 py-1 text-sm transition-all bg-indigo-700 rounded-md hover:bg-indigo-600"
-                                onClick={() => setActiveTab("your-alliance")}
-                              >
-                                View
-                              </button>
-                            ) : (
-                              <button className="px-3 py-1 text-sm transition-all bg-indigo-700 rounded-md hover:bg-indigo-600">
-                                Details
-                              </button>
-                            )}
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-
-              <div className="p-4 mt-6 bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6b46c1] rounded-md">
-                <h4 className="mb-3 font-semibold">Alliance Ranking Rewards</h4>
-                <div className="grid grid-cols-1 gap-4 text-sm md:grid-cols-3">
-                  <div className="p-3 bg-gradient-to-b from-[#1B0036] to-[#1A1135] border-l-4  border-yellow-400 rounded-md">
-                    <div className="flex items-center gap-2 mb-2">
-                      <Trophy size={16} className="text-yellow-400" />
-                      <span className="font-semibold">Top Alliance (#1)</span>
-                    </div>
-                    <ul className="space-y-1 text-xs">
-                      <li className="flex items-center gap-1">
-                        <CheckCircle size={12} className="text-green-400" />
-                        <span>30% APY boost for all members</span>
-                      </li>
-                      <li className="flex items-center gap-1">
-                        <CheckCircle size={12} className="text-green-400" />
-                        <span>Exclusive top-tier trade routes</span>
-                      </li>
-                      <li className="flex items-center gap-1">
-                        <CheckCircle size={12} className="text-green-400" />
-                        <span>20,000 $BARON weekly bonus</span>
-                      </li>
-                    </ul>
-                  </div>
-
-                  <div className="p-3 bg-gradient-to-b from-[#1B0036] to-[#1A1135]  border-l-4 border-gray-400 rounded-md">
-                    <div className="flex items-center gap-2 mb-2">
-                      <Award size={16} className="text-gray-400" />
-                      <span className="font-semibold">Silver Tier (#2-3)</span>
-                    </div>
-                    <ul className="space-y-1 text-xs">
-                      <li className="flex items-center gap-1">
-                        <CheckCircle size={12} className="text-green-400" />
-                        <span>15% APY boost for all members</span>
-                      </li>
-                      <li className="flex items-center gap-1">
-                        <CheckCircle size={12} className="text-green-400" />
-                        <span>Premium trade route access</span>
-                      </li>
-                      <li className="flex items-center gap-1">
-                        <CheckCircle size={12} className="text-green-400" />
-                        <span>10,000 $BARON weekly bonus</span>
-                      </li>
-                    </ul>
-                  </div>
-
-                  <div className="p-3 bg-gradient-to-b from-[#1B0036] to-[#1A1135]  border-l-4 border-yellow-700 rounded-md">
-                    <div className="flex items-center gap-2 mb-2">
-                      <Award size={16} className="text-yellow-700" />
-                      <span className="font-semibold">Bronze Tier (#4-10)</span>
-                    </div>
-                    <ul className="space-y-1 text-xs">
-                      <li className="flex items-center gap-1">
-                        <CheckCircle size={12} className="text-green-400" />
-                        <span>5% APY boost for all members</span>
-                      </li>
-                      <li className="flex items-center gap-1">
-                        <CheckCircle size={12} className="text-green-400" />
-                        <span>Special trade route access</span>
-                      </li>
-                      <li className="flex items-center gap-1">
-                        <CheckCircle size={12} className="text-green-400" />
-                        <span>5,000 $BARON weekly bonus</span>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="p-6 bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6b46c1] rounded-md">
-              <h3 className="mb-4 text-xl font-bold">
-                Recent Alliance Conflicts
-              </h3>
-
-              <div className="space-y-4">
-                <div className="p-3 bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6b46c1] rounded-md sm:p-4">
-                  <div className="flex flex-col gap-2 mb-2 sm:flex-row sm:items-start sm:justify-between sm:gap-0">
-                    <div className="flex items-center gap-3">
-                      <Sword size={20} className="flex-shrink-0 text-red-400" />
-                      <div>
-                        <div className="text-sm font-semibold sm:text-base">
-                          Merchant Haven Conflict
-                        </div>
-                        <div className="text-xs opacity-70">2 days ago</div>
-                      </div>
-                    </div>
-                    <div className="bg-green-900 text-green-400 text-xs px-2 py-0.5 rounded-full font-semibold self-start">
-                      Victory
-                    </div>
-                  </div>
-
-                  <div className="flex flex-col justify-between gap-2 text-sm sm:flex-row sm:gap-0">
-                    <div className="flex items-center gap-2">
-                      <span className="opacity-70">Eastern Federation</span>
-                      <span className="text-green-400">vs.</span>
-                      <span className="opacity-70">Northern Coalition</span>
-                    </div>
-                    <span className="text-yellow-400">
-                      +425 $BARON War Spoils
-                    </span>
-                  </div>
-                </div>
-
-                <div className="p-3 bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6b46c1] rounded-md sm:p-4">
-                  <div className="flex flex-col gap-2 mb-2 sm:flex-row sm:items-start sm:justify-between sm:gap-0">
-                    <div className="flex items-center gap-3">
-                      <Sword size={20} className="flex-shrink-0 text-red-400" />
-                      <div>
-                        <div className="text-sm font-semibold sm:text-base">
-                          Golden Strait Dispute
-                        </div>
-                        <div className="text-xs opacity-70">5 days ago</div>
-                      </div>
-                    </div>
-                    <div className="bg-red-900 text-red-400 text-xs px-2 py-0.5 rounded-full font-semibold self-start">
-                      Defeat
-                    </div>
-                  </div>
-
-                  <div className="flex flex-col justify-between gap-2 text-sm sm:flex-row sm:gap-0">
-                    <div className="flex items-center gap-2">
-                      <span className="opacity-70">Eastern Federation</span>
-                      <span className="text-green-400">vs.</span>
-                      <span className="opacity-70">Dragon Dynasty</span>
-                    </div>
-                    <span className="text-red-400">Territory Lost</span>
-                  </div>
-                </div>
-
-                <div className="p-3 bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6b46c1] rounded-md sm:p-4">
-                  <div className="flex flex-col gap-2 mb-2 sm:flex-row sm:items-start sm:justify-between sm:gap-0">
-                    <div className="flex items-center gap-3">
-                      <Shield
-                        size={20}
-                        className="flex-shrink-0 text-blue-400"
+                    <div className="flex items-start">
+                      <ArrowRight
+                        className="flex-shrink-0 mt-1 mr-1 text-green-400"
+                        size={14}
                       />
-                      <div>
-                        <div className="text-sm font-semibold sm:text-base">
-                          Non-Aggression Pact
-                        </div>
-                        <div className="text-xs opacity-70">1 week ago</div>
-                      </div>
+                      <span>Contribute to treasury growth</span>
                     </div>
-                    <div className="bg-blue-900 text-blue-400 text-xs px-2 py-0.5 rounded-full font-semibold self-start">
-                      Diplomacy
+                    <div className="flex items-start">
+                      <ArrowRight
+                        className="flex-shrink-0 mt-1 mr-1 text-green-400"
+                        size={14}
+                      />
+                      <span>Create protocol-owned liquidity</span>
                     </div>
-                  </div>
-
-                  <div className="flex flex-col justify-between gap-2 text-sm sm:flex-row sm:gap-0">
-                    <div className="flex items-center gap-2">
-                      <span className="opacity-70">Eastern Federation</span>
-                      <span className="text-green-400">with</span>
-                      <span className="opacity-70">X33 Trade Fleet</span>
+                    <div className="flex items-start">
+                      <ArrowRight
+                        className="flex-shrink-0 mt-1 mr-1 text-green-400"
+                        size={14}
+                      />
+                      <span>Access special route bonuses</span>
                     </div>
-                    <span className="text-blue-400">Mutual Defense</span>
                   </div>
                 </div>
-              </div>
-            </div>
-          </div>
-        )}
-      </main>
 
-      {/* Join Alliance Modal */}
-      {showJoinModal && selectedAlliance && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black bg-opacity-75">
-          <div
-            className="w-full max-w-md p-6 bg-indigo-900 border-4 border-indigo-700 rounded-md animate-fadeIn"
-            onClick={(e) => e.stopPropagation()}
-          >
-            {joinSuccess ? (
-              <div className="py-6 text-center">
-                <div className="mb-4 text-6xl">🎉</div>
-                <h3 className="mb-2 text-xl font-bold text-green-400">
-                  Alliance Joined!
-                </h3>
-                <p className="text-sm">
-                  You are now a member of the {selectedAlliance.name}!
+                <p>
+                  When you purchase a license, your goods will be shipped over 5
+                  days, allowing you to gradually claim your discounted tokens
+                  as they arrive.
                 </p>
               </div>
-            ) : (
-              <>
-                <div className="flex items-start justify-between mb-4">
-                  <h3 className="text-lg font-bold text-yellow-400">
-                    Join {selectedAlliance.name}
-                  </h3>
-                  <button
-                    onClick={() => setShowJoinModal(false)}
-                    className="p-1 rounded-md hover:bg-indigo-800"
-                  >
-                    <X size={18} />
-                  </button>
-                </div>
 
-                <div className="flex items-center gap-3 mb-4">
-                  <div
-                    className="p-3 text-4xl rounded-md"
-                    style={{
-                      backgroundColor: `${selectedAlliance.color}30`,
-                      border: `2px solid ${selectedAlliance.color}`,
-                    }}
-                  >
-                    {selectedAlliance.logo}
-                  </div>
-                  <div>
-                    <div className="text-sm opacity-70">
-                      {selectedAlliance.type}
-                    </div>
-                    <div className="flex gap-2 mt-1">
-                      <div className="text-xs bg-indigo-800 px-2 py-0.5 rounded-full">
-                        {selectedAlliance.members} Members
-                      </div>
-                      <div className="text-xs bg-indigo-800 px-2 py-0.5 rounded-full">
-                        Rank #{selectedAlliance.ranking}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="mb-4 space-y-4">
-                  <div className="p-3 bg-indigo-800 rounded-md">
-                    <h4 className="mb-2 font-semibold">
-                      Membership Requirements
-                    </h4>
-                    {selectedAlliance.accessRequirement ===
-                    "Open Membership" ? (
-                      <div className="flex items-center gap-2 text-sm">
-                        <CheckCircle size={16} className="text-green-400" />
-                        <span>Open to all Trade Barons</span>
-                      </div>
-                    ) : (
-                      <div className="flex items-center gap-2 text-sm">
-                        <AlertTriangle size={16} className="text-yellow-400" />
-                        <span>{selectedAlliance.accessRequirement}</span>
-                      </div>
-                    )}
-                  </div>
-
-                  <div className="p-3 bg-indigo-800 rounded-md">
-                    <h4 className="mb-2 font-semibold">Alliance Benefits</h4>
-                    <ul className="space-y-1 text-sm">
-                      {selectedAlliance.bonuses.map((bonus, index) => (
-                        <li key={index} className="flex items-center gap-2">
-                          <Star size={14} className="text-yellow-400" />
-                          <span>{bonus}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </div>
-
-                <button
-                  className="flex items-center justify-center w-full gap-2 py-3 font-semibold transition-all bg-green-700 rounded-md hover:bg-green-600"
-                  onClick={handleJoinAlliance}
-                  disabled={joinLoading}
-                >
-                  {joinLoading ? (
-                    <span className="loading-spinner"></span>
-                  ) : (
-                    <>
-                      <Users size={18} />
-                      <span>Confirm Membership</span>
-                    </>
-                  )}
-                </button>
-
-                {selectedAlliance.accessRequirement !== "Open Membership" && (
-                  <div className="mt-3 text-xs text-center text-yellow-400">
-                    <AlertTriangle size={12} className="inline mr-1" />
-                    You must meet the token requirements to join this alliance
-                  </div>
-                )}
-              </>
-            )}
-          </div>
-        </div>
-      )}
-
-      {/* Mission Modal */}
-      {showMissionModal && activeMission && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black bg-opacity-75">
-          <div
-            className="w-full max-w-lg p-6 bg-indigo-900 border-4 border-indigo-700 rounded-md animate-fadeIn"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <div className="flex items-start justify-between mb-4">
-              <h3 className="flex items-center gap-2 text-lg font-bold text-yellow-400">
-                {activeMission.icon}
-                {activeMission.title}
-              </h3>
-              <button
-                onClick={() => setShowMissionModal(false)}
-                className="p-1 rounded-md hover:bg-indigo-800"
-              >
-                <X size={18} />
-              </button>
+              <div className="absolute bottom-0 left-0 text-5xl opacity-20">
+                🗺️
+              </div>
             </div>
 
-            <div className="space-y-4">
-              <div className="p-4 bg-indigo-800 rounded-md">
-                <div className="mb-3 text-sm">{activeMission.description}</div>
-                <div className="flex justify-between text-sm">
-                  <div className="flex items-center gap-2">
-                    <Clock size={16} className="text-yellow-400" />
-                    <span>Time Remaining: {activeMission.timeRemaining}</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <Users size={16} />
-                    <span>{activeMission.participants} Participants</span>
-                  </div>
-                </div>
-                <div className="mt-3">
-                  <div className="flex justify-between mb-1 text-xs">
-                    <span>Mission Progress</span>
-                    <span>{activeMission.progress}%</span>
-                  </div>
-                  <div className="h-2 overflow-hidden rounded-full bg-indigo-950">
-                    <div
-                      className={`h-full rounded-full ${
-                        activeMission.progress > 66
-                          ? "bg-green-500"
-                          : activeMission.progress > 33
-                          ? "bg-yellow-500"
-                          : "bg-red-500"
-                      }`}
-                      style={{ width: `${activeMission.progress}%` }}
-                    ></div>
-                  </div>
-                </div>
+            <div className="relative p-5 overflow-hidden bg-gradient-to-b from-[#1B0036] to-[#1A1135] border-2 border-[#6B46C1] rounded-md float-animation">
+              <div className="absolute text-6xl transform -bottom-4 -right-4 opacity-30 rotate-12">
+                ⚓
               </div>
 
-              <div className="p-4 bg-indigo-800 rounded-md">
-                <h4 className="flex items-center gap-2 mb-2 font-semibold">
-                  <Award size={18} className="text-yellow-400" />
-                  Mission Rewards
-                </h4>
-                <div className="flex items-center gap-3 text-sm">
-                  <div className="flex-1 px-3 py-2 text-center bg-yellow-900 border border-yellow-700 rounded-md bg-opacity-30">
-                    <div className="mb-1 text-xl font-bold text-yellow-400">
-                      {activeMission.reward.split(" ")[0]}
-                    </div>
-                    <div className="text-xs">$BARON Tokens</div>
-                  </div>
-                  <div className="text-3xl">+</div>
-                  <div className="flex-1 px-3 py-2 text-center bg-indigo-800 border border-indigo-700 rounded-md">
-                    <div className="mb-1 text-xl font-bold text-blue-400">
-                      {activeMission.type === "war"
-                        ? "Territory"
-                        : activeMission.type === "diplomatic"
-                        ? "Rank XP"
-                        : activeMission.type === "intelligence"
-                        ? "Intel"
-                        : "Bonus"}
-                    </div>
-                    <div className="text-xs">
-                      {activeMission.type === "war" ? "Control" : "Bonus"}
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <h2 className="flex items-center mb-4 text-xl font-bold text-blue-400">
+                <Globe className="mr-2 text-yellow-400" size={24} />
+                Empire Treasury
+              </h2>
 
-              <div className="p-4 bg-indigo-800 rounded-md">
-                <h4 className="mb-2 font-semibold">Mission Requirements</h4>
-                <div className="space-y-2 text-sm">
-                  <div className="flex justify-between">
-                    <span>Difficulty:</span>
-                    <span
-                      className={
-                        activeMission.difficulty === "Easy"
-                          ? "text-green-400"
-                          : activeMission.difficulty === "Medium"
-                          ? "text-yellow-400"
-                          : "text-red-400"
-                      }
-                    >
-                      {activeMission.difficulty}
+              <div className="space-y-4">
+                <div className="flex items-center justify-between p-3 bg-gradient-to-b from-[#1B0036] to-[#1A1135] border-2 border-[#6B46C1] rounded-md pulse-animation">
+                  <span className="flex items-center">
+                    <Coins className="mr-2 text-yellow-400" size={18} />
+                    Treasury Balance:
+                  </span>
+                  <span className="font-mono">$2,450,831</span>
+                </div>
+
+                <div className="relative p-3 bg-gradient-to-b from-[#1B0036] to-[#1A1135] border-2 border-[#6B46C1] rounded-md">
+                  <div className="flex justify-between text-sm">
+                    <span className="flex items-center">
+                      <Anchor className="mr-2 text-yellow-400" size={18} />
+                      Backing Per $BARON:
                     </span>
+                    <span className="font-mono text-green-400">$1.15</span>
                   </div>
-                  <div className="flex justify-between">
-                    <span>Minimum Stake:</span>
-                    <span>1,000 $BARON</span>
+                  <div className="absolute p-1 text-xs bg-green-600 border-2 border-indigo-900 rounded-full -right-2 -top-2 glow-effect">
+                    +2.4%
                   </div>
-                  <div className="flex justify-between">
-                    <span>Alliance Rank:</span>
-                    <span className="text-green-400">Qualified (#3)</span>
+                </div>
+
+                <div className="relative p-3 bg-gradient-to-b from-[#1B0036] to-[#1A1135] border-2 border-[#6B46C1] rounded-md">
+                  <div className="absolute top-0 left-0 w-full h-full opacity-10 pixelated-bg"></div>
+                  <div className="relative z-10 flex justify-between text-sm">
+                    <span className="flex items-center">
+                      <Wind className="mr-2 text-yellow-400" size={18} />
+                      Protocol-Owned Liquidity:
+                    </span>
+                    <span className="font-mono">$1,258,750</span>
                   </div>
                 </div>
               </div>
 
-              <div className="grid grid-cols-2 gap-3 pt-2">
-                <button
-                  className="py-3 font-semibold transition-all bg-green-700 rounded-md hover:bg-green-600"
-                  onClick={() => setShowMissionModal(false)}
-                >
-                  Join Mission
-                </button>
-                <button
-                  className="py-3 font-semibold transition-all bg-indigo-700 rounded-md hover:bg-indigo-600"
-                  onClick={() => setShowMissionModal(false)}
-                >
-                  View Details
-                </button>
+              <div className="mt-6 text-center">
+                <div className="relative inline-block">
+                  <div className="spin-animation">
+                    <Coins className="text-yellow-400" size={48} />
+                  </div>
+                  <Sparkles
+                    className="absolute top-0 right-0 text-green-400"
+                    size={16}
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div className="p-5 mt-6 bg-gradient-to-b from-[#1B0036] to-[#1A1135] border-2 border-[#6B46C1] rounded-md">
+              <h2 className="mb-2 text-lg font-bold text-blue-400">
+                Trading Rank
+              </h2>
+              <div className="flex items-center p-3 bg-gradient-to-b from-[#1B0036] to-[#1A1135] border-2 border-[#6B46C1] rounded-md">
+                <div className="mr-3 text-3xl">👑</div>
+                <div>
+                  <div className="font-bold text-yellow-400">
+                    {getTraderTitle()}
+                  </div>
+                  <div className="text-xs">
+                    Purchase more licenses to rank up!
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      )}
+      </div>
 
-      {/* War Strategy Modal */}
-      {showStrategyModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black bg-opacity-75">
+      {/* Floating Compass */}
+      <div
+        className="fixed z-10 hidden cursor-pointer bottom-10 right-10 md:block"
+        onClick={() => setShowPurchaseModal(true)}
+      >
+        <div className="relative p-4 bg-indigo-900 border-4 border-indigo-700 rounded-full float-animation glow-effect">
+          <Compass className="text-yellow-400 spin-animation" size={36} />
+          <div className="absolute p-1 text-xs bg-green-700 rounded-full -top-2 -right-2 pulse-animation">
+            New!
+          </div>
+        </div>
+      </div>
+
+      {/* Purchase Modal */}
+      {showPurchaseModal && selectedBond && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center px-4 bg-black bg-opacity-80">
           <div
-            className="w-full max-w-lg p-6 bg-indigo-900 border-4 border-red-900 rounded-md animate-fadeIn"
+            className="relative w-full max-w-md p-6 overflow-hidden bg-indigo-900 border-4 border-indigo-700 rounded-md glow-effect"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="flex items-start justify-between mb-4">
-              <h3 className="flex items-center gap-2 text-lg font-bold text-yellow-400">
-                <Sword size={20} className="text-red-400" />
-                War Council Strategy
+            <div className="absolute top-0 right-0 w-full h-full opacity-10 pixelated-bg"></div>
+
+            <div className="relative z-10 flex items-center justify-between mb-4">
+              <h3 className="flex items-center text-lg font-bold text-yellow-400">
+                <Ship className="mr-2" size={20} />
+                Purchase {selectedBond.name}
               </h3>
               <button
                 onClick={() => {
-                  setShowStrategyModal(false);
-                  setShowWarCouncilBadge(false);
+                  setShowPurchaseModal(false);
+                  setBondAmount("");
                 }}
                 className="p-1 rounded-md hover:bg-indigo-800"
               >
@@ -1483,385 +901,135 @@ const AlliancesPage = () => {
               </button>
             </div>
 
-            <div className="space-y-4">
-              <div className="flex items-center gap-3 p-4 bg-red-900 border border-red-800 rounded-md bg-opacity-30">
-                <Trophy size={24} className="text-yellow-400" />
-                <div>
-                  <div className="font-semibold">Next Trade War</div>
-                  <div className="text-sm">
-                    Begins in:{" "}
-                    <span className="font-bold text-red-400">
-                      {formatCountdown(timeUntilWarCouncil)}
-                    </span>
+            <div className="relative z-10 space-y-4">
+              <div className="flex items-center justify-between p-3 bg-indigo-800 rounded-md pulse-animation">
+                <span>Current Discount:</span>
+                <span className="text-lg text-green-400">
+                  -{selectedBond.discount}%
+                </span>
+              </div>
+
+              <div className="relative p-4 rounded-md bg-gradient-to-r from-indigo-800 to-indigo-900">
+                <div className="absolute px-2 py-1 text-xs font-bold text-black transform -translate-x-1/2 bg-yellow-500 rounded-full -top-3 left-1/2">
+                  Trade Route
+                </div>
+                <div className="flex justify-between mt-1 mb-3 text-xs">
+                  <div className="px-2 py-1 bg-indigo-900 rounded-md">
+                    {selectedBond.routeFrom}
                   </div>
+                  <div className="px-2 py-1 bg-indigo-900 rounded-md">
+                    {selectedBond.routeTo}
+                  </div>
+                </div>
+                <div className="w-full trade-road"></div>
+                <div
+                  className="absolute text-2xl"
+                  style={{ top: "20px", left: "20%" }}
+                >
+                  {selectedBond.icon}
+                </div>
+                <div
+                  className="absolute text-2xl"
+                  style={{ top: "20px", left: "80%" }}
+                >
+                  💰
                 </div>
               </div>
 
-              <div className="p-4 bg-indigo-800 rounded-md">
-                <h4 className="mb-3 font-semibold">Current Alliance Vote</h4>
-                <div className="space-y-3">
-                  <div>
-                    <div className="flex justify-between mb-1 text-sm">
-                      <div className="flex items-center gap-2">
-                        <Shield size={16} className="text-blue-400" />
-                        <span>Defensive Strategy</span>
-                      </div>
-                      <span>
-                        {Math.round(
-                          (allianceVote.defensive / allianceVote.totalVotes) *
-                            100
-                        )}
-                        %
-                      </span>
-                    </div>
-                    <div className="h-2 overflow-hidden rounded-full bg-indigo-950">
-                      <div
-                        className="h-full bg-blue-500 rounded-full"
-                        style={{
-                          width: `${Math.round(
-                            (allianceVote.defensive / allianceVote.totalVotes) *
-                              100
-                          )}%`,
-                        }}
-                      ></div>
-                    </div>
+              <div>
+                <label className="block mb-2 text-sm">Amount to Trade</label>
+                <div className="flex">
+                  <input
+                    type="text"
+                    value={bondAmount}
+                    onChange={handleBondAmountChange}
+                    className="flex-1 p-2 font-mono border-2 border-indigo-700 bg-indigo-950 rounded-l-md"
+                    placeholder="0"
+                  />
+                  <div className="flex items-center px-3 py-2 bg-indigo-800">
+                    <span>
+                      {selectedBond.id === "eth"
+                        ? "ETH"
+                        : selectedBond.id === "dai"
+                        ? "DAI"
+                        : "LP"}
+                    </span>
                   </div>
-
-                  <div>
-                    <div className="flex justify-between mb-1 text-sm">
-                      <div className="flex items-center gap-2">
-                        <Sword size={16} className="text-red-400" />
-                        <span>Offensive Strategy</span>
-                      </div>
-                      <span>
-                        {Math.round(
-                          (allianceVote.offensive / allianceVote.totalVotes) *
-                            100
-                        )}
-                        %
-                      </span>
-                    </div>
-                    <div className="h-2 overflow-hidden rounded-full bg-indigo-950">
-                      <div
-                        className="h-full bg-red-500 rounded-full"
-                        style={{
-                          width: `${Math.round(
-                            (allianceVote.offensive / allianceVote.totalVotes) *
-                              100
-                          )}%`,
-                        }}
-                      ></div>
-                    </div>
-                  </div>
-
-                  <div>
-                    <div className="flex justify-between mb-1 text-sm">
-                      <div className="flex items-center gap-2">
-                        <Users size={16} className="text-green-400" />
-                        <span>Diplomatic Strategy</span>
-                      </div>
-                      <span>
-                        {Math.round(
-                          (allianceVote.diplomatic / allianceVote.totalVotes) *
-                            100
-                        )}
-                        %
-                      </span>
-                    </div>
-                    <div className="h-2 overflow-hidden rounded-full bg-indigo-950">
-                      <div
-                        className="h-full bg-green-500 rounded-full"
-                        style={{
-                          width: `${Math.round(
-                            (allianceVote.diplomatic /
-                              allianceVote.totalVotes) *
-                              100
-                          )}%`,
-                        }}
-                      ></div>
-                    </div>
-                  </div>
+                  <button
+                    className="px-3 py-2 font-semibold transition-all bg-indigo-700 hover:bg-indigo-600 rounded-r-md"
+                    onClick={setMaxBondAmount}
+                  >
+                    MAX
+                  </button>
                 </div>
+              </div>
 
-                <div className="flex items-center gap-2 mt-4 text-sm opacity-70">
-                  <CheckCircle size={16} className="text-green-400" />
+              <div className="p-3 bg-indigo-800 rounded-md pixelated-bg">
+                <div className="mb-2 text-sm font-bold">Shipment Manifest</div>
+                <div className="flex justify-between text-sm">
+                  <span>You Send:</span>
                   <span>
-                    Your vote:{" "}
-                    <span className="text-blue-400">Defensive Strategy</span>
+                    {bondAmount || "0"}{" "}
+                    {selectedBond.id === "eth"
+                      ? "ETH"
+                      : selectedBond.id === "dai"
+                      ? "DAI"
+                      : "LP"}
+                  </span>
+                </div>
+                <div className="flex justify-between text-sm">
+                  <span>You Receive:</span>
+                  <span className="text-green-400">
+                    {calculateReceivedTokens().toLocaleString()} $BARON
+                  </span>
+                </div>
+                <div className="flex justify-between text-sm">
+                  <span>Shipping Time:</span>
+                  <span>{selectedBond.vestingTerm}</span>
+                </div>
+                <div className="flex justify-between text-sm">
+                  <span>Discount:</span>
+                  <span className="text-green-400">
+                    -{selectedBond.discount}%
                   </span>
                 </div>
               </div>
 
-              <div className="grid grid-cols-3 gap-2">
-                <button
-                  className={`p-3 rounded-md flex flex-col items-center ${
-                    allianceVote.yourVote === "defensive"
-                      ? "bg-blue-700 border-2 border-blue-500"
-                      : "bg-indigo-800 hover:bg-indigo-700"
-                  }`}
-                  onClick={() =>
-                    setAllianceVote({ ...allianceVote, yourVote: "defensive" })
-                  }
-                >
-                  <Shield size={24} className="mb-2 text-blue-400" />
-                  <span className="text-sm">Defensive</span>
-                </button>
-                <button
-                  className={`p-3 rounded-md flex flex-col items-center ${
-                    allianceVote.yourVote === "offensive"
-                      ? "bg-red-700 border-2 border-red-500"
-                      : "bg-indigo-800 hover:bg-indigo-700"
-                  }`}
-                  onClick={() =>
-                    setAllianceVote({ ...allianceVote, yourVote: "offensive" })
-                  }
-                >
-                  <Sword size={24} className="mb-2 text-red-400" />
-                  <span className="text-sm">Offensive</span>
-                </button>
-                <button
-                  className={`p-3 rounded-md flex flex-col items-center ${
-                    allianceVote.yourVote === "diplomatic"
-                      ? "bg-green-700 border-2 border-green-500"
-                      : "bg-indigo-800 hover:bg-indigo-700"
-                  }`}
-                  onClick={() =>
-                    setAllianceVote({ ...allianceVote, yourVote: "diplomatic" })
-                  }
-                >
-                  <Users size={24} className="mb-2 text-green-400" />
-                  <span className="text-sm">Diplomatic</span>
-                </button>
-              </div>
-
-              <div className="p-4 bg-indigo-800 rounded-md">
-                <div className="flex items-center gap-2 mb-2">
-                  <Target size={18} className="text-yellow-400" />
-                  <h4 className="font-semibold">War Target Analysis</h4>
+              {bondAmount && (
+                <div className="p-3 bg-indigo-800 rounded-md">
+                  <div className="mb-1 text-center text-yellow-400">
+                    Trading Rank
+                  </div>
+                  <div className="font-bold text-center">
+                    {getTraderTitle()}
+                  </div>
                 </div>
-
-                <table className="w-full text-sm">
-                  <thead className="text-xs border-b border-indigo-700 opacity-70">
-                    <tr>
-                      <th className="pb-2 text-left">Alliance</th>
-                      <th className="pb-2 text-right">Strength</th>
-                      <th className="pb-2 text-right">Territories</th>
-                      <th className="pb-2 text-right">Risk/Reward</th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-indigo-700">
-                    <tr>
-                      <td className="py-2">Dragon Dynasty</td>
-                      <td className="text-right text-red-400">Superior</td>
-                      <td className="text-right">5</td>
-                      <td className="text-right text-red-400">High/High</td>
-                    </tr>
-                    <tr>
-                      <td className="py-2">Stellar Syndicate</td>
-                      <td className="text-right text-yellow-400">Comparable</td>
-                      <td className="text-right">4</td>
-                      <td className="text-right text-yellow-400">
-                        Medium/High
-                      </td>
-                    </tr>
-                    <tr>
-                      <td className="py-2">Northern Coalition</td>
-                      <td className="text-right text-green-400">Weaker</td>
-                      <td className="text-right">2</td>
-                      <td className="text-right text-green-400">Low/Medium</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
+              )}
 
               <div className="pt-2">
                 <button
-                  className="flex items-center justify-center w-full gap-2 py-3 font-semibold transition-all bg-red-700 rounded-md hover:bg-red-600"
-                  onClick={() => setShowStrategyModal(false)}
+                  className="flex items-center justify-center w-full py-3 font-semibold transition-all bg-green-700 rounded-md hover:bg-green-600"
+                  disabled={!bondAmount || parseFloat(bondAmount) <= 0}
+                  onClick={purchaseBond}
                 >
-                  <Sword size={18} />
-                  <span>Cast War Vote</span>
+                  <Anchor className="mr-2" size={18} />
+                  Set Sail with {bondAmount || "0"}{" "}
+                  {selectedBond.id === "eth"
+                    ? "ETH"
+                    : selectedBond.id === "dai"
+                    ? "DAI"
+                    : "LP"}
                 </button>
                 <div className="mt-2 text-xs text-center opacity-70">
-                  Final alliance strategy will be determined by majority vote
+                  Goods will be shipped to you over {selectedBond.vestingTerm}
                 </div>
               </div>
             </div>
           </div>
         </div>
       )}
-
-      {/* Custom Animations & Styles */}
-      <style jsx>{`
-        @keyframes fadeIn {
-          from {
-            opacity: 0;
-            transform: scale(0.9);
-          }
-          to {
-            opacity: 1;
-            transform: scale(1);
-          }
-        }
-
-        @keyframes pulse {
-          0% {
-            transform: scale(0.95);
-            opacity: 0.7;
-          }
-          70% {
-            transform: scale(1.1);
-            opacity: 1;
-          }
-          100% {
-            transform: scale(0.95);
-            opacity: 0.7;
-          }
-        }
-
-        @keyframes float {
-          0% {
-            transform: translateY(0px);
-          }
-          50% {
-            transform: translateY(-10px);
-          }
-          100% {
-            transform: translateY(0px);
-          }
-        }
-
-        @keyframes dash {
-          to {
-            stroke-dashoffset: 20;
-          }
-        }
-
-        .animate-fadeIn {
-          animation: fadeIn 0.3s ease-out forwards;
-        }
-
-        .stars {
-          position: absolute;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          pointer-events: none;
-          background-image: radial-gradient(
-              2px 2px at 20px 30px,
-              white,
-              rgba(0, 0, 0, 0)
-            ),
-            radial-gradient(2px 2px at 40px 70px, white, rgba(0, 0, 0, 0)),
-            radial-gradient(2px 2px at 60px 110px, white, rgba(0, 0, 0, 0)),
-            radial-gradient(2px 2px at 80px 150px, white, rgba(0, 0, 0, 0)),
-            radial-gradient(2px 2px at 100px 190px, white, rgba(0, 0, 0, 0)),
-            radial-gradient(2px 2px at 120px 230px, white, rgba(0, 0, 0, 0)),
-            radial-gradient(2px 2px at 140px 270px, white, rgba(0, 0, 0, 0)),
-            radial-gradient(2px 2px at 160px 310px, white, rgba(0, 0, 0, 0)),
-            radial-gradient(2px 2px at 180px 350px, white, rgba(0, 0, 0, 0)),
-            radial-gradient(2px 2px at 200px 390px, white, rgba(0, 0, 0, 0)),
-            radial-gradient(2px 2px at 220px 430px, white, rgba(0, 0, 0, 0)),
-            radial-gradient(2px 2px at 240px 470px, white, rgba(0, 0, 0, 0)),
-            radial-gradient(2px 2px at 260px 510px, white, rgba(0, 0, 0, 0)),
-            radial-gradient(2px 2px at 280px 550px, white, rgba(0, 0, 0, 0)),
-            radial-gradient(2px 2px at 300px 590px, white, rgba(0, 0, 0, 0));
-        }
-
-        .pixel-grid {
-          position: absolute;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          background-size: 40px 40px;
-          background-image: linear-gradient(
-              to right,
-              rgba(30, 64, 175, 0.1) 1px,
-              transparent 1px
-            ),
-            linear-gradient(
-              to bottom,
-              rgba(30, 64, 175, 0.1) 1px,
-              transparent 1px
-            );
-        }
-
-        .alliance-network {
-          position: absolute;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          opacity: 0.1;
-          background-image: linear-gradient(
-              30deg,
-              transparent 40%,
-              rgba(79, 70, 229, 0.5) 40%,
-              rgba(79, 70, 229, 0.5) 60%,
-              transparent 60%
-            ),
-            radial-gradient(
-              circle at 70% 20%,
-              rgba(124, 58, 237, 0.8) 0%,
-              transparent 20%
-            ),
-            radial-gradient(
-              circle at 30% 60%,
-              rgba(37, 99, 235, 0.8) 0%,
-              transparent 20%
-            ),
-            radial-gradient(
-              circle at 90% 80%,
-              rgba(220, 38, 38, 0.8) 0%,
-              transparent 20%
-            );
-        }
-
-        .territory-map {
-          background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%232563eb' fill-opacity='0.1' fill-rule='evenodd'/%3E%3C/svg%3E");
-        }
-
-        .territory-line {
-          animation: dash 20s linear infinite;
-        }
-
-        .alliance-chat::-webkit-scrollbar {
-          width: 8px;
-        }
-
-        .alliance-chat::-webkit-scrollbar-track {
-          background: rgba(49, 46, 129, 0.5);
-          border-radius: 4px;
-        }
-
-        .alliance-chat::-webkit-scrollbar-thumb {
-          background-color: rgba(99, 102, 241, 0.5);
-          border-radius: 4px;
-        }
-
-        @keyframes spin {
-          0% {
-            transform: rotate(0deg);
-          }
-          100% {
-            transform: rotate(360deg);
-          }
-        }
-
-        .loading-spinner {
-          border: 3px solid rgba(255, 255, 255, 0.3);
-          border-radius: 50%;
-          border-top: 3px solid white;
-          width: 20px;
-          height: 20px;
-          animation: spin 1s linear infinite;
-          display: inline-block;
-        }
-      `}</style>
     </div>
   );
 };
 
-export default AlliancesPage;
+export default TradeRealmImportLicensesPage;

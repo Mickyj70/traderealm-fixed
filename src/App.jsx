@@ -23,7 +23,7 @@ import TradeRealmAppSimpleWar from "./pages/traderealm-simple-war";
 import Dapp from "./pages/DAPP";
 // import TradeRealmReferralPage from "./pages/ReferralPage";
 // import TradeWarComponent from "./pages/tradewars";
-// import AlliancesPage from "./components/presale/alliances";
+import AlliancesPage from "./components/presale/alliances";
 // import ImportLicensesPage from "./components/presale/licenses";
 // import WarRoomComponent from "./components/presale/warroom";
 // import TradeRealmAppSupport from "./pages/tradeRealmAppSupport";
@@ -49,9 +49,9 @@ const AnimatedRoutes = () => {
         <Route path="/popups" element={<TradeRealmAppPopups />} />
         <Route path="/simple-war" element={<TradeRealmAppSimpleWar />} />
         <Route path="/dapp" element={<Dapp />} />
+        <Route path="/alliances" element={<AlliancesPage />} />
         {/* <Route path="/presale" element={<TradeRealmApp />} /> */}
         {/* <Route path="/presale/tradewars" element={<TradeWarComponent />} />
-        <Route path="/alliances" element={<AlliancesPage />} />
         <Route path="/presale/licenses" element={<ImportLicensesPage />} />
         <Route
           path="/presale/tradewars/warroom"
