@@ -554,10 +554,10 @@ const WarRoomComponent = () => {
 
   // Command Center tab content
   const renderCommandCenter = () => (
-    <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
+    <div className="grid grid-cols-1 gap-6 lg:grid-cols-3 bg-gradient-to-b from-[#1B0036] to-[#1A1135] ">
       {/* Active Wars Section */}
       <div className="lg:col-span-2">
-        <div className="overflow-hidden border border-indigo-800 rounded-md shadow-lg bg-indigo-900/50 backdrop-blur-sm">
+        <div className="overflow-hidden bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6b46c1] rounded-md shadow-lg  backdrop-blur-sm">
           <div className="flex items-center justify-between p-4 border-b border-indigo-800">
             <h3 className="flex items-center font-bold text-purple-400">
               <Sword size={18} className="mr-2" />
@@ -572,7 +572,7 @@ const WarRoomComponent = () => {
             {activeWars.map((war) => (
               <div
                 key={war.id}
-                className={`p-4 hover:bg-indigo-800/30 transition-colors cursor-pointer ${
+                className={`p-3 sm:p-4 hover:bg-indigo-800/30 transition-colors cursor-pointer ${
                   selectedWar?.id === war.id
                     ? "bg-indigo-800/50 border-l-4 border-red-500"
                     : ""
@@ -581,10 +581,10 @@ const WarRoomComponent = () => {
                   setSelectedWar(selectedWar?.id === war.id ? null : war)
                 }
               >
-                <div className="flex items-start">
+                <div className="flex flex-col sm:flex-row sm:items-start">
                   {/* War Icon */}
                   <div
-                    className="flex items-center justify-center w-12 h-12 mr-4 text-2xl rounded-md"
+                    className="flex items-center justify-center w-10 h-10 mb-3 text-xl rounded-md sm:w-12 sm:h-12 sm:mb-0 sm:mr-4 sm:text-2xl"
                     style={{ background: war.background }}
                   >
                     {war.territory === "Eastern Silk Road"
@@ -595,22 +595,24 @@ const WarRoomComponent = () => {
                   </div>
 
                   <div className="flex-1">
-                    <div className="flex items-start justify-between">
-                      <h3 className="font-bold text-red-300">{war.name}</h3>
-                      <div className="flex items-center px-2 py-1 text-xs rounded-md bg-indigo-950">
+                    <div className="flex flex-col justify-between gap-2 sm:flex-row sm:items-start sm:gap-0">
+                      <h3 className="text-sm font-bold text-red-300 sm:text-base">
+                        {war.name}
+                      </h3>
+                      <div className="flex items-center self-start px-2 py-1 text-xs rounded-md bg-indigo-950">
                         <Clock size={12} className="mr-1" />
                         <span>{war.timeRemaining}</span>
                       </div>
                     </div>
 
-                    <p className="mt-1 text-sm text-gray-300 line-clamp-2">
+                    <p className="mt-1 text-xs text-gray-300 sm:text-sm line-clamp-2">
                       {war.description}
                     </p>
 
-                    <div className="grid grid-cols-2 gap-2 mt-3">
+                    <div className="grid grid-cols-2 gap-2 mt-2 sm:mt-3">
                       <div className="flex flex-col">
                         <div className="text-xs text-gray-400">Attacker</div>
-                        <div className="flex items-center font-semibold text-red-400">
+                        <div className="flex items-center text-xs font-semibold text-red-400 sm:text-sm">
                           <span className="mr-1">{war.attackerIcon}</span>
                           {war.attacker}
                         </div>
@@ -618,7 +620,7 @@ const WarRoomComponent = () => {
                       <div className="flex flex-col">
                         <div className="text-xs text-gray-400">Defender</div>
                         <div
-                          className={`font-semibold flex items-center ${
+                          className={`font-semibold flex items-center text-xs sm:text-sm ${
                             war.defender === "You"
                               ? "text-green-400"
                               : "text-blue-400"
@@ -631,7 +633,7 @@ const WarRoomComponent = () => {
                     </div>
 
                     {/* Battle Progress */}
-                    <div className="mt-3">
+                    <div className="mt-2 sm:mt-3">
                       <div className="flex justify-between mb-1 text-xs">
                         <div className="flex items-center text-red-400">
                           <Sword size={12} className="mr-1" />
@@ -643,7 +645,7 @@ const WarRoomComponent = () => {
                           {war.defenseStrength.toLocaleString()}
                         </div>
                       </div>
-                      <div className="h-2 overflow-hidden bg-gray-800 rounded-full">
+                      <div className="h-1.5 sm:h-2 overflow-hidden bg-gray-800 rounded-full">
                         <div
                           className="h-full bg-gradient-to-r from-red-600 to-red-400"
                           style={{ width: `${war.progress}%` }}
@@ -652,36 +654,38 @@ const WarRoomComponent = () => {
                     </div>
 
                     {/* War Actions */}
-                    <div className="flex items-center justify-between mt-3">
-                      <div className="text-xs text-yellow-300">
+                    <div className="flex flex-col items-start justify-between gap-2 mt-2 sm:flex-row sm:items-center sm:gap-0 sm:mt-3">
+                      <div className="order-2 text-xs text-yellow-300 sm:order-1">
                         <span>Rewards: {war.rewards}</span>
                       </div>
 
-                      {war.defender === "You" && (
-                        <button
-                          className="flex items-center px-3 py-1 text-xs font-bold bg-blue-700 rounded hover:bg-blue-600"
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            setConfirmAction({
-                              type: "battle",
-                              war: war,
-                            });
-                            setShowConfirmModal(true);
-                          }}
-                        >
-                          <Shield size={12} className="mr-1" />
-                          Reinforce Defenses
-                        </button>
-                      )}
+                      <div className="flex order-1 w-full gap-2 sm:w-auto sm:order-2">
+                        {war.defender === "You" && (
+                          <button
+                            className="flex items-center px-3 py-1.5 text-xs font-bold bg-blue-700 rounded hover:bg-blue-600 flex-1 sm:flex-none justify-center sm:justify-start"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              setConfirmAction({
+                                type: "battle",
+                                war: war,
+                              });
+                              setShowConfirmModal(true);
+                            }}
+                          >
+                            <Shield size={12} className="mr-1" />
+                            Reinforce Defenses
+                          </button>
+                        )}
 
-                      {war.attacker !== "You" && war.defender !== "You" && (
-                        <button
-                          className="px-3 py-1 text-xs font-bold bg-purple-600 rounded hover:bg-purple-500"
-                          onClick={(e) => e.stopPropagation()}
-                        >
-                          Join War
-                        </button>
-                      )}
+                        {war.attacker !== "You" && war.defender !== "You" && (
+                          <button
+                            className="px-3 py-1.5 text-xs font-bold bg-purple-600 rounded hover:bg-purple-500 flex-1 sm:flex-none"
+                            onClick={(e) => e.stopPropagation()}
+                          >
+                            Join War
+                          </button>
+                        )}
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -787,7 +791,7 @@ const WarRoomComponent = () => {
         )}
 
         {/* Territories Section */}
-        <div className="mt-6 overflow-hidden border border-indigo-800 rounded-md shadow-lg bg-indigo-900/50 backdrop-blur-sm">
+        <div className="mt-6 overflow-hidden bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6b46c1]  rounded-md shadow-lg  backdrop-blur-sm">
           <div className="flex items-center justify-between p-4 border-b border-indigo-800">
             <h3 className="flex items-center font-bold text-purple-400">
               <Map size={18} className="mr-2" />
@@ -810,7 +814,7 @@ const WarRoomComponent = () => {
                   className={`p-3 rounded-md border ${
                     territory.controller === "You"
                       ? "bg-green-900/30 border-green-800"
-                      : "bg-indigo-800/50 border-indigo-700"
+                      : "bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6b46c1] "
                   } ${
                     selectedTerritory?.id === territory.id
                       ? "ring-2 ring-yellow-400"
@@ -904,7 +908,7 @@ const WarRoomComponent = () => {
       {/* Command Center Sidebar */}
       <div className="space-y-6">
         {/* War Stats */}
-        <div className="overflow-hidden border border-indigo-800 rounded-md shadow-lg bg-indigo-900/50 backdrop-blur-sm">
+        <div className="overflow-hidden bg-gradient-to-b from-[#1B0036] to-[#1A1135] border-b-2 border-[#6b46c1] rounded-md shadow-lg backdrop-blur-sm">
           <div className="p-3 border-b border-indigo-800">
             <h3 className="font-bold text-purple-400">Your War Stats</h3>
           </div>
@@ -961,7 +965,7 @@ const WarRoomComponent = () => {
         </div>
 
         {/* Troop Overview */}
-        <div className="overflow-hidden border border-indigo-800 rounded-md shadow-lg bg-indigo-900/50 backdrop-blur-sm">
+        <div className="overflow-hidden bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6b46c1]  rounded-md shadow-lg  backdrop-blur-sm">
           <div className="p-3 border-b border-indigo-800">
             <h3 className="font-bold text-purple-400">Troop Overview</h3>
           </div>
@@ -1026,7 +1030,7 @@ const WarRoomComponent = () => {
         </div>
 
         {/* Current Strategy */}
-        <div className="overflow-hidden border border-indigo-800 rounded-md shadow-lg bg-indigo-900/50 backdrop-blur-sm">
+        <div className="overflow-hidden bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6b46c1]  rounded-md shadow-lg  backdrop-blur-sm">
           <div className="p-3 border-b border-indigo-800">
             <h3 className="font-bold text-purple-400">Current Strategy</h3>
           </div>
@@ -1036,7 +1040,7 @@ const WarRoomComponent = () => {
               .map((strategy) => (
                 <div
                   key={strategy.id}
-                  className="p-3 border border-indigo-700 rounded-md bg-indigo-800/50"
+                  className="p-2  rounded-md bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6b46c1] "
                 >
                   <div className="flex items-center mb-2">
                     {strategy.icon}
@@ -1079,7 +1083,7 @@ const WarRoomComponent = () => {
         </div>
 
         {/* Alliance Support */}
-        <div className="overflow-hidden border border-indigo-800 rounded-md shadow-lg bg-indigo-900/50 backdrop-blur-sm">
+        <div className="overflow-hidden bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6b46c1]  rounded-md shadow-lg  backdrop-blur-sm">
           <div className="p-3 border-b border-indigo-800">
             <h3 className="font-bold text-purple-400">Alliance Support</h3>
           </div>
@@ -1123,13 +1127,13 @@ const WarRoomComponent = () => {
   const renderIntelligence = () => (
     <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
       <div className="lg:col-span-2">
-        <div className="overflow-hidden border border-indigo-800 rounded-md shadow-lg bg-indigo-900/50 backdrop-blur-sm">
+        <div className="overflow-hidden bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6b46c1] rounded-md shadow-lg  backdrop-blur-sm">
           <div className="flex items-center justify-between p-4 border-b border-indigo-800">
             <h3 className="flex items-center font-bold text-purple-400">
               <Eye size={18} className="mr-2" />
               Intelligence Reports
             </h3>
-            <button className="flex items-center px-3 py-1 text-xs font-bold bg-indigo-700 rounded hover:bg-indigo-600">
+            <button className="flex items-center px-3 py-1 text-xs font-bold bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6b46c1] rounded hover:bg-indigo-600">
               <RefreshCw size={12} className="mr-1" />
               Gather Intelligence
             </button>
@@ -1140,7 +1144,7 @@ const WarRoomComponent = () => {
               {intelligenceReports.map((report) => (
                 <div
                   key={report.id}
-                  className={`bg-indigo-800/50 p-4 rounded-md border ${
+                  className={`bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6b46c1] p-4 rounded-md  ${
                     report.urgency === "high"
                       ? "border-red-700"
                       : report.urgency === "medium"
@@ -1216,7 +1220,7 @@ const WarRoomComponent = () => {
         </div>
 
         {/* Additional intel section for threat assessment */}
-        <div className="mt-6 overflow-hidden border border-indigo-800 rounded-md shadow-lg bg-indigo-900/50 backdrop-blur-sm">
+        <div className="mt-6 overflow-hidden bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6b46c1] rounded-md shadow-lg  backdrop-blur-sm">
           <div className="p-4 border-b border-indigo-800">
             <h3 className="flex items-center font-bold text-purple-400">
               <AlertTriangle size={18} className="mr-2" />
@@ -1281,7 +1285,7 @@ const WarRoomComponent = () => {
               </div>
             </div>
 
-            <div className="p-3 mt-4 rounded-md bg-indigo-800/50">
+            <div className="p-3 mt-4 rounded-md bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6b46c1]">
               <div className="mb-2 font-semibold">Strategic Recommendation</div>
               <p className="text-sm text-gray-300">
                 Focus defensive resources on Eastern Silk Road to counter
@@ -1294,23 +1298,23 @@ const WarRoomComponent = () => {
       </div>
 
       <div className="space-y-6">
-        <div className="overflow-hidden border border-indigo-800 rounded-md shadow-lg bg-indigo-900/50 backdrop-blur-sm">
+        <div className="overflow-hidden bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6b46c1] rounded-md shadow-lg  backdrop-blur-sm">
           <div className="p-3 border-b border-indigo-800">
             <h3 className="font-bold text-purple-400">Intel Dashboard</h3>
           </div>
           <div className="p-4">
             <div className="grid grid-cols-2 gap-3 mb-4">
-              <div className="p-3 text-center rounded-md bg-indigo-800/50">
+              <div className="p-3 text-center rounded-md bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6b46c1]">
                 <div className="text-xl font-bold text-yellow-400">3</div>
                 <div className="text-xs text-gray-300">Active Reports</div>
               </div>
-              <div className="p-3 text-center rounded-md bg-indigo-800/50">
+              <div className="p-3 text-center rounded-md bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6b46c1]">
                 <div className="text-xl font-bold text-blue-400">5</div>
                 <div className="text-xs text-gray-300">Agents in Field</div>
               </div>
             </div>
 
-            <div className="p-3 mb-4 rounded-md bg-indigo-800/50">
+            <div className="p-3 mb-4 rounded-md bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6b46c1]">
               <div className="mb-2 text-sm font-semibold">
                 Intelligence Network
               </div>
@@ -1318,7 +1322,7 @@ const WarRoomComponent = () => {
                 <span>Network Strength:</span>
                 <span className="text-yellow-400">Tier 2 (Enhanced)</span>
               </div>
-              <div className="h-2 overflow-hidden rounded-full bg-indigo-950">
+              <div className="h-2 overflow-hidden rounded-full bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6b46c1]">
                 <div
                   className="h-full bg-yellow-500 rounded-full"
                   style={{ width: "60%" }}
@@ -1332,7 +1336,7 @@ const WarRoomComponent = () => {
               </div>
             </div>
 
-            <div className="p-3 rounded-md bg-indigo-800/50">
+            <div className="p-3 rounded-md bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6b46c1]">
               <div className="mb-2 text-sm font-semibold">Enemy Activity</div>
               <div className="space-y-2">
                 <div className="flex justify-between text-xs">
@@ -1360,12 +1364,12 @@ const WarRoomComponent = () => {
           </div>
         </div>
 
-        <div className="overflow-hidden border border-indigo-800 rounded-md shadow-lg bg-indigo-900/50 backdrop-blur-sm">
-          <div className="p-3 border-b border-indigo-800">
+        <div className="overflow-hidden bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6b46c1] rounded-md shadow-lg  backdrop-blur-sm">
+          <div className="p-3 bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6b46c1]">
             <h3 className="font-bold text-purple-400">Active Missions</h3>
           </div>
           <div className="p-4">
-            <div className="p-3 border border-blue-700 rounded-md bg-indigo-800/50">
+            <div className="p-3 rounded-md bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6b46c1]">
               <div className="flex items-start">
                 <div className="flex-shrink-0 p-1 mt-1 mr-3 bg-blue-900 rounded-full">
                   <Eye size={16} className="text-blue-400" />
@@ -1406,12 +1410,12 @@ const WarRoomComponent = () => {
           </div>
         </div>
 
-        <div className="overflow-hidden border border-indigo-800 rounded-md shadow-lg bg-indigo-900/50 backdrop-blur-sm">
+        <div className="overflow-hidden bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6b46c1] rounded-md shadow-lg  backdrop-blur-sm">
           <div className="p-3 border-b border-indigo-800">
             <h3 className="font-bold text-purple-400">Resource Intelligence</h3>
           </div>
           <div className="p-4">
-            <div className="p-3 rounded-md bg-indigo-800/50">
+            <div className="p-3 rounded-md bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6b46c1]">
               <div className="mb-2 text-sm font-semibold">Market Analysis</div>
               <div className="space-y-2 text-xs">
                 <div className="flex justify-between">
@@ -1449,8 +1453,8 @@ const WarRoomComponent = () => {
   const renderTactics = () => (
     <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
       <div className="lg:col-span-2">
-        <div className="overflow-hidden border border-indigo-800 rounded-md shadow-lg bg-indigo-900/50 backdrop-blur-sm">
-          <div className="p-4 border-b border-indigo-800">
+        <div className="overflow-hidden bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6b46c1] rounded-md shadow-lg  backdrop-blur-sm">
+          <div className="p-4 bg-gradient-to-b from-[#1B0036] to-[#1A1135] border-b border-[#6b46c1]">
             <h3 className="flex items-center font-bold text-purple-400">
               <BookOpen size={18} className="mr-2" />
               Battle Tactics
@@ -1466,7 +1470,7 @@ const WarRoomComponent = () => {
               {strategies.map((strategy) => (
                 <div
                   key={strategy.id}
-                  className={`bg-indigo-800/50 p-3 rounded-md border cursor-pointer transition-colors ${
+                  className={`bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6b46c1] p-2 rounded-md  cursor-pointer transition-colors ${
                     selectedStrategy === strategy.id
                       ? "border-purple-600 bg-purple-900/20"
                       : "border-indigo-700 hover:bg-indigo-800/70"
@@ -1511,12 +1515,12 @@ const WarRoomComponent = () => {
               ))}
             </div>
 
-            <div className="p-4 mb-6 border border-indigo-700 rounded-md bg-indigo-800/50">
+            <div className="p-2 mb-6 bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6b46c1] rounded-md ">
               <h4 className="mb-3 font-semibold text-blue-400">
                 Unit Tactical Deployment
               </h4>
               <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-                <div className="p-3 border border-indigo-700 rounded-md bg-indigo-900/50">
+                <div className="p-2 bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6b46c1] rounded-md ">
                   <h5 className="flex items-center font-semibold">
                     <Shield size={16} className="mr-2 text-blue-400" />
                     Vanguard Formation
@@ -1531,7 +1535,7 @@ const WarRoomComponent = () => {
                   </div>
                 </div>
 
-                <div className="p-3 border border-indigo-700 rounded-md bg-indigo-900/50">
+                <div className="p-2 bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6b46c1] rounded-md ">
                   <h5 className="flex items-center font-semibold">
                     <Zap size={16} className="mr-2 text-yellow-400" />
                     Flanking Maneuver
@@ -1548,13 +1552,13 @@ const WarRoomComponent = () => {
               </div>
             </div>
 
-            <div className="p-4 border border-indigo-700 rounded-md bg-indigo-800/50">
+            <div className="p-2 bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6b46c1] rounded-md">
               <h4 className="mb-3 font-semibold text-blue-400">
                 Battle Simulator
               </h4>
 
               <div className="grid grid-cols-2 gap-4 mb-4">
-                <div className="p-3 rounded-md bg-indigo-900/80">
+                <div className="p-3 rounded-md bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6b46c1]">
                   <div className="mb-1 text-xs text-gray-400">Your Forces</div>
                   <div className="font-semibold text-blue-400">
                     {userData.attackStrength} combat power
@@ -1564,7 +1568,7 @@ const WarRoomComponent = () => {
                   </div>
                 </div>
 
-                <div className="p-3 rounded-md bg-indigo-900/80">
+                <div className="p-3 rounded-md bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6b46c1]">
                   <div className="mb-1 text-xs text-gray-400">Enemy Forces</div>
                   <div className="font-semibold text-red-400">
                     ~8,500 combat power
@@ -1590,7 +1594,7 @@ const WarRoomComponent = () => {
           </div>
         </div>
 
-        <div className="mt-6 overflow-hidden border border-indigo-800 rounded-md shadow-lg bg-indigo-900/50 backdrop-blur-sm">
+        <div className="mt-6 overflow-hidden bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6b46c1] rounded-md shadow-lg  backdrop-blur-sm">
           <div className="p-4 border-b border-indigo-800">
             <h3 className="flex items-center font-bold text-purple-400">
               <BarChart3 size={18} className="mr-2" />
@@ -1598,9 +1602,9 @@ const WarRoomComponent = () => {
             </h3>
           </div>
 
-          <div className="p-4">
+          <div className="p-2">
             <div className="grid grid-cols-1 gap-4 mb-6 md:grid-cols-3">
-              <div className="p-3 rounded-md bg-indigo-800/50">
+              <div className="p-2 rounded-md bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6b46c1]">
                 <div className="mb-1 text-xs text-gray-400">Battles Fought</div>
                 <div className="text-xl font-bold">15</div>
                 <div className="flex justify-between mt-1 text-xs">
@@ -1609,7 +1613,7 @@ const WarRoomComponent = () => {
                 </div>
               </div>
 
-              <div className="p-3 rounded-md bg-indigo-800/50">
+              <div className="p-2 rounded-md bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6b46c1]">
                 <div className="mb-1 text-xs text-gray-400">Win Rate</div>
                 <div className="text-xl font-bold text-green-400">67%</div>
                 <div className="mt-1 text-xs">
@@ -1617,7 +1621,7 @@ const WarRoomComponent = () => {
                 </div>
               </div>
 
-              <div className="p-3 rounded-md bg-indigo-800/50">
+              <div className="p-2 rounded-md bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6b46c1]">
                 <div className="mb-1 text-xs text-gray-400">
                   Territory Control
                 </div>
@@ -1626,7 +1630,7 @@ const WarRoomComponent = () => {
               </div>
             </div>
 
-            <div className="p-4 border border-indigo-700 rounded-md bg-indigo-800/50">
+            <div className="p-2  rounded-md bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6b46c1]">
               <h4 className="mb-3 font-semibold text-blue-400">
                 Recent Battles
               </h4>
@@ -1669,12 +1673,12 @@ const WarRoomComponent = () => {
       </div>
 
       <div className="space-y-6">
-        <div className="overflow-hidden border border-indigo-800 rounded-md shadow-lg bg-indigo-900/50 backdrop-blur-sm">
-          <div className="p-3 border-b border-indigo-800">
+        <div className="overflow-hidden bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6b46c1] rounded-md shadow-lg  backdrop-blur-sm">
+          <div className="p-2 border-b border-indigo-800">
             <h3 className="font-bold text-purple-400">Battle Conditions</h3>
           </div>
-          <div className="p-4">
-            <div className="p-3 mb-4 rounded-md bg-indigo-800/50">
+          <div className="p-2">
+            <div className="p-2 mb-4 rounded-md bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6b46c1]">
               <div className="mb-2 font-semibold">Eastern Front</div>
               <div className="space-y-2 text-sm">
                 <div className="flex justify-between">
@@ -1699,7 +1703,7 @@ const WarRoomComponent = () => {
               </div>
             </div>
 
-            <div className="p-3 rounded-md bg-indigo-800/50">
+            <div className="p-2 rounded-md bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6b46c1]">
               <div className="mb-2 font-semibold">Tactical Recommendations</div>
               <div className="space-y-2 text-xs">
                 <div className="flex items-center">
@@ -1732,12 +1736,12 @@ const WarRoomComponent = () => {
           </div>
         </div>
 
-        <div className="overflow-hidden border border-indigo-800 rounded-md shadow-lg bg-indigo-900/50 backdrop-blur-sm">
-          <div className="p-3 border-b border-indigo-800">
+        <div className="overflow-hidden bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6b46c1] rounded-md shadow-lg  backdrop-blur-sm">
+          <div className="p-2 border-b border-indigo-800">
             <h3 className="font-bold text-purple-400">Special Abilities</h3>
           </div>
-          <div className="p-4 space-y-2">
-            <div className="p-3 border border-indigo-700 rounded-md bg-indigo-800/50">
+          <div className="p-2 space-y-2">
+            <div className="p-2 bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6b46c1] rounded-md ">
               <div className="flex items-center justify-between">
                 <div className="flex items-center">
                   <div className="flex items-center justify-center w-8 h-8 mr-3 text-lg bg-purple-900 rounded-full">
@@ -1756,7 +1760,7 @@ const WarRoomComponent = () => {
               </div>
             </div>
 
-            <div className="p-3 border border-indigo-700 rounded-md bg-indigo-800/50">
+            <div className="p-2 bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6b46c1] rounded-md ">
               <div className="flex items-center justify-between">
                 <div className="flex items-center">
                   <div className="flex items-center justify-center w-8 h-8 mr-3 text-lg bg-blue-900 rounded-full">
@@ -1777,13 +1781,13 @@ const WarRoomComponent = () => {
           </div>
         </div>
 
-        <div className="overflow-hidden border border-indigo-800 rounded-md shadow-lg bg-indigo-900/50 backdrop-blur-sm">
+        <div className="overflow-hidden bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6b46c1] rounded-md shadow-lg  backdrop-blur-sm">
           <div className="p-3 border-b border-indigo-800">
             <h3 className="font-bold text-purple-400">Unit Effectiveness</h3>
           </div>
           <div className="p-4">
             <div className="space-y-3">
-              <div className="p-3 rounded-md bg-indigo-800/50">
+              <div className="p-3 rounded-md bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6b46c1]">
                 <div className="mb-2 font-semibold">
                   Trade Guards (Infantry)
                 </div>
@@ -1805,7 +1809,7 @@ const WarRoomComponent = () => {
                 </div>
               </div>
 
-              <div className="p-3 rounded-md bg-indigo-800/50">
+              <div className="p-3 rounded-md bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6b46c1]">
                 <div className="mb-2 font-semibold">
                   Shadow Agents (Special)
                 </div>
@@ -1834,37 +1838,37 @@ const WarRoomComponent = () => {
   );
 
   return (
-    <div className="flex flex-col min-h-screen text-white bg-gradient-to-b from-indigo-900 to-indigo-950">
+    <div className="flex flex-col min-h-screen text-white bg-gradient-to-b from-[#1B0036] to-[#1A1135] ">
       {/* War Room Header */}
       <div className="relative overflow-hidden">
         <div className="absolute inset-0 z-10 bg-black opacity-40"></div>
-        <div className="relative h-24 bg-indigo-900 bg-center bg-cover">
+        <div className="relative h-24 bg-gradient-to-b from-[#1B0036] to-[#1A1135] bg-center bg-cover">
           <div className="absolute inset-0 bg-gradient-to-r from-indigo-800/70 to-purple-900/70"></div>
           <div className="absolute top-0 left-0 w-full h-full bg-[url('data:image/svg+xml,%3Csvg width=\'40\' height=\'40\' viewBox=\'0 0 40 40\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'%23ffffff\' fill-opacity=\'0.05\' fill-rule=\'evenodd\'%3E%3Cpath d=\'M0 38.59l2.83-2.83 1.41 1.41L1.41 40H0v-1.41zM0 1.4l2.83 2.83 1.41-1.41L1.41 0H0v1.41zM38.59 40l-2.83-2.83 1.41-1.41L40 38.59V40h-1.41zM40 1.41l-2.83 2.83-1.41-1.41L38.59 0H40v1.41zM20 18.6l2.83-2.83 1.41 1.41L21.41 20l2.83 2.83-1.41 1.41L20 21.41l-2.83 2.83-1.41-1.41L18.59 20l-2.83-2.83 1.41-1.41L20 18.59z\'/%3E%3C/g%3E%3C/svg%3E')]"></div>
-          <div className="relative z-20 flex items-center justify-between h-full px-6">
+          <div className="relative z-20 flex flex-col items-start justify-between h-full px-4 py-3 sm:flex-row sm:items-center sm:px-6 sm:py-0">
             <div className="flex items-center">
-              <Crosshair size={28} className="mr-3 text-purple-400" />
+              <Crosshair size={24} className="mr-2 text-purple-400 sm:mr-3" />
               <div>
-                <h1 className="text-2xl font-bold tracking-wider text-white">
+                <h1 className="text-xl font-bold tracking-wider text-white sm:text-2xl">
                   WAR ROOM
                 </h1>
-                <p className="text-sm tracking-wide text-gray-300">
+                <p className="text-xs tracking-wide text-gray-300 sm:text-sm">
                   Strategic Command Center
                 </p>
               </div>
             </div>
 
-            <div className="flex items-center space-x-4">
-              <div className="flex items-center px-3 py-2 border rounded-md bg-indigo-950/50 backdrop-blur-sm border-indigo-800/50">
-                <Users size={18} className="mr-2 text-green-400" />
-                <span className="text-sm font-semibold">
+            <div className="flex flex-col mt-2 space-y-2 sm:flex-row sm:space-x-4 sm:space-y-0 sm:mt-0">
+              <div className="flex items-center px-2 sm:px-3 py-1.5 sm:py-2 border rounded-md bg-indigo-950/50 backdrop-blur-sm border-indigo-800/50">
+                <Users size={16} className="mr-2 text-green-400" />
+                <span className="text-xs font-semibold sm:text-sm">
                   {userData.alliance}
                 </span>
               </div>
 
-              <div className="flex items-center px-3 py-2 border rounded-md bg-indigo-950/50 backdrop-blur-sm border-indigo-800/50">
-                <Trophy size={18} className="mr-2 text-yellow-400" />
-                <span className="text-sm font-semibold">
+              <div className="flex items-center px-2 sm:px-3 py-1.5 sm:py-2 border rounded-md bg-indigo-950/50 backdrop-blur-sm border-indigo-800/50">
+                <Trophy size={16} className="mr-2 text-yellow-400" />
+                <span className="text-xs font-semibold sm:text-sm">
                   Rank #{userData.warRank}
                 </span>
               </div>
@@ -1874,38 +1878,38 @@ const WarRoomComponent = () => {
       </div>
 
       {/* Tab Navigation */}
-      <div className="flex p-2 space-x-1 border-b border-indigo-800 bg-indigo-950">
+      <div className="flex flex-wrap p-2 space-x-0 bg-gradient-to-b from-[#1B0036] to-[#1A1135] border-b-2 border-[#6b46c1] sm:space-x-1 ">
         <button
-          className={`px-4 py-2 rounded-t-lg font-semibold flex items-center ${
+          className={`px-3 sm:px-4 py-2 rounded-t-lg font-semibold flex items-center text-xs sm:text-sm w-full sm:w-auto mb-1 sm:mb-0 ${
             activeTab === "command"
               ? "bg-purple-900 text-white"
-              : "bg-indigo-900 text-gray-300 hover:bg-indigo-800"
+              : "bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6b46c1] text-gray-300 hover:bg-indigo-800"
           }`}
           onClick={() => setActiveTab("command")}
         >
-          <Crosshair size={16} className="mr-2" />
+          <Crosshair size={14} className="mr-2" />
           Command Center
         </button>
         <button
-          className={`px-4 py-2 rounded-t-lg font-semibold flex items-center ${
+          className={`px-3 sm:px-4 py-2 rounded-t-lg font-semibold flex items-center text-xs sm:text-sm w-full sm:w-auto mb-1 sm:mb-0 ${
             activeTab === "intelligence"
               ? "bg-purple-900 text-white"
-              : "bg-indigo-900 text-gray-300 hover:bg-indigo-800"
+              : "bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6b46c1] text-gray-300 hover:bg-indigo-800"
           }`}
           onClick={() => setActiveTab("intelligence")}
         >
-          <Eye size={16} className="mr-2" />
+          <Eye size={14} className="mr-2" />
           Intelligence
         </button>
         <button
-          className={`px-4 py-2 rounded-t-lg font-semibold flex items-center ${
+          className={`px-3 sm:px-4 py-2 rounded-t-lg font-semibold flex items-center text-xs sm:text-sm w-full sm:w-auto ${
             activeTab === "tactics"
               ? "bg-purple-900 text-white"
-              : "bg-indigo-900 text-gray-300 hover:bg-indigo-800"
+              : "bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6b46c1] text-gray-300 hover:bg-indigo-800"
           }`}
           onClick={() => setActiveTab("tactics")}
         >
-          <BookOpen size={16} className="mr-2" />
+          <BookOpen size={14} className="mr-2" />
           Tactics
         </button>
       </div>
@@ -1918,32 +1922,31 @@ const WarRoomComponent = () => {
       </div>
 
       {/* Modals */}
-
       {/* Troop Training Modal */}
       {showTrainingModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
           <div
             className="absolute inset-0 bg-black opacity-75"
             onClick={() => setShowTrainingModal(false)}
           ></div>
 
-          <div className="relative max-w-md p-6 mx-auto bg-indigo-900 border-4 border-indigo-700 rounded-lg">
+          <div className="relative w-full max-w-md p-4 mx-auto bg-indigo-900 border-4 border-indigo-700 rounded-lg sm:p-6">
             <button
               onClick={() => setShowTrainingModal(false)}
-              className="absolute text-gray-400 top-3 right-3 hover:text-white"
+              className="absolute text-gray-400 top-2 right-2 sm:top-3 sm:right-3 hover:text-white"
             >
               <X size={20} />
             </button>
 
-            <div className="flex items-center mb-4">
-              <div className="flex items-center justify-center w-12 h-12 mr-4 text-2xl bg-indigo-800 border border-indigo-700 rounded-md">
+            <div className="flex flex-col items-center mb-4 sm:flex-row">
+              <div className="flex items-center justify-center w-12 h-12 mb-2 text-2xl bg-indigo-800 border border-indigo-700 rounded-md sm:mb-0 sm:mr-4">
                 {selectedTroop?.icon}
               </div>
-              <div>
-                <h3 className="text-xl font-bold">
+              <div className="text-center sm:text-left">
+                <h3 className="text-lg font-bold sm:text-xl">
                   Train {selectedTroop?.name}
                 </h3>
-                <div className="text-sm text-gray-400">
+                <div className="text-xs text-gray-400 sm:text-sm">
                   Combat Power: {selectedTroop?.power} per unit
                 </div>
               </div>
@@ -2030,23 +2033,25 @@ const WarRoomComponent = () => {
 
       {/* Strategy Modal */}
       {showStrategyModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
           <div
             className="absolute inset-0 bg-black opacity-75"
             onClick={() => setShowStrategyModal(false)}
           ></div>
 
-          <div className="relative max-w-2xl p-6 mx-auto bg-indigo-900 border-4 border-indigo-700 rounded-lg">
+          <div className="relative w-full max-w-2xl p-4 sm:p-6 mx-auto bg-indigo-900 border-4 border-indigo-700 rounded-lg overflow-y-auto max-h-[90vh]">
             <button
               onClick={() => setShowStrategyModal(false)}
-              className="absolute text-gray-400 top-3 right-3 hover:text-white"
+              className="absolute text-gray-400 top-2 right-2 sm:top-3 sm:right-3 hover:text-white"
             >
               <X size={20} />
             </button>
 
             <div className="mb-4">
-              <h3 className="text-xl font-bold">Select War Strategy</h3>
-              <p className="text-sm text-gray-400">
+              <h3 className="text-lg font-bold sm:text-xl">
+                Select War Strategy
+              </h3>
+              <p className="text-xs text-gray-400 sm:text-sm">
                 Your strategy affects all combat operations and resource
                 allocations
               </p>
@@ -2121,16 +2126,16 @@ const WarRoomComponent = () => {
 
       {/* Battle Simulation Modal */}
       {showBattleModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
           <div
             className="absolute inset-0 bg-black opacity-95"
             onClick={() => setShowBattleModal(false)}
           ></div>
 
-          <div className="relative flex flex-col w-full max-w-4xl p-4 mx-8 overflow-hidden bg-indigo-900 border-4 border-indigo-700 rounded-lg h-3/4">
-            <div className="flex items-center justify-between p-2 border-b border-indigo-700">
-              <h3 className="flex items-center text-xl font-bold text-purple-400">
-                <Sword size={22} className="mr-2" />
+          <div className="relative flex flex-col w-full max-w-4xl mx-auto bg-indigo-900 border-4 border-indigo-700 rounded-lg h-[90vh]">
+            <div className="flex items-center justify-between p-2 border-b border-indigo-700 sm:p-4">
+              <h3 className="flex items-center text-base font-bold text-purple-400 sm:text-xl">
+                <Sword size={18} sm:size={22} className="mr-2" />
                 Battle Simulation
               </h3>
               <button
@@ -2204,28 +2209,27 @@ const WarRoomComponent = () => {
 
       {/* Tactical Map Modal */}
       {showTacticalMap && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
           <div
             className="absolute inset-0 bg-black opacity-90"
             onClick={() => setShowTacticalMap(false)}
           ></div>
 
-          <div className="relative flex flex-col w-full max-w-4xl p-4 mx-auto bg-indigo-900 border-4 border-indigo-700 rounded-lg h-4/5">
-            <div className="flex items-center justify-between mb-4">
-              <h3 className="flex items-center text-xl font-bold text-purple-400">
-                <Map size={22} className="mr-2" />
+          <div className="relative flex flex-col w-full max-w-4xl mx-auto bg-indigo-900 border-4 border-indigo-700 rounded-lg h-[90vh]">
+            <div className="flex flex-col items-start justify-between gap-2 p-4 sm:flex-row sm:items-center sm:gap-0">
+              <h3 className="flex items-center text-base font-bold text-purple-400 sm:text-xl">
+                <Map size={18} sm:size={22} className="mr-2" />
                 Tactical War Map
               </h3>
               <button
                 onClick={() => setShowTacticalMap(false)}
-                className="p-1 text-gray-400 hover:text-white"
+                className="self-end p-1 text-gray-400 hover:text-white sm:self-auto"
               >
                 <X size={20} />
               </button>
             </div>
 
             <div className="relative flex-1 overflow-hidden border border-indigo-800 rounded-md bg-indigo-950">
-              {/* Map Background with Grid */}
               <div
                 className="absolute inset-0"
                 style={{
@@ -2237,9 +2241,7 @@ const WarRoomComponent = () => {
                 }}
               ></div>
 
-              {/* Map Content */}
               <div className="absolute inset-0 p-4">
-                {/* Territories */}
                 <div className="absolute transform -translate-x-1/2 -translate-y-1/2 left-1/4 top-1/4">
                   <div className="flex flex-col items-center justify-center w-24 h-24 border-2 border-green-600 rounded-md bg-indigo-900/70">
                     <div className="text-2xl">🌲</div>
@@ -2280,7 +2282,6 @@ const WarRoomComponent = () => {
                   </div>
                 </div>
 
-                {/* Strategic Points */}
                 <div className="absolute transform -translate-x-1/2 -translate-y-1/2 left-1/2 top-1/2">
                   <div className="flex flex-col items-center justify-center w-16 h-16 border-2 border-yellow-600 rounded-full bg-indigo-900/70">
                     <div className="mt-1 text-xs font-semibold">
@@ -2292,7 +2293,6 @@ const WarRoomComponent = () => {
                   </div>
                 </div>
 
-                {/* Connection Lines */}
                 <svg className="absolute inset-0 w-full h-full">
                   <line
                     x1="25%"
@@ -2368,7 +2368,6 @@ const WarRoomComponent = () => {
                   />
                 </svg>
 
-                {/* Troop Movements */}
                 <div className="absolute transform -translate-x-1/2 -translate-y-1/2 left-1/3 top-1/3">
                   <div className="flex items-center justify-center w-8 h-8 text-sm bg-blue-800 border border-blue-600 rounded-full pulse-animation">
                     {userData.troopTypes[0].icon}
@@ -2412,24 +2411,28 @@ const WarRoomComponent = () => {
 
       {/* Confirmation Modal */}
       {showConfirmModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
           <div
             className="absolute inset-0 bg-black opacity-75"
             onClick={() => setShowConfirmModal(false)}
           ></div>
 
-          <div className="relative max-w-md p-6 mx-auto bg-indigo-900 border-4 border-indigo-700 rounded-lg">
+          <div className="relative w-full max-w-md p-4 mx-auto bg-indigo-900 border-4 border-indigo-700 rounded-lg sm:p-6">
             <div className="mb-4 text-center">
               <div className="inline-block mb-3">
                 {confirmAction?.type === "train" && (
-                  <RefreshCw size={40} className="text-green-400" />
+                  <RefreshCw
+                    size={32}
+                    sm:size={40}
+                    className="text-green-400"
+                  />
                 )}
                 {confirmAction?.type === "battle" && (
-                  <Sword size={40} className="text-red-400" />
+                  <Sword size={32} sm:size={40} className="text-red-400" />
                 )}
               </div>
 
-              <h3 className="text-xl font-bold">Confirm Action</h3>
+              <h3 className="text-lg font-bold sm:text-xl">Confirm Action</h3>
 
               {confirmAction?.type === "train" && (
                 <p className="mt-2 text-gray-300">
@@ -2469,7 +2472,7 @@ const WarRoomComponent = () => {
       {/* Notification */}
       {notification.show && (
         <div
-          className={`fixed bottom-4 right-4 z-50 px-4 py-3 rounded-md shadow-lg flex items-center ${
+          className={`fixed bottom-4 right-4 z-50 px-3 sm:px-4 py-2 sm:py-3 rounded-md shadow-lg flex items-center max-w-[90vw] sm:max-w-md ${
             notification.type === "success"
               ? "bg-green-900 border border-green-700"
               : notification.type === "error"
@@ -2478,16 +2481,28 @@ const WarRoomComponent = () => {
           }`}
         >
           {notification.type === "success" && (
-            <CheckCircle size={18} className="mr-2 text-green-400" />
+            <CheckCircle
+              size={16}
+              sm:size={18}
+              className="flex-shrink-0 mr-2 text-green-400"
+            />
           )}
           {notification.type === "error" && (
-            <XCircle size={18} className="mr-2 text-red-400" />
+            <XCircle
+              size={16}
+              sm:size={18}
+              className="flex-shrink-0 mr-2 text-red-400"
+            />
           )}
           {notification.type === "info" && (
-            <Info size={18} className="mr-2 text-blue-400" />
+            <Info
+              size={16}
+              sm:size={18}
+              className="flex-shrink-0 mr-2 text-blue-400"
+            />
           )}
 
-          <span className="text-sm">{notification.message}</span>
+          <span className="text-xs sm:text-sm">{notification.message}</span>
         </div>
       )}
 

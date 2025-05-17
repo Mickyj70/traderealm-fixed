@@ -21,12 +21,12 @@ import TradeRealmAppPopups from "./pages/traderealm-popups";
 import TradeRealmAppSimpleWar from "./pages/traderealm-simple-war";
 // import TradeRealmApp from "./pages/traderealm-app";
 import Dapp from "./pages/DAPP";
-import TradeRealmReferralPage from "./pages/ReferralPage";
-import TradeWarComponent from "./pages/tradewars";
-import AlliancesPage from "./components/presale/alliances";
-import ImportLicensesPage from "./components/presale/licenses";
-import WarRoomComponent from "./components/presale/warroom";
-import TradeRealmAppSupport from "./pages/tradeRealmAppSupport";
+// import TradeRealmReferralPage from "./pages/ReferralPage";
+// import TradeWarComponent from "./pages/tradewars";
+// import AlliancesPage from "./components/presale/alliances";
+// import ImportLicensesPage from "./components/presale/licenses";
+// import WarRoomComponent from "./components/presale/warroom";
+// import TradeRealmAppSupport from "./pages/tradeRealmAppSupport";
 
 //!test page
 import ExampleHomePage from "./pages/example";
@@ -48,18 +48,18 @@ const AnimatedRoutes = () => {
         <Route path="/assembly" element={<GrandAssembly />} />
         <Route path="/popups" element={<TradeRealmAppPopups />} />
         <Route path="/simple-war" element={<TradeRealmAppSimpleWar />} />
+        <Route path="/dapp" element={<Dapp />} />
         {/* <Route path="/presale" element={<TradeRealmApp />} /> */}
-        <Route path="/presale/tradewars" element={<TradeWarComponent />} />
+        {/* <Route path="/presale/tradewars" element={<TradeWarComponent />} />
         <Route path="/alliances" element={<AlliancesPage />} />
         <Route path="/presale/licenses" element={<ImportLicensesPage />} />
         <Route
           path="/presale/tradewars/warroom"
           element={<WarRoomComponent />}
-        />
-
+        /> */}
+        {/* 
         <Route path="/referral" element={<TradeRealmReferralPage />} />
-        <Route path="/dapp" element={<Dapp />} />
-        <Route path="/support" element={<TradeRealmAppSupport />} />
+        <Route path="/support" element={<TradeRealmAppSupport />} /> */}
 
         {/* Example route for the Trade Realm app */}
         <Route path="/example" element={<ExampleHomePage />} />

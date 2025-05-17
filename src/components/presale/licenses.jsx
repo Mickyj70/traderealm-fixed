@@ -91,7 +91,7 @@ const ImportLicensesPage = () => {
   const licenses = [
     {
       id: "eth-license",
-      name: "ETH License",
+      name: "$S License",
       icon: "🔷",
       discount: 8.5,
       marketPrice: 1.24,
@@ -99,27 +99,27 @@ const ImportLicensesPage = () => {
       vesting: 5,
       iconColor: "#1E90FF",
       description:
-        "The classic Ethereum-based license, granting you permission to import $BARON at a significant discount.",
+        "The classic $S-based license, granting you permission to import $BARON at a significant discount.",
       rarity: "Common",
       bonus: "5% chance of receiving a 2x multiplier on your bond",
     },
-    {
-      id: "dai-license",
-      name: "DAI License",
-      icon: "🔶",
-      discount: 7.2,
-      marketPrice: 1.24,
-      bondPrice: 1.15,
-      vesting: 5,
-      iconColor: "#F4B731",
-      description:
-        "A stable license backed by DAI, offering consistent discounts with less volatility.",
-      rarity: "Common",
-      bonus: "Reduced slippage on large orders",
-    },
+    // {
+    //   id: "dai-license",
+    //   name: "DAI License",
+    //   icon: "🔶",
+    //   discount: 7.2,
+    //   marketPrice: 1.24,
+    //   bondPrice: 1.15,
+    //   vesting: 5,
+    //   iconColor: "#F4B731",
+    //   description:
+    //     "A stable license backed by DAI, offering consistent discounts with less volatility.",
+    //   rarity: "Common",
+    //   bonus: "Reduced slippage on large orders",
+    // },
     {
       id: "lp-license",
-      name: "BARON-ETH LP License",
+      name: "BARON-$S LP License",
       icon: "💠",
       discount: 12.4,
       marketPrice: 1.24,
@@ -167,7 +167,7 @@ const ImportLicensesPage = () => {
   const activeBonds = [
     {
       id: 1,
-      type: "ETH License",
+      type: "$S License",
       icon: "🔷",
       amount: 320,
       vestedPercent: 65,
@@ -177,7 +177,7 @@ const ImportLicensesPage = () => {
     },
     {
       id: 2,
-      type: "BARON-ETH LP",
+      type: "BARON-$S LP",
       icon: "💠",
       amount: 750,
       vestedPercent: 32,
@@ -195,15 +195,15 @@ const ImportLicensesPage = () => {
   };
 
   return (
-    <div className="min-h-screen text-white bg-indigo-950">
+    <div className="min-h-screen w-full text-white bg-gradient-to-b from-[#1B0036] to-[#1A1135]">
       {/* Header */}
-      <header className="flex items-center justify-between p-4 bg-indigo-900 border-b-4 border-indigo-700">
+      <header className="flex items-center justify-between p-2 bg-gradient-to-b from-[#1B0036] to-[#1A1135] border-b-2 border-[#6b46c1]">
         <h1 className="flex items-center text-xl font-bold tracking-wider text-yellow-400 md:text-2xl">
           <CreditCard className="mr-2" size={24} />
           Import Licenses
         </h1>
         <div
-          className={`bg-indigo-800 px-4 py-2 rounded-md border-2 ${
+          className={`bg-gradient-to-b from-[#1B0036] to-[#1A1135] px-4 py-2 rounded-md border-2 ${
             animateTreasury
               ? "border-green-500 animate-pulse"
               : "border-indigo-700"
@@ -216,9 +216,9 @@ const ImportLicensesPage = () => {
         </div>
       </header>
 
-      <main className="p-4 mx-auto md:p-6 max-w-7xl">
+      <main className="w-full p-1 md:p-4">
         {/* Licenses Collection */}
-        <div className="relative p-6 mb-6 bg-indigo-900 border-4 border-indigo-700 rounded-md">
+        <div className="relative p-4 mb-6 bg-gradient-to-b from-[#1B0036] to-[#1A1135] border-2 border-[#6b46c1] rounded-md">
           <div className="absolute top-0 right-0 z-10 flex items-center px-3 py-1 text-sm font-bold text-black bg-yellow-600 border-b-4 border-l-4 border-yellow-800 rounded-bl-md">
             <Clock size={14} className="mr-1" />
             Next Refresh: {formatTime(timeRemaining)}
@@ -243,7 +243,7 @@ const ImportLicensesPage = () => {
             {licenses.map((license) => (
               <div
                 key={license.id}
-                className="p-4 transition-all duration-300 bg-indigo-800 border-2 border-indigo-700 rounded-md hover:border-indigo-500 hover:-translate-y-1 hover:shadow-glow"
+                className="p-4 transition-all duration-300 bg-gradient-to-b from-[#1B0036] to-[#1A1135] border-2 border-[#6b46c1] hover:border-indigo-500 hover:-translate-y-1 hover:shadow-glow"
                 style={{
                   boxShadow:
                     hoveredLicense === license.id
@@ -343,7 +343,7 @@ const ImportLicensesPage = () => {
                         ? "bg-gradient-to-r from-green-700 to-green-600 hover:from-green-600 hover:to-green-500 text-white"
                         : license.id === "special-license"
                         ? "bg-gradient-to-r from-purple-700 to-pink-600 hover:from-purple-600 hover:to-pink-500 text-white"
-                        : "bg-indigo-700 hover:bg-indigo-600 text-white"
+                        : "bg-gradient-to-b from-[#1B0036] to-[#1A1135] border-2 border-[#6b46c1] hover:bg-indigo-600 text-white"
                     }`}
                   onClick={() => {
                     setSelectedLicense(license);
@@ -363,13 +363,13 @@ const ImportLicensesPage = () => {
         </div>
 
         {/* Active Licenses */}
-        <div className="p-6 bg-indigo-900 border-4 border-indigo-700 rounded-md">
+        <div className="p-3 bg-gradient-to-b from-[#1B0036] to-[#1A1135] border-2 border-[#6b46c1] rounded-md">
           <div className="flex items-center justify-between mb-6">
             <h3 className="flex items-center text-xl font-bold text-yellow-400">
               <Package size={20} className="mr-2" />
               Your Active Licenses
             </h3>
-            <button className="flex items-center px-3 py-1 text-sm transition-all bg-indigo-700 rounded-md hover:bg-indigo-600">
+            <button className="flex items-center px-2 py-1 text-sm transition-bg-gradient-to-b from-[#1B0036] to-[#1A1135] border-2 border-[#6b46c1] rounded-md hover:bg-indigo-600">
               <Zap size={14} className="mr-1" />
               Claim All
             </button>
@@ -381,7 +381,7 @@ const ImportLicensesPage = () => {
                 {activeBonds.map((bond) => (
                   <div
                     key={bond.id}
-                    className="p-4 transition-all bg-indigo-800 border border-indigo-700 rounded-md hover:border-indigo-500"
+                    className="p-2 transition-all bg-gradient-to-b from-[#1B0036] to-[#1A1135] border-2 border-[#6b46c1] rounded-md hover:border-indigo-500"
                   >
                     <div className="flex items-start justify-between mb-3">
                       <div className="flex items-center">
@@ -458,19 +458,19 @@ const ImportLicensesPage = () => {
         </div>
 
         {/* License Exchange History */}
-        <div className="p-6 mt-6 bg-indigo-900 border-4 border-indigo-700 rounded-md">
+        <div className="p-6 mt-6 bg-gradient-to-b from-[#1B0036] to-[#1A1135] border-2 border-[#6b46c1] rounded-md">
           <div className="flex items-center justify-between mb-4">
             <h3 className="text-lg font-bold text-yellow-400">
               License Exchange Activity
             </h3>
-            <div className="flex items-center px-3 py-1 text-xs bg-indigo-800 rounded-md">
+            <div className="flex items-center px-3 py-1 text-xs bg-gradient-to-b from-[#1B0036] to-[#1A1135] border-2 border-[#6b46c1] rounded-md">
               <ShieldCheck size={14} className="mr-1 text-green-400" />
               Protocol Health: Excellent
             </div>
           </div>
 
           <div className="grid grid-cols-1 gap-4 mb-4 md:grid-cols-3">
-            <div className="flex items-center p-3 bg-indigo-800 rounded-md">
+            <div className="flex items-center p-3 bg-gradient-to-b from-[#1B0036] to-[#1A1135] border-b-2 border-[#6b46c1] rounded-md">
               <div className="p-2 mr-3 bg-blue-900 rounded-md">
                 <Layers size={20} className="text-blue-400" />
               </div>
@@ -480,7 +480,7 @@ const ImportLicensesPage = () => {
               </div>
             </div>
 
-            <div className="flex items-center p-3 bg-indigo-800 rounded-md">
+            <div className="flex items-center p-3 bg-gradient-to-b from-[#1B0036] to-[#1A1135] border-b-2 border-[#6b46c1] rounded-md">
               <div className="p-2 mr-3 bg-green-900 rounded-md">
                 <BarChart4 size={20} className="text-green-400" />
               </div>
@@ -490,13 +490,13 @@ const ImportLicensesPage = () => {
               </div>
             </div>
 
-            <div className="flex items-center p-3 bg-indigo-800 rounded-md">
+            <div className="flex items-center p-3 bg-gradient-to-b from-[#1B0036] to-[#1A1135] border-b-2 border-[#6b46c1] rounded-md">
               <div className="p-2 mr-3 bg-purple-900 rounded-md">
                 <Award size={20} className="text-purple-400" />
               </div>
               <div>
                 <div className="text-sm opacity-70">Top License</div>
-                <div className="text-lg font-bold">BARON-ETH LP</div>
+                <div className="text-lg font-bold">BARON-$S LP</div>
               </div>
             </div>
           </div>

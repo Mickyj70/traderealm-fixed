@@ -8,6 +8,7 @@ import { useNotification } from "../../contexts/NotificationContext";
 import Button from "../common/Button";
 import LoadingSpinner from "../common/LoadingSpinner";
 import Logo from "../../assets/updated-logo.svg"; // Adjust the path to your logo image
+import Navbar from "./Navbar";
 
 // const cartoonTitle = `cartoon-title cartoon-outline cartoon-bounce`;
 
@@ -165,48 +166,10 @@ const Layout = ({ children }) => {
         } transition-all duration-300 w-full`}
       >
         {/* Header */}
-        {!shouldHideNavAndHeader && (
-          <header className="sticky top-0 z-20 border-b bg-deepViolet/50 backdrop-blur-sm border-lavender/20">
-            <div className="flex items-center justify-between p-6 mx-auto align-middle">
-              <div className="flex items-center">
-                <span className="text-2xl">
-                  <img src={Logo} alt="image" height={50} width={50} />
-                </span>
-                <h1 className="text-3xl font-bold font-bangers text-turquoise">
-                  {navItems.find((item) => item.path === location.pathname)
-                    ?.label || "RealMfi"}
-                </h1>
-              </div>
-
-              <div className="flex items-center space-x-4">
-                {location.pathname !== "/" &&
-                  (wallet ? (
-                    <div className="flex items-center space-x-4">
-                      <span className="text-sm text-lavender">
-                        {wallet.slice(0, 6)}...{wallet.slice(-4)}
-                      </span>
-                      <Button
-                        onClick={handleWalletDisconnect}
-                        className="bg-lavender/10 hover:bg-lavender/20 text-lavender"
-                      >
-                        Disconnect
-                      </Button>
-                    </div>
-                  ) : (
-                    <Button
-                      onClick={handleWalletConnect}
-                      className="bg-turquoise text-deepViolet hover:bg-turquoise/80"
-                    >
-                      Connect Wallet
-                    </Button>
-                  ))}
-              </div>
-            </div>
-          </header>
-        )}
+        {!shouldHideNavAndHeader && <Navbar />}
 
         {/* Page Content */}
-        <main className="w-full px-4 py-8 mx-auto">
+        <main className="w-full py-2 mx-auto">
           <AnimatePresence mode="wait">{children}</AnimatePresence>
         </main>
       </div>

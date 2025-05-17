@@ -498,7 +498,7 @@ const TradeWarComponent = () => {
   };
 
   return (
-    <div className="flex flex-col h-full text-white bg-gradient-to-b from-indigo-900 via-indigo-950 to-indigo-900">
+    <div className="flex flex-col h-full overflow-x-hidden text-white bg-gradient-to-b from-[#1B0036] to-[#1A1135] border-b-2 border-[#6b46c1]">
       {/* Epic War Banner */}
       <div className="relative overflow-hidden">
         <div className="absolute inset-0 z-10 bg-black opacity-40"></div>
@@ -542,12 +542,12 @@ const TradeWarComponent = () => {
       </div>
 
       {/* Tab Navigation */}
-      <div className="flex p-2 space-x-1 border-b border-indigo-800 bg-indigo-950">
+      <div className="flex p-2 space-x-1 overflow-auto border-b border-indigo-800 bg-indigo-950">
         <button
           className={`px-4 py-2 rounded-t-lg font-semibold flex items-center ${
             activeTab === "active-wars"
               ? "bg-red-900 text-white"
-              : "bg-indigo-900 text-gray-300 hover:bg-indigo-800"
+              : "bg-gradient-to-b from-[#1B0036] to-[#1A1135] border-2 border-[#6b46c1] text-gray-300 hover:bg-indigo-800"
           }`}
           onClick={() => setActiveTab("active-wars")}
         >
@@ -558,7 +558,7 @@ const TradeWarComponent = () => {
           className={`px-4 py-2 rounded-t-lg font-semibold flex items-center ${
             activeTab === "war-map"
               ? "bg-red-900 text-white"
-              : "bg-indigo-900 text-gray-300 hover:bg-indigo-800"
+              : "bg-gradient-to-b from-[#1B0036] to-[#1A1135] border-2 border-[#6b46c1] text-gray-300 hover:bg-indigo-800"
           }`}
           onClick={() => setActiveTab("war-map")}
         >
@@ -569,7 +569,7 @@ const TradeWarComponent = () => {
           className={`px-4 py-2 rounded-t-lg font-semibold flex items-center ${
             activeTab === "leaderboard"
               ? "bg-red-900 text-white"
-              : "bg-indigo-900 text-gray-300 hover:bg-indigo-800"
+              : "bg-gradient-to-b from-[#1B0036] to-[#1A1135] border-2 border-[#6b46c1] text-gray-300 hover:bg-indigo-800"
           }`}
           onClick={() => setActiveTab("leaderboard")}
         >
@@ -580,7 +580,7 @@ const TradeWarComponent = () => {
           className={`px-4 py-2 rounded-t-lg font-semibold flex items-center ${
             activeTab === "war-room"
               ? "bg-red-900 text-white"
-              : "bg-indigo-900 text-gray-300 hover:bg-indigo-800"
+              : "bg-gradient-to-b from-[#1B0036] to-[#1A1135] border-2 border-[#6b46c1] text-gray-300 hover:bg-indigo-800"
           }`}
           onClick={() => setActiveTab("war-room")}
         >
@@ -590,13 +590,13 @@ const TradeWarComponent = () => {
       </div>
 
       {/* Main Content Area */}
-      <div className="flex-1 p-4 overflow-auto">
+      <div className="flex-1 p-2 overflow-auto">
         {/* Active Wars Tab */}
         {activeTab === "active-wars" && (
           <div className="grid max-w-6xl grid-cols-1 gap-6 mx-auto lg:grid-cols-3">
             {/* Active Wars List */}
             <div className="space-y-4 lg:col-span-2">
-              <div className="overflow-hidden border border-indigo-800 rounded-md shadow-lg bg-indigo-900/50 backdrop-blur-sm">
+              <div className="overflow-hidden  rounded-md shadow-lg bg-gradient-to-b from-[#1B0036] to-[#1A1135] border-2 border-[#6b46c1] backdrop-blur-sm">
                 <div className="flex items-center justify-between p-4 border-b border-indigo-800">
                   <h2 className="flex items-center text-xl font-bold text-red-400">
                     <Flame size={18} className="mr-2" />
@@ -706,8 +706,8 @@ const TradeWarComponent = () => {
                               <button
                                 className={`px-3 py-1 rounded text-xs font-bold ${
                                   deployedDefense?.id === war.id
-                                    ? "bg-blue-700 cursor-default"
-                                    : "bg-blue-600 hover:bg-blue-500"
+                                    ? "bg-gradient-to-b from-[#1B0036] to-[#1A1135] border-2 border-[#6b46c1] cursor-default"
+                                    : "bg-gradient-to-b from-[#1B0036] to-[#1A1135] border-2 border-[#6b46c1] hover:bg-blue-500"
                                 }`}
                                 onClick={(e) => {
                                   e.stopPropagation();
@@ -743,7 +743,7 @@ const TradeWarComponent = () => {
               {selectedWar ? (
                 <>
                   {/* Battle Details Card */}
-                  <div className="overflow-hidden border border-indigo-800 rounded-md shadow-lg bg-indigo-900/50 backdrop-blur-sm">
+                  <div className="overflow-hidden  rounded-md shadow-lg bg-gradient-to-b from-[#1B0036] to-[#1A1135] border-2 border-[#6b46c1] backdrop-blur-sm">
                     <div
                       className="relative h-24"
                       style={{ background: selectedWar.background }}
@@ -884,7 +884,7 @@ const TradeWarComponent = () => {
 
                       {/* Reinforcement Actions */}
                       {selectedWar.defender === "You" && (
-                        <div className="p-3 mb-4 border border-blue-800 rounded-md bg-blue-900/30">
+                        <div className="p-3 mb-4 bg-gradient-to-b from-[#1B0036] to-[#1A1135] border-b-2 border-[#6b46c1]">
                           <div className="flex items-center justify-between mb-2">
                             <div className="font-semibold text-blue-400">
                               Defensive Strategy
@@ -964,7 +964,7 @@ const TradeWarComponent = () => {
                   </div>
                 </>
               ) : (
-                <div className="flex flex-col items-center justify-center p-8 text-center border border-indigo-800 rounded-md shadow-lg bg-indigo-900/50 backdrop-blur-sm">
+                <div className="flex flex-col items-center justify-center p-8 text-center bg-gradient-to-b from-[#1B0036] to-[#1A1135] border-2 border-[#6b46c1] rounded-md shadow-lg  backdrop-blur-sm">
                   <Sword size={40} className="mb-4 text-gray-500" />
                   <h3 className="mb-2 text-xl font-bold text-gray-300">
                     No War Selected
@@ -991,8 +991,8 @@ const TradeWarComponent = () => {
               )}
 
               {/* Your War Stats */}
-              <div className="overflow-hidden border border-indigo-800 rounded-md shadow-lg bg-indigo-900/50 backdrop-blur-sm">
-                <div className="p-3 border-b border-indigo-800">
+              <div className="overflow-hidden bg-gradient-to-b from-[#1B0036] to-[#1A1135] border-2 border-[#6b46c1] rounded-md shadow-lg  backdrop-blur-sm">
+                <div className="p-3 bg-gradient-to-b from-[#1B0036] to-[#1A1135] border-2 border-[#6b46c1]">
                   <h3 className="font-bold text-gray-100">Your War Stats</h3>
                 </div>
                 <div className="p-4">
@@ -1065,22 +1065,22 @@ const TradeWarComponent = () => {
         {/* War Map Tab */}
         {activeTab === "war-map" && (
           <div className="max-w-6xl mx-auto">
-            <div className="p-4 overflow-hidden border border-indigo-800 rounded-md shadow-lg bg-indigo-900/50 backdrop-blur-sm">
-              <div className="flex items-center justify-between mb-4">
-                <h2 className="flex items-center text-xl font-bold text-yellow-400">
+            <div className="p-2 overflow-hidden bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6b46c1] rounded-md shadow-lg md:p-4  backdrop-blur-sm">
+              <div className="flex flex-col justify-between mb-4 space-y-2 md:flex-row md:items-center md:space-y-0">
+                <h2 className="flex items-center text-lg font-bold text-yellow-400 md:text-xl">
                   <Map size={20} className="mr-2" />
                   Strategic War Map
                 </h2>
-                <div className="flex space-x-2">
-                  <div className="flex items-center px-3 py-1 text-xs font-semibold text-red-300 border border-red-800 rounded-md bg-red-900/50">
+                <div className="flex flex-wrap gap-2">
+                  <div className="flex items-center px-2 py-1 text-[11px] md:text-xs font-semibold text-red-300 border border-red-800 rounded-md bg-red-900/50">
                     <Flame size={12} className="mr-1" />
                     Active Battle
                   </div>
-                  <div className="flex items-center px-3 py-1 text-xs font-semibold text-green-300 border border-green-800 rounded-md bg-green-900/50">
+                  <div className="flex items-center px-2 py-1 text-[11px] md:text-xs font-semibold text-green-300 border border-green-800 rounded-md bg-green-900/50">
                     <Flag size={12} className="mr-1" />
                     Your Territory
                   </div>
-                  <div className="flex items-center px-3 py-1 text-xs font-semibold text-yellow-300 border border-yellow-800 rounded-md bg-yellow-900/50">
+                  <div className="flex items-center px-2 py-1 text-[11px] md:text-xs font-semibold text-yellow-300 border border-yellow-800 rounded-md bg-yellow-900/50">
                     <Target size={12} className="mr-1" />
                     Vulnerable
                   </div>
@@ -1088,7 +1088,7 @@ const TradeWarComponent = () => {
               </div>
 
               {/* War Map */}
-              <div className="relative overflow-hidden border border-indigo-700 rounded-md h-96 bg-indigo-950">
+              <div className="relative overflow-hidden border border-indigo-700 rounded-md h-[300px] md:h-96 bg-indigo-950">
                 {/* Map Background */}
                 <div className="absolute inset-0 bg-[url('/api/placeholder/1200/800')] opacity-20"></div>
                 <div className="absolute inset-0 bg-indigo-950/30"></div>
@@ -1148,7 +1148,7 @@ const TradeWarComponent = () => {
                       className={`absolute transform -translate-x-1/2 -translate-y-1/2 cursor-pointer transition-all duration-300 z-20
                                 ${
                                   attackTarget?.id === territory.id
-                                    ? "scale-125"
+                                    ? "scale-110 md:scale-125"
                                     : "hover:scale-110"
                                 }`}
                       style={{
@@ -1162,7 +1162,7 @@ const TradeWarComponent = () => {
                       {/* Territory Node */}
                       <div
                         className={`
-                          w-12 h-12 flex items-center justify-center rounded-md border-2
+                          w-8 h-8 md:w-12 md:h-12 flex items-center justify-center rounded-md border-2
                           ${isActiveWar ? "territory-pulse border-red-500" : ""}
                           ${
                             isYourTerritory
@@ -1184,23 +1184,26 @@ const TradeWarComponent = () => {
                             : "0 0 10px rgba(79, 70, 229, 0.5)",
                         }}
                       >
-                        <span className="text-2xl">{territory.icon}</span>
+                        <span className="text-xl md:text-2xl">
+                          {territory.icon}
+                        </span>
                       </div>
 
                       {/* Territory Label */}
-                      <div className="absolute px-2 py-1 mt-2 text-xs font-semibold transform -translate-x-1/2 border border-indigo-700 rounded top-full left-1/2 bg-indigo-950 whitespace-nowrap">
+                      <div className="absolute px-1.5 py-0.5 md:px-2 md:py-1 mt-1 md:mt-2 text-[10px] md:text-xs font-semibold transform -translate-x-1/2 border border-indigo-700 rounded top-full left-1/2 bg-indigo-950 whitespace-nowrap">
                         {territory.name}
                       </div>
 
                       {/* Controller Badge */}
-                      <div className="absolute top-0 right-0 flex items-center justify-center w-5 h-5 text-xs transform bg-indigo-800 border border-indigo-600 rounded-full translate-x-1/3 -translate-y-1/3">
+                      <div className="absolute top-0 right-0 flex items-center justify-center w-4 h-4 md:w-5 md:h-5 text-[10px] md:text-xs transform bg-indigo-800 border border-indigo-600 rounded-full translate-x-1/3 -translate-y-1/3">
                         {territory.controller === "You" ? "👤" : "👑"}
                       </div>
 
                       {/* War Indicator */}
                       {isActiveWar && (
-                        <div className="absolute flex items-center justify-center w-4 h-4 text-xs transform -translate-x-1/2 bg-red-600 border border-red-400 rounded-full -bottom-1 left-1/2">
-                          <Sword size={10} />
+                        <div className="absolute flex items-center justify-center w-3 h-3 md:w-4 md:h-4 text-[8px] md:text-xs transform -translate-x-1/2 bg-red-600 border border-red-400 rounded-full -bottom-1 left-1/2">
+                          <Sword size={8} className="md:hidden" />
+                          <Sword size={10} className="hidden md:block" />
                         </div>
                       )}
                     </div>
@@ -1210,7 +1213,7 @@ const TradeWarComponent = () => {
                 {/* Hover Info Card */}
                 {hoveredTerritory && (
                   <div
-                    className="absolute z-50 w-64 p-3 border border-indigo-700 rounded-md shadow-lg bg-indigo-900/90 backdrop-blur-sm"
+                    className="absolute z-50 w-56 p-2 border border-indigo-700 rounded-md shadow-lg md:w-64 md:p-3 bg-indigo-900/90 backdrop-blur-sm"
                     style={{
                       left: `${Math.min(
                         Math.max(hoveredTerritory.position.x, 30),
@@ -1290,8 +1293,8 @@ const TradeWarComponent = () => {
 
               {/* Attack Panel */}
               {attackTarget && (
-                <div className="p-4 mt-4 border border-red-800 rounded-md bg-red-900/30">
-                  <div className="flex items-center justify-between mb-4">
+                <div className="p-3 mt-4 border border-red-800 rounded-md md:p-4 bg-red-900/30">
+                  <div className="flex flex-col justify-between mb-4 space-y-2 md:flex-row md:items-center md:space-y-0">
                     <h3 className="flex items-center font-bold text-red-400">
                       <Crosshair size={16} className="mr-2" />
                       Attack Plan: {attackTarget.name}
@@ -1305,7 +1308,7 @@ const TradeWarComponent = () => {
                   </div>
 
                   <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
-                    <div className="md:col-span-2">
+                    <div className="space-y-4 md:col-span-2">
                       <div className="mb-3">
                         <div className="flex justify-between mb-1">
                           <span className="text-sm">
@@ -1458,10 +1461,10 @@ const TradeWarComponent = () => {
 
         {/* Leaderboard Tab */}
         {activeTab === "leaderboard" && (
-          <div className="max-w-4xl mx-auto">
-            <div className="overflow-hidden border border-indigo-800 rounded-md shadow-lg bg-indigo-900/50 backdrop-blur-sm">
-              <div className="flex items-center justify-between p-4 border-b border-indigo-800">
-                <h2 className="flex items-center text-xl font-bold text-yellow-400">
+          <div className="max-w-5xl mx-auto">
+            <div className="overflow-hidden bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6b46c1] rounded-md shadow-lg  backdrop-blur-sm">
+              <div className="flex flex-col items-start justify-between p-4 border-b border-indigo-800 sm:flex-row sm:items-center">
+                <h2 className="flex items-center mb-2 text-xl font-bold text-yellow-400 sm:mb-0">
                   <Trophy size={20} className="mr-2" />
                   War Barons Leaderboard
                 </h2>
@@ -1471,99 +1474,105 @@ const TradeWarComponent = () => {
               </div>
 
               {/* Top 3 Podium */}
-              <div className="flex items-end justify-center p-6 bg-gradient-to-b from-indigo-800/30 to-transparent">
+              <div className="flex items-center justify-center p-4 space-y-4 bg-gradient-to-b from-indigo-800/30 to-transparent sm:p-6 sm:space-y-0 sm:flex-row sm:items-center">
                 {/* 2nd Place */}
-                <div className="flex flex-col items-center mx-4">
-                  <div className="flex items-center justify-center w-16 h-16 mb-2 overflow-hidden bg-gray-800 border-2 border-gray-500 rounded-full">
-                    <span className="text-3xl">👸</span>
+                <div className="flex flex-col items-center mx-2 sm:mx-4">
+                  <div className="flex items-center justify-center mb-2 overflow-hidden bg-gray-800 border-2 border-gray-500 rounded-full w-14 h-14 sm:w-16 sm:h-16">
+                    <span className="text-2xl sm:text-3xl">👸</span>
                   </div>
                   <div className="px-3 py-1 border border-gray-700 rounded-md bg-gray-800/80 backdrop-blur-sm">
                     <div className="text-center">
                       <div className="text-xs text-gray-400">2nd Place</div>
-                      <div className="font-bold">CryptoBaroness</div>
+                      <div className="text-sm font-bold sm:text-base">
+                        CryptoBaroness
+                      </div>
                       <div className="text-xs text-yellow-400">
                         {warLeaderboard[1].points} pts
                       </div>
                     </div>
                   </div>
-                  <div className="flex items-center justify-center w-12 h-24 mt-2 bg-gray-700 rounded-t-md">
-                    <div className="text-2xl">🥈</div>
+                  <div className="flex items-center justify-center w-10 h-20 mt-2 bg-gray-700 rounded-t-md sm:w-12 sm:h-24">
+                    <div className="text-xl sm:text-2xl">🥈</div>
                   </div>
                 </div>
 
                 {/* 1st Place */}
-                <div className="flex flex-col items-center mx-4 -mb-4">
+                <div className="flex flex-col items-center order-first mx-2 sm:order-none sm:mx-4 sm:-mb-4">
                   <div className="relative">
                     <div className="absolute transform -translate-x-1/2 -top-3 left-1/2 animate-bounce">
                       <Trophy size={20} className="text-yellow-400" />
                     </div>
-                    <div className="flex items-center justify-center w-20 h-20 mb-2 overflow-hidden bg-yellow-900 border-4 border-yellow-600 rounded-full">
-                      <span className="text-4xl">👑</span>
+                    <div className="flex items-center justify-center w-16 h-16 mb-2 overflow-hidden bg-yellow-900 border-4 border-yellow-600 rounded-full sm:w-20 sm:h-20">
+                      <span className="text-3xl sm:text-4xl">👑</span>
                     </div>
                   </div>
                   <div className="px-4 py-2 border border-yellow-700 rounded-md bg-yellow-900/60 backdrop-blur-sm">
                     <div className="text-center">
                       <div className="text-xs text-yellow-400">1st Place</div>
-                      <div className="text-lg font-bold text-white">
+                      <div className="text-base font-bold text-white sm:text-lg">
                         TradeEmperor
                       </div>
-                      <div className="text-sm font-semibold text-yellow-400">
+                      <div className="text-xs font-semibold text-yellow-400 sm:text-sm">
                         {warLeaderboard[0].points} pts
                       </div>
                     </div>
                   </div>
-                  <div className="flex items-center justify-center w-16 h-32 mt-2 bg-yellow-700 rounded-t-md">
-                    <div className="text-3xl">🏆</div>
+                  <div className="flex items-center justify-center w-12 h-24 mt-2 bg-yellow-700 rounded-t-md sm:w-16 sm:h-32">
+                    <div className="text-2xl sm:text-3xl">🏆</div>
                   </div>
                 </div>
 
                 {/* 3rd Place */}
-                <div className="flex flex-col items-center mx-4">
-                  <div className="flex items-center justify-center w-16 h-16 mb-2 overflow-hidden border-2 rounded-full bg-amber-900/60 border-amber-700">
-                    <span className="text-3xl">🤴</span>
+                <div className="flex flex-col items-center mx-2 sm:mx-4">
+                  <div className="flex items-center justify-center mb-2 overflow-hidden border-2 rounded-full w-14 h-14 sm:w-16 sm:h-16 bg-amber-900/60 border-amber-700">
+                    <span className="text-2xl sm:text-3xl">🤴</span>
                   </div>
                   <div className="px-3 py-1 border rounded-md bg-amber-900/30 backdrop-blur-sm border-amber-800">
                     <div className="text-center">
                       <div className="text-xs text-gray-400">3rd Place</div>
-                      <div className="font-bold">BaronSatoshi</div>
+                      <div className="text-sm font-bold sm:text-base">
+                        BaronSatoshi
+                      </div>
                       <div className="text-xs text-yellow-400">
                         {warLeaderboard[2].points} pts
                       </div>
                     </div>
                   </div>
-                  <div className="flex items-center justify-center w-12 h-16 mt-2 bg-amber-800 rounded-t-md">
-                    <div className="text-2xl">🥉</div>
+                  <div className="flex items-center justify-center w-10 h-16 mt-2 rounded-t-md sm:w-12 bg-amber-800">
+                    <div className="text-xl sm:text-2xl">🥉</div>
                   </div>
                 </div>
               </div>
 
               {/* Leaderboard Table */}
-              <div className="p-4">
+              <div className="p-3 sm:p-4">
                 <div className="overflow-hidden rounded-md bg-indigo-950">
-                  <div className="grid grid-cols-12 p-3 text-xs font-semibold text-gray-400 border-b border-indigo-800">
-                    <div className="col-span-1 text-center">Rank</div>
-                    <div className="col-span-5">Baron</div>
+                  <div className="grid grid-cols-12 p-2 text-[10px] sm:text-xs font-semibold text-gray-400 border-b border-indigo-800 sm:p-3">
+                    <div className="col-span-2 text-center sm:col-span-1">
+                      Rank
+                    </div>
+                    <div className="col-span-4 sm:col-span-5">Baron</div>
                     <div className="col-span-2 text-center">Points</div>
                     <div className="col-span-2 text-center">Routes</div>
-                    <div className="col-span-2 text-center">Win Streak</div>
+                    <div className="col-span-2 text-center">Streak</div>
                   </div>
 
                   <div className="divide-y divide-indigo-900">
                     {warLeaderboard.slice(3).map((baron) => (
                       <div
                         key={baron.rank}
-                        className={`grid grid-cols-12 text-sm p-3 ${
+                        className={`grid grid-cols-12 text-xs sm:text-sm p-2 sm:p-3 ${
                           baron.name === "You"
                             ? "bg-green-900/30"
                             : "hover:bg-indigo-900/30"
                         }`}
                       >
-                        <div className="col-span-1 font-bold text-center">
+                        <div className="col-span-2 font-bold text-center sm:col-span-1">
                           {baron.rank}
                         </div>
-                        <div className="flex items-center col-span-5 font-semibold">
+                        <div className="flex items-center col-span-4 font-semibold truncate sm:col-span-5">
                           {baron.badge && (
-                            <span className="mr-2">{baron.badge}</span>
+                            <span className="mr-1 sm:mr-2">{baron.badge}</span>
                           )}
                           <span
                             className={
@@ -1573,7 +1582,7 @@ const TradeWarComponent = () => {
                             {baron.name}
                           </span>
                         </div>
-                        <div className="col-span-2 font-mono text-center">
+                        <div className="col-span-2 font-mono text-center text-[11px] sm:text-sm">
                           {baron.points.toLocaleString()}
                         </div>
                         <div className="col-span-2 text-center">
@@ -1594,13 +1603,14 @@ const TradeWarComponent = () => {
                 </div>
 
                 {/* Rewards Section */}
-                <div className="mt-6">
+                <div className="mt-4 sm:mt-6">
                   <h3 className="flex items-center mb-3 font-bold text-yellow-400">
                     <Award size={16} className="mr-2" />
                     Season Rewards
                   </h3>
 
-                  <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+                  <div className="grid grid-cols-1 gap-3 sm:gap-4 sm:grid-cols-3">
+                    {/* Rewards Cards */}
                     <div className="p-3 border border-yellow-800 rounded-md bg-yellow-900/30">
                       <div className="mb-2 text-center">
                         <div className="text-3xl">🏆</div>
@@ -1699,7 +1709,7 @@ const TradeWarComponent = () => {
 
         {/* War Room Tab */}
         {activeTab === "war-room" && (
-          <div className="max-w-6xl mx-auto">
+          <div className="mx-auto max-w-8xl">
             <WarRoomComponent />
           </div>
         )}
