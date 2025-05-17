@@ -277,8 +277,8 @@ const Dapp = () => {
           >
             {showSidebar ? <X size={24} /> : <Menu size={24} />}
           </button>
-          <h1 className="text-xl font-bold tracking-wider text-yellow-400 md:text-2xl">
-            TradeRealm
+          <h1 className="text-xl font-bold tracking-wider text-yellow-400 font-traderealm md:text-2xl">
+            REALMFI
           </h1>
         </div>
         <div className="flex items-center gap-4">
@@ -906,7 +906,7 @@ const Dapp = () => {
                       <span className="text-xs opacity-70">1w ago</span>
                     </div>
                     <p className="mt-1 text-xs opacity-90">
-                      The TradeRealm treasury has expanded with new
+                      The Realm finance treasury has expanded with new
                       yield-generating assets, increasing backing per $BARON.
                     </p>
                   </div>
@@ -1797,36 +1797,38 @@ const Dapp = () => {
             </button>
           </div>
 
-          {/* Legend */}
-          <div className="absolute z-20 p-3 bg-gradient-to-b from-[#1B0036] to-[#1A1135] border-1 border-[#6B46C1] rounded-md bottom-4 left-4">
-            <h4 className="mb-2 text-sm font-semibold">Routes Legend</h4>
-            <div className="space-y-1 text-xs">
-              <div className="flex items-center gap-2">
-                <div className="w-3 h-3 bg-green-600 rounded-full"></div>
-                <span>Financial Routes</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <div className="w-3 h-3 bg-yellow-600 rounded-full"></div>
-                <span>Commodity Routes</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <div className="w-3 h-3 bg-purple-600 rounded-full"></div>
-                <span>Premium Routes</span>
-              </div>
-              {activeTab === "tradewars" && (
+          {/* Legend - Only show on routes tab */}
+          {activeTab === "routes" && (
+            <div className="absolute z-20 p-3 bg-gradient-to-b from-[#1B0036] to-[#1A1135] border-1 border-[#6B46C1] rounded-md bottom-4 left-4">
+              <h4 className="mb-2 text-sm font-semibold">Routes Legend</h4>
+              <div className="space-y-1 text-xs">
                 <div className="flex items-center gap-2">
-                  <div className="w-3 h-3 bg-red-600 rounded-full"></div>
-                  <span>Contested Zones</span>
+                  <div className="w-3 h-3 bg-green-600 rounded-full"></div>
+                  <span>Financial Routes</span>
                 </div>
-              )}
-              {(activeTab === "routes" || activeTab === "alliances") && (
                 <div className="flex items-center gap-2">
-                  <div className="w-3 h-3 bg-blue-600 rounded-full"></div>
-                  <span>Alliance Routes</span>
+                  <div className="w-3 h-3 bg-yellow-600 rounded-full"></div>
+                  <span>Commodity Routes</span>
                 </div>
-              )}
+                <div className="flex items-center gap-2">
+                  <div className="w-3 h-3 bg-purple-600 rounded-full"></div>
+                  <span>Premium Routes</span>
+                </div>
+                {activeTab === "tradewars" && (
+                  <div className="flex items-center gap-2">
+                    <div className="w-3 h-3 bg-red-600 rounded-full"></div>
+                    <span>Contested Zones</span>
+                  </div>
+                )}
+                {(activeTab === "routes" || activeTab === "alliances") && (
+                  <div className="flex items-center gap-2">
+                    <div className="w-3 h-3 bg-blue-600 rounded-full"></div>
+                    <span>Alliance Routes</span>
+                  </div>
+                )}
+              </div>
             </div>
-          </div>
+          )}
 
           {/* Modal Overlay */}
           {(showControlModal ||
