@@ -26,7 +26,7 @@ import {
   Sparkles,
   Gift,
 } from "lucide-react";
-import PresalePage from "./presale/Presale-page";
+// import PresalePage from "./presale/Presale-page";
 import ImportLicensesPage from "../components/presale/licenses";
 // import WarRoomComponent from "../components/presale/warroom";
 import TradeWarComponent from "./tradewars";
@@ -339,7 +339,7 @@ const Dapp = () => {
               </li>
 
               {/* presale  */}
-              <li>
+              {/* <li>
                 <button
                   onClick={() => setActiveTab("presale")}
                   className={`flex w-full items-center gap-3 p-3 rounded-md hover:bg-indigo-800 transition-all ${
@@ -355,7 +355,7 @@ const Dapp = () => {
                     </span>
                   </span>
                 </button>
-              </li>
+              </li> */}
 
               <li>
                 <button
@@ -453,7 +453,7 @@ const Dapp = () => {
           </nav>
 
           {/* Stats in sidebar */}
-          <div className="p-4 mx-4 mt-1 bg-indigo-900 rounded-md">
+          <div className="p-4 mx-4 mt-1 bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6B46C1]  rounded-md">
             <h3 className="mb-2 font-semibold text-yellow-400">Your Empire</h3>
             <div className="space-y-2 text-sm">
               <div className="flex justify-between">
@@ -590,6 +590,33 @@ const Dapp = () => {
           {/* Dashboard Tab */}
           {activeTab === "dashboard" && (
             <div className="absolute inset-0 w-full h-full p-6 overflow-auto">
+              <div className="mb-5 mt-5 flex items-center bg-gradient-to-b from-[#1B0036] to-[#1A1135] border-2 border-[#6B46C1] rounded-md p-3 shadow-lg">
+                <div className="flex-shrink-0 mr-3 text-yellow-400">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <line x1="12" y1="16" x2="12" y2="12"></line>
+                    <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                  </svg>
+                </div>
+                <div className="flex flex-col flex-grow sm:flex-row sm:items-center">
+                  <span className="mr-2 text-base font-semibold text-yellow-400">
+                    Demo Mode:
+                  </span>
+                  <span className="text-base text-yellow-400">
+                    This page displays test data for demonstration purposes only
+                  </span>
+                </div>
+              </div>
               <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
                 {/* Portfolio Value Card */}
                 <div className="p-4 bg-gradient-to-b from-[#1B0036] to-[#1A1135] border-2 border-[#6B46C1] rounded-md">
@@ -889,11 +916,11 @@ const Dapp = () => {
           )}
 
           {/* Presale Tab */}
-          {activeTab === "presale" && (
+          {/* {activeTab === "presale" && (
             <div className="absolute inset-0 w-full h-full p-6 overflow-auto bg-gradient-to-b from-purple-900 to-indigo-950">
               <PresalePage />
             </div>
-          )}
+          )} */}
 
           {/* Alliances Tab */}
           {activeTab === "alliances" && (

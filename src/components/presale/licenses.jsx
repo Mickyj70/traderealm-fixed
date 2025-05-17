@@ -91,7 +91,7 @@ const ImportLicensesPage = () => {
   const licenses = [
     {
       id: "eth-license",
-      name: "ETH License",
+      name: "$S License",
       icon: "🔷",
       discount: 8.5,
       marketPrice: 1.24,
@@ -99,27 +99,27 @@ const ImportLicensesPage = () => {
       vesting: 5,
       iconColor: "#1E90FF",
       description:
-        "The classic Ethereum-based license, granting you permission to import $BARON at a significant discount.",
+        "The classic $S-based license, granting you permission to import $BARON at a significant discount.",
       rarity: "Common",
       bonus: "5% chance of receiving a 2x multiplier on your bond",
     },
-    {
-      id: "dai-license",
-      name: "DAI License",
-      icon: "🔶",
-      discount: 7.2,
-      marketPrice: 1.24,
-      bondPrice: 1.15,
-      vesting: 5,
-      iconColor: "#F4B731",
-      description:
-        "A stable license backed by DAI, offering consistent discounts with less volatility.",
-      rarity: "Common",
-      bonus: "Reduced slippage on large orders",
-    },
+    // {
+    //   id: "dai-license",
+    //   name: "DAI License",
+    //   icon: "🔶",
+    //   discount: 7.2,
+    //   marketPrice: 1.24,
+    //   bondPrice: 1.15,
+    //   vesting: 5,
+    //   iconColor: "#F4B731",
+    //   description:
+    //     "A stable license backed by DAI, offering consistent discounts with less volatility.",
+    //   rarity: "Common",
+    //   bonus: "Reduced slippage on large orders",
+    // },
     {
       id: "lp-license",
-      name: "BARON-ETH LP License",
+      name: "BARON-$S LP License",
       icon: "💠",
       discount: 12.4,
       marketPrice: 1.24,
@@ -167,7 +167,7 @@ const ImportLicensesPage = () => {
   const activeBonds = [
     {
       id: 1,
-      type: "ETH License",
+      type: "$S License",
       icon: "🔷",
       amount: 320,
       vestedPercent: 65,
@@ -177,7 +177,7 @@ const ImportLicensesPage = () => {
     },
     {
       id: 2,
-      type: "BARON-ETH LP",
+      type: "BARON-$S LP",
       icon: "💠",
       amount: 750,
       vestedPercent: 32,
@@ -496,7 +496,7 @@ const ImportLicensesPage = () => {
               </div>
               <div>
                 <div className="text-sm opacity-70">Top License</div>
-                <div className="text-lg font-bold">BARON-ETH LP</div>
+                <div className="text-lg font-bold">BARON-$S LP</div>
               </div>
             </div>
           </div>
