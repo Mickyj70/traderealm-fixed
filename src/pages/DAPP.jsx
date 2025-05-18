@@ -938,7 +938,7 @@ const Dapp = () => {
 
           {/* Route Detail Panel */}
           {activeRoute && (
-            <div className="absolute z-30 p-4 bg-indigo-900 border-4 border-indigo-700 rounded-md bottom-4 right-4 w-72 route-detail-panel">
+            <div className="absolute z-30 p-4 bg-gradient-to-b from-[#1B0036] to-[#1A1135] border-2 border-[#6B46C1] rounded-md bottom-4 right-4 w-72 route-detail-panel">
               <div className="flex items-start justify-between mb-2">
                 <h3 className="text-lg font-bold text-yellow-400">
                   {activeRoute.name}
@@ -1843,7 +1843,7 @@ const Dapp = () => {
               {/* Control Route Modal */}
               {showControlModal && (
                 <div
-                  className="w-full max-w-md p-6 mx-4 bg-indigo-900 border-4 border-indigo-700 rounded-md popup-enter"
+                  className="w-full max-w-md p-6 mx-4 bg-gradient-to-b from-[#1B0036] to-[#1A1135] border-2 border-[#6B46C1] rounded-md popup-enter"
                   onClick={(e) => e.stopPropagation()}
                 >
                   <div className="flex items-start justify-between mb-4">
@@ -1883,11 +1883,11 @@ const Dapp = () => {
                           type="text"
                           value={controlAmount}
                           onChange={handleControlAmountChange}
-                          className="flex-1 p-2 font-mono border-2 border-indigo-700 bg-indigo-950 rounded-l-md"
+                          className="flex-1 p-2 font-mono bg-gradient-to-b from-[#1B0036] to-[#1A1135] border-2 border-[#6B46C1] rounded-l-md"
                           placeholder="0"
                         />
                         <button
-                          className="px-3 py-2 font-semibold bg-indigo-700 rounded-r-md"
+                          className="px-3 py-2 font-semibold bg-gradient-to-b from-[#1B0036] to-[#1A1135] border-2 border-[#6B46C1] rounded-r-md"
                           onClick={() => setControlAmount("5000")}
                         >
                           MAX
@@ -1895,7 +1895,7 @@ const Dapp = () => {
                       </div>
                     </div>
 
-                    <div className="p-3 bg-indigo-800 rounded-md">
+                    <div className="p-3 bg-gradient-to-b from-[#1B0036] to-[#1A1135] border-2 border-[#6B46C1] rounded-md">
                       <div className="mb-2 text-sm">Deployment Summary</div>
                       <div className="flex justify-between text-sm">
                         <span>Required Min. Stake:</span>
@@ -2224,7 +2224,7 @@ const Dapp = () => {
               {/* Trade War Modal */}
               {showTradeWarModal && (
                 <div
-                  className="w-full max-w-md p-6 mx-4 bg-indigo-900 border-4 border-red-900 rounded-md popup-enter"
+                  className="w-full max-w-md p-6 mx-4 bg-gradient-to-b from-[#1B0036] to-[#1A1135] border-2 border-[#6B46C1] rounded-md popup-enter"
                   onClick={(e) => e.stopPropagation()}
                 >
                   <div className="flex items-start justify-between mb-4">
@@ -2342,7 +2342,7 @@ const Dapp = () => {
               {/* Alliance Modal */}
               {showAllianceModal && (
                 <div
-                  className="w-full max-w-md p-6 mx-4 bg-indigo-900 border-4 border-purple-800 rounded-md popup-enter"
+                  className="w-full max-w-md p-6 mx-4 bg-gradient-to-b from-[#1B0036] to-[#1A1135] border-2 border-[#6B46C1] rounded-md popup-enter"
                   onClick={(e) => e.stopPropagation()}
                 >
                   <div className="flex items-start justify-between mb-4">
@@ -2370,7 +2370,7 @@ const Dapp = () => {
                   </div>
 
                   <div className="space-y-4">
-                    <div className="p-4 bg-purple-900 rounded-md bg-opacity-30">
+                    <div className="p-4 bg-gradient-to-b from-[#1B0036] to-[#1A1135] border-2 border-[#6B46C1] rounded-md bg-opacity-30">
                       <h4 className="mb-2 font-semibold text-purple-300">
                         Access Requirements
                       </h4>
@@ -2387,7 +2387,7 @@ const Dapp = () => {
 
                     <div>
                       <h4 className="mb-2 font-semibold">Alliance Benefits</h4>
-                      <div className="p-3 space-y-3 text-sm bg-indigo-800 rounded-md">
+                      <div className="p-3 space-y-3 text-sm bg-gradient-to-b from-[#1B0036] to-[#1A1135] border-2 border-[#6B46C1] rounded-md">
                         {activeRoute?.features?.map((feature, i) => (
                           <div key={i} className="flex items-start gap-2">
                             <div className="text-purple-400 mt-0.5">✦</div>
@@ -2404,13 +2404,13 @@ const Dapp = () => {
                     <div>
                       <h4 className="mb-2 font-semibold">Route Economics</h4>
                       <div className="grid grid-cols-2 gap-3 text-sm">
-                        <div className="p-3 bg-indigo-800 rounded-md">
+                        <div className="p-3 bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6B46C1] rounded-md">
                           <div className="mb-1 opacity-70">Min. Stake</div>
                           <div className="text-lg font-bold text-yellow-400">
                             {activeRoute?.minStake || "5,000 $BARON"}
                           </div>
                         </div>
-                        <div className="p-3 bg-indigo-800 rounded-md">
+                        <div className="p-3 bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6B46C1] rounded-md">
                           <div className="mb-1 opacity-70">Current Tariff</div>
                           <div className="text-lg font-bold text-green-400">
                             {activeRoute?.currentTariff || "7.5%"}

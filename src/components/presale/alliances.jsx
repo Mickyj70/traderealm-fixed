@@ -455,7 +455,7 @@ z-index: 1;
                         </div>
                       </div>
 
-                      <div className="relative mb-4">
+                      <div className="mb-4">
                         <div className="flex justify-between mb-1 text-xs">
                           <div className="px-2 py-1 bg-indigo-800 rounded-l-md">
                             {bond.routeFrom}
@@ -464,40 +464,31 @@ z-index: 1;
                             {bond.routeTo}
                           </div>
                         </div>
-                        <div
-                          className="w-full trade-road"
-                          style={{ position: "relative" }}
-                        >
-                          {/* Animated ship for this card */}
-                          <span
+                        {/* Progress bar with ship at the end of the filled portion */}
+                        <div className="relative h-3 overflow-hidden border border-indigo-700 rounded-full bg-indigo-950">
+                          <div
+                            className="h-full rounded-full"
                             style={{
-                              position: "absolute",
-                              top: "-22px",
-                              left: `calc(${shipPositions[idx]}% - 12px)`,
-                              transition: "left 0.04s linear",
-                              fontSize: "1.5rem",
-                              zIndex: 2,
-                              pointerEvents: "none",
+                              width: `${bond.capacityUsed}%`,
+                              backgroundColor: bond.color,
+                            }}
+                          >
+                            <div
+                              className="absolute inset-0 bg-gradient-to-r from-transparent via-white to-transparent opacity-30"
+                              style={{
+                                animation: "wave 2s ease-in-out infinite",
+                              }}
+                            ></div>
+                          </div>
+                          {/* Ship at the end of the filled bar */}
+                          <div
+                            className="absolute text-lg transform -translate-y-1/2 top-1/2"
+                            style={{
+                              left: `calc(${bond.capacityUsed}% - 10px)`,
                             }}
                           >
                             🚢
-                          </span>
-                        </div>
-                        <div
-                          className="absolute text-2xl"
-                          style={{
-                            top: "-10px",
-                            left: "10%",
-                            transform: "rotate(15deg)",
-                          }}
-                        >
-                          {bond.isLp ? "⚓" : "📦"}
-                        </div>
-                        <div
-                          className="absolute text-2xl"
-                          style={{ top: "-5px", left: "80%" }}
-                        >
-                          🏙️
+                          </div>
                         </div>
                       </div>
 
@@ -516,28 +507,9 @@ z-index: 1;
                           <span>Vesting Term:</span>
                           <span>{bond.vestingTerm}</span>
                         </div>
-
-                        <div className="mt-2">
-                          <div className="flex justify-between mb-1 text-xs">
-                            <span>Capacity:</span>
-                            <span>{bond.capacityUsed.toFixed(1)}% Used</span>
-                          </div>
-                          <div className="h-3 overflow-hidden border border-indigo-700 rounded-full bg-indigo-950">
-                            <div
-                              className="relative h-full overflow-hidden rounded-full"
-                              style={{
-                                width: `${bond.capacityUsed}%`,
-                                backgroundColor: bond.color,
-                              }}
-                            >
-                              <div
-                                className="absolute inset-0 bg-gradient-to-r from-transparent via-white to-transparent opacity-30"
-                                style={{
-                                  animation: "wave 2s ease-in-out infinite",
-                                }}
-                              ></div>
-                            </div>
-                          </div>
+                        <div className="flex justify-between mb-1 text-xs">
+                          <span>Capacity:</span>
+                          <span>{bond.capacityUsed.toFixed(1)}% Used</span>
                         </div>
                       </div>
                     </div>
@@ -814,7 +786,7 @@ z-index: 1;
         {showPurchaseModal && selectedBond && (
           <div className="fixed inset-0 z-50 flex items-center justify-center px-4 bg-black bg-opacity-80">
             <div
-              className="relative w-full max-w-md p-6 overflow-hidden bg-indigo-900 border-4 border-indigo-700 rounded-md glow-effect"
+              className="relative w-full max-w-md p-6 overflow-hidden bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6B46C1] rounded-md glow-effect"
               onClick={(e) => e.stopPropagation()}
             >
               <div className="absolute top-0 right-0 w-full h-full opacity-10 pixelated-bg"></div>
@@ -836,14 +808,14 @@ z-index: 1;
               </div>
 
               <div className="relative z-10 space-y-4">
-                <div className="flex items-center justify-between p-3 bg-indigo-800 rounded-md pulse-animation">
+                <div className="flex items-center justify-between p-3 bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6B46C1] rounded-md pulse-animation">
                   <span>Current Discount:</span>
                   <span className="text-lg text-green-400">
                     -{selectedBond.discount}%
                   </span>
                 </div>
 
-                <div className="relative p-4 rounded-md bg-gradient-to-r from-indigo-800 to-indigo-900">
+                <div className="relative p-4 rounded-md bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6B46C1]">
                   <div className="absolute px-2 py-1 text-xs font-bold text-black transform -translate-x-1/2 bg-yellow-500 rounded-full -top-3 left-1/2">
                     Trade Route
                   </div>
@@ -855,7 +827,7 @@ z-index: 1;
                       {selectedBond.routeTo}
                     </div>
                   </div>
-                  <div className="w-full trade-road"></div>
+                  {/* <div className="w-full trade-road"></div>
                   <div
                     className="absolute text-2xl"
                     style={{ top: "20px", left: "20%" }}
@@ -866,8 +838,8 @@ z-index: 1;
                     className="absolute text-2xl"
                     style={{ top: "20px", left: "80%" }}
                   >
-                    💰
-                  </div>
+                    💰S
+                  </div> */}
                 </div>
 
                 <div>
@@ -877,10 +849,10 @@ z-index: 1;
                       type="text"
                       value={bondAmount}
                       onChange={handleBondAmountChange}
-                      className="flex-1 p-2 font-mono border-2 border-indigo-700 bg-indigo-950 rounded-l-md"
+                      className="flex-1 p-2 font-mono bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6B46C1] rounded-l-md"
                       placeholder="0"
                     />
-                    <div className="flex items-center px-3 py-2 bg-indigo-800">
+                    <div className="flex items-center px-3 py-2 bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6B46C1]">
                       <span>
                         {selectedBond.id === "eth"
                           ? "ETH"
@@ -890,7 +862,7 @@ z-index: 1;
                       </span>
                     </div>
                     <button
-                      className="px-3 py-2 font-semibold transition-all bg-indigo-700 hover:bg-indigo-600 rounded-r-md"
+                      className="px-3 py-2 font-semibold transition-all bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6B46C1] rounded-r-md"
                       onClick={setMaxBondAmount}
                     >
                       MAX
@@ -898,7 +870,7 @@ z-index: 1;
                   </div>
                 </div>
 
-                <div className="p-3 bg-indigo-800 rounded-md pixelated-bg">
+                <div className="p-3 bg-gradient-to-b from-[#1B0036] to-[#1A1135] border border-[#6B46C1] rounded-md pixelated-bg">
                   <div className="mb-2 text-sm font-bold">
                     Shipment Manifest
                   </div>
